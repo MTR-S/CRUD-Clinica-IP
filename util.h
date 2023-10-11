@@ -28,16 +28,16 @@ int menu_principal() {
 }
 
 
-int preenche_vetor_atividade(int vetor_atividade[], int tamanho_vetor) {
+int preenche_vetor_ativos(int vetor_ativos[], int tamanho_vetor) {
     for (int i = 0; i < tamanho_vetor; ++i)
-        vetor_atividade[i] = 0;
+        vetor_ativos[i] = 0;
 }
 
 
-int procura_espaco_livre(int vetor_atividade[], int tamanho_vetor) {
+int procura_espaco_livre(int vetor_ativos[], int tamanho_vetor) {
     for (int i = 0; i < tamanho_vetor; ++i) {
 
-        if(!vetor_atividade[i]) {
+        if(!vetor_ativos[i]) {
             return i;
         }
     }
@@ -45,11 +45,21 @@ int procura_espaco_livre(int vetor_atividade[], int tamanho_vetor) {
 }
 
 
-void leitura_string(char string[]) {
+void ler_string(char string[]) {
     fflush(stdin);
     gets(string);
 }
 
+int checar_string(char string[]){
+    if (string == NULL){
+        return 1;
+    }
+    for(int i = 0;string[i] != '\0';i++){
+        if(isdigit(string[i])||!isalnum(string[i])){
+          return 1;  
+        }
+    }return 0;
+}
 
 void formata_string_maisculo(char string[]) {
     int string_tamanho = strlen(string);

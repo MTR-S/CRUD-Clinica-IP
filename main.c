@@ -2,13 +2,13 @@
 
 #include "pacientes.h"
 #include "util.h"
-
+//oi
 
 #define QNTD_PACIENTES 100
 #define QNTD_ATENDIMENTOS 100
 
 
-int atividade_pacientes[QNTD_PACIENTES];
+int pacientes_ativos[QNTD_PACIENTES];
 
 int codigo_pacientes[QNTD_PACIENTES];
 char nomes_pacientes[QNTD_PACIENTES][255];
@@ -20,7 +20,7 @@ char endereco_pacientes[QNTD_PACIENTES];
 char datas_nascimento_pacientes[QNTD_PACIENTES];
 
 
-int atividade_atendimentos[QNTD_ATENDIMENTOS];
+int atendimentos_ativos[QNTD_ATENDIMENTOS];
 
 int codigo_atendimentos[QNTD_ATENDIMENTOS];
 char tipo_atendimentos[QNTD_ATENDIMENTOS];
@@ -30,40 +30,50 @@ int preco_atendimentos[QNTD_ATENDIMENTOS];
 
 int main(void) {
 
-    preenche_vetor_atividade(atividade_pacientes, QNTD_PACIENTES);
-    preenche_vetor_atividade(atividade_atendimentos, QNTD_ATENDIMENTOS);
+    preenche_vetor_ativos(pacientes_ativos, QNTD_PACIENTES);
+    preenche_vetor_ativos(atendimentos_ativos, QNTD_ATENDIMENTOS);
 
     while(1) {
         int interacao_menu_principal = menu_principal();
 
         switch (interacao_menu_principal) {
             case 1:
+                system("cls");
                 printf("\nMenu \"Paciente\" Selecionado...\n");
 
                 while(1) {
                     int interacao_menu_pacientes = menu_pacientes();
-                    int interacao_pacientes_funcionalidades = pacientes_funcionalidades(interacao_menu_pacientes);
-                    int retorno_procura_espaco_livre;
+                    int espaco_livre;
 
-                    switch (interacao_pacientes_funcionalidades) {
+                    switch (interacao_menu_pacientes) {
                         case 1:
-                            retorno_procura_espaco_livre = procura_espaco_livre(atividade_pacientes, QNTD_PACIENTES);
+                            system("cls");
+                            printf("\nOpção -> [1], \"Inserir um Novo Paciente\" Selecionada...\n\n");
+                            espaco_livre = procura_espaco_livre(pacientes_ativos, QNTD_PACIENTES);
 
-                            if(retorno_procura_espaco_livre >= 0) {
-
-                                printf("Digite o Nome do Paciente:\n");
-                                leitura_string(nomes_pacientes[retorno_procura_espaco_livre]);
-
-                                formata_string_maisculo(nomes_pacientes[retorno_procura_espaco_livre]);
-
-                                puts(nomes_pacientes[retorno_procura_espaco_livre]);
-                                return 1;
-
-                            }
-                            else {
+                            if(espaco_livre < 0) {
                                 printf("\nCadastro Impossível, Quantidade de Pacientes Cadastrados Cheia!\n");
-                                break;
+                                continue;//vss dps
                             }
+                            while (1){
+                                printf("Digite o Nome do Paciente:\n");
+                                ler_string(nomes_pacientes[espaco_livre]);
+                                if(checar_string(nomes_pacientes[espaco_livre])){
+                                    printf("Digite o nome corretamente!");
+                                    continue;
+                                }
+                                break;                              
+                            }       
+                            formata_string_maisculo(nomes_pacientes[espaco_livre]);
+                            
+                            puts(nomes_pacientes[espaco_livre]);
+                            pacientes_ativos[espaco_livre]=1;
+                            break;
+                        case 2:
+                            system("cls");
+                            printf("\nOpção -> [2], \"Alterar um Paciente Existente\" Selecionada...\n\n");
+                        case 3:
+
                     }
                 }
                 break;

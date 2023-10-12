@@ -32,13 +32,15 @@ int main(void) {
 
     preenche_vetor_ativos(pacientes_ativos, QNTD_PACIENTES);
     preenche_vetor_ativos(atendimentos_ativos, QNTD_ATENDIMENTOS);
-
+    fflush(stdin);
     while(1) {
+        system("clear");
+        
         int interacao_menu_principal = menu_principal();
 
         switch (interacao_menu_principal) {
             case 1:
-                system("cls");
+                system("clear");
                 printf("\nMenu \"Paciente\" Selecionado...\n");
 
                 while(1) {
@@ -47,7 +49,7 @@ int main(void) {
 
                     switch (interacao_menu_pacientes) {
                         case 1:
-                            system("cls");
+                            system("clear");
                             printf("\nOpção -> [1], \"Inserir um Novo Paciente\" Selecionada...\n\n");
                             espaco_livre = procura_espaco_livre(pacientes_ativos, QNTD_PACIENTES);
 
@@ -58,23 +60,26 @@ int main(void) {
                             while (1){
                                 printf("Digite o Nome do Paciente:\n");
                                 ler_string(nomes_pacientes[espaco_livre]);
+                                
                                 if(checar_string(nomes_pacientes[espaco_livre])){
-                                    printf("Digite o nome corretamente!");
+                                    printf("Digite o nome corretamente!\n");
                                     continue;
                                 }
-                                break;                              
-                            }       
+                                puts(nomes_pacientes[espaco_livre]);
+                                break;
+                            };      
+                            
                             formata_string_maisculo(nomes_pacientes[espaco_livre]);
                             
-                            puts(nomes_pacientes[espaco_livre]);
+                            printf("Paciente %s cadastrado!",nomes_pacientes[espaco_livre]);
                             pacientes_ativos[espaco_livre]=1;
+                            
                             break;
                         case 2:
                             system("cls");
                             printf("\nOpção -> [2], \"Alterar um Paciente Existente\" Selecionada...\n\n");
-                        case 3:
 
-                    }
+                    }continue;
                 }
                 break;
             case 2:
@@ -86,7 +91,7 @@ int main(void) {
             default:
                 printf("Selecione alguma das opções anteriores!\n");
                 break;
-        }
+        }break;
     }
 
     return 0;

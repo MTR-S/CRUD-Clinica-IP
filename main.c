@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "pacientes.h"
+#include "atendimento.h"
 #include "util.h"
 
 #define QNTD_PACIENTES 100
@@ -63,10 +64,16 @@ int main(void) {
                                     printf("Digite o nome corretamente!\n");
                                     continue;
                                 }
+                                formata_string_maisculo(nomes_pacientes[espaco_livre]);
+                                int novopaciente[255];
+
+                                if(ja_existe(novopaciente,nomes_pacientes[],QNTD_PACIENTES)) 
+                                printf("Paciente já cadastrado!");
+                                continue;
                                 break;
                             };      
                             
-                            formata_string_maisculo(nomes_pacientes[espaco_livre]);
+                            
                             
                             printf("Paciente %s cadastrado!",nomes_pacientes[espaco_livre]);
                             pacientes_ativos[espaco_livre]=1;

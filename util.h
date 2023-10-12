@@ -51,14 +51,7 @@ void ler_string(char string[]) {
     fflush(stdin);
     gets(string);
 }
-void ler_string2(char string[]){
-    fflush(stdin);
-    fgets(string, 255, stdin);
-    size_t length = strlen(string);
-    if (string[length - 1] == '\n') {
-        string[length - 1] = '\0';
-    }
-}
+
 int checar_string(char string[]){
     if (string == NULL || string[0] =='\0'){
         return 1;
@@ -80,5 +73,12 @@ void formata_string_maisculo(char string[]) {
         string[i] = toupper(string[i]);
 }
 
+int ja_existe(char string[], char vetor[],  int tamanho){
+    for(int i =0; i<tamanho;i++){
+        if(!strcmp(vetor[i],string)){
+            return 1;
+        }
+    }return 0;
+}
 
 #endif

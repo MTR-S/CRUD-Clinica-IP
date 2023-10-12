@@ -48,13 +48,25 @@ int procura_espaco_livre(int vetor_ativos[], int tamanho_vetor) {
 void ler_string(char string[]) {
     fflush(stdin);
     gets(string);
+    fflush(stdin);
+    gets(string);
 }
-
+void ler_string2(char string[]){
+    fflush(stdin);
+    fgets(string, 255, stdin);
+    size_t length = strlen(string);
+    if (string[length - 1] == '\n') {
+        string[length - 1] = '\0';
+    }
+}
 int checar_string(char string[]){
-    if (string == NULL){
+    if (string == NULL || string[0] =='\0'){
         return 1;
     }
     for(int i = 0;string[i] != '\0';i++){
+        if(string[i] == ' '){
+            continue;
+        }
         if(isdigit(string[i])||!isalnum(string[i])){
           return 1;  
         }

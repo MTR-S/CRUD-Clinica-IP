@@ -2,7 +2,6 @@
 
 #include "pacientes.h"
 #include "util.h"
-//oi
 
 #define QNTD_PACIENTES 100
 #define QNTD_ATENDIMENTOS 100
@@ -42,7 +41,6 @@ int main(void) {
             case 1:
                 system("clear");
                 printf("\nMenu \"Paciente\" Selecionado...\n");
-
                 while(1) {
                     int interacao_menu_pacientes = menu_pacientes();
                     int espaco_livre;
@@ -65,7 +63,6 @@ int main(void) {
                                     printf("Digite o nome corretamente!\n");
                                     continue;
                                 }
-                                puts(nomes_pacientes[espaco_livre]);
                                 break;
                             };      
                             
@@ -73,24 +70,75 @@ int main(void) {
                             
                             printf("Paciente %s cadastrado!",nomes_pacientes[espaco_livre]);
                             pacientes_ativos[espaco_livre]=1;
-                            
                             break;
+
                         case 2:
                             system("cls");
                             printf("\nOpção -> [2], \"Alterar um Paciente Existente\" Selecionada...\n\n");
-
-                    }continue;
-                }
-                break;
+                        case 3:
+                            printf("\nOpção -> [3], \"Excluir um Paciente\" Selecionada...\n\n");
+                        case 4:
+                            printf("\nOpção -> [4], \"Exibir os Dados de um Paciente pelo seu ""Código\" Selecionada...\n\n");
+                        case 5:
+                            printf("\nOpção -> [5], \"Exibir os Dados de Pacientes que Apresentam o Mesmo"
+                                " Tipo Sanguíneo\" Selecionada...\n\n");
+                        case 6:
+                            printf("\nOpção -> [6], \"Exibir os Dados de Pacientes pelo Dia de "
+                                "Consulta\" Selecionada...\n\n");
+                        case 7:
+                            printf("\nOpção -> [7], \"Exibir Todos os Pacientes\" Selecionada...\n\n");
+                        case 8:
+                            printf("\nOpção -> [8], \"Exibir Todos os Pacientes em Ordem"
+                                " Alfabética\" Selecionada...\n\n");
+                        case 9:
+                            printf("\nOpção -> [9], \"Voltar para o Menu Anterior\" Selecionada...\n\n");
+                        default:
+                            printf("\nSelecione alguma das opções anteriores!\n");
+                    }   
+                }continue;
             case 2:
+                system("clear");
                 printf("\nMenu \"Atendimento\" Selecionado...\n");
-                break;
+                while(1) {
+                    int interacao_menu_atendimentos = menu_atendimentos();
+                    int espaco_livre;
+
+                    switch (interacao_menu_atendimentos) {
+                        case 1:
+                            system("clear");
+                            printf("\nOpção -> [1], \"Inserir um Novo Paciente\" Selecionada...\n\n"); 
+                        case 2:
+                            system("cls");
+                            printf("\nOpção -> [2], \"Alterar um Paciente Existente\" Selecionada...\n\n");
+                        case 3:
+                            printf("\nOpção -> [3], \"Excluir um Paciente\" Selecionada...\n\n");
+                        case 4:
+                            printf("\nOpção -> [4], \"Exibir os Dados de um Paciente pelo seu ""Código\" Selecionada...\n\n");
+                        case 5:
+                            printf("\nOpção -> [5], \"Exibir os Dados de Pacientes que Apresentam o Mesmo"
+                                " Tipo Sanguíneo\" Selecionada...\n\n");
+                        case 6:
+                            printf("\nOpção -> [6], \"Exibir os Dados de Pacientes pelo Dia de "
+                                "Consulta\" Selecionada...\n\n");
+                        case 7:
+                            printf("\nOpção -> [7], \"Exibir Todos os Pacientes\" Selecionada...\n\n");
+                        case 8:
+                            printf("\nOpção -> [8], \"Exibir Todos os Pacientes em Ordem"
+                                " Alfabética\" Selecionada...\n\n");
+                        case 9:
+                            printf("\nOpção -> [9], \"Voltar para o Menu Anterior\" Selecionada...\n\n");
+                            break;
+                        default:
+                            printf("\nSelecione alguma das opções anteriores!\n");
+                            continue;
+                    }
+                }continue;
             case 3:
                 printf("\nSaída do Sistema Confirmada!\n");
                 return 0;
             default:
                 printf("Selecione alguma das opções anteriores!\n");
-                break;
+                continue;;
         }break;
     }
 

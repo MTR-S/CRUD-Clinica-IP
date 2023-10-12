@@ -15,10 +15,10 @@ int menu_atendimento() {
 
     printf("\n\nDigite o Número Correlacionado a Funcionalidade Desejada: ");
     fflush(stdin);
-    int interacao_menu_pacientes;
-    scanf("%d", &interacao_menu_pacientes);
+    int opcao;
+    scanf("%d", &opcao);
 
-    return interacao_menu_pacientes;
+    return opcao;
 }
 
 

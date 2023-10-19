@@ -32,7 +32,9 @@ int preenche_vetor_ativos(int vetor_ativos[], int tamanho_vetor) {
     for (int i = 0; i < tamanho_vetor; ++i)
         vetor_ativos[i] = 0;
 }
-
+int preenche_vetor_bidimensional(char vetor_ativos[][255], int tamanho_vetor) {
+    for (int i = 0; i < tamanho_vetor; ++i)
+        strcpy(vetor_ativos[i], "VOID");}
 
 int procura_espaco_livre(int vetor_ativos[], int tamanho_vetor) {
     for (int i = 0; i < tamanho_vetor; ++i) {
@@ -73,12 +75,20 @@ void formata_string_maisculo(char string[]) {
         string[i] = toupper(string[i]);
 }
 
-int ja_existe(char string[], char vetor[],  int tamanho){
-    for(int i =0; i<tamanho;i++){
-        if(!strcmp(vetor[i],string)){
-            return 1;
+int ja_existe(char string[],char vetor[][255],int tamanho,int indice){
+    for(int i = 0; i<tamanho;i++){
+        if(i==indice)continue;
+        if(strcmp(string,vetor[i]) == 0){
+            printf("%d",strcmp(vetor[i],string));
+            printf("%s",vetor[i]);
+            return i;
         }
     }return 0;
 }
 
+void imprimir_vetor(char vetor[][255],int tamanho){
+    for(int i=0;i<tamanho;i++){
+        printf("%d - %s\n",i,vetor[i]);
+    }
+}
 #endif

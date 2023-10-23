@@ -30,10 +30,8 @@ int preco_atendimentos[QNTD_ATENDIMENTOS];
 
 int main(void) {
     preenche_vetor_bidimensional(nomes_pacientes,QNTD_PACIENTES);  //matriz_bidimensional
-    imprimir_vetor(nomes_pacientes,QNTD_PACIENTES);
     preenche_vetor_ativos(pacientes_ativos, QNTD_PACIENTES);
     preenche_vetor_ativos(atendimentos_ativos, QNTD_ATENDIMENTOS);
-    fflush(stdin);
     while(1) {
         system("clear");
         
@@ -49,17 +47,18 @@ int main(void) {
 
                     switch (interacao_menu_pacientes) {
                         case 1:
-                            system("clear");
-                            printf("\nOpção -> [1], \"Inserir um Novo Paciente\" Selecionada...\n\n");
-
-                            espaco_livre = procura_espaco_livre(pacientes_ativos, QNTD_PACIENTES);
-
-                            if(espaco_livre < 0) {
-                                printf("\nCadastro Impossível, Quantidade de Pacientes Cadastrados Cheia!\n");
-                                continue;//vss dps
-                            }
-
                             while (1){
+                                //system("clear");
+                                printf("\nOpção -> [1], \"Inserir um Novo Paciente\" Selecionada...\n\n");
+
+                                espaco_livre = procura_espaco_livre(pacientes_ativos, QNTD_PACIENTES);
+
+                                if(espaco_livre < 0) {
+                                    printf("\nCadastro Impossível, Quantidade de Pacientes Cadastrados Cheia!\n");
+                                    break;//vss dps
+                                }
+
+                            
                                 printf("Digite o Nome do Paciente:\n");
                                 ler_string(nomes_pacientes[espaco_livre]);
                                 
@@ -69,28 +68,26 @@ int main(void) {
                                 }
 
                                 formata_string_maisculo(nomes_pacientes[espaco_livre]);
-
-                                if(ja_existe(nomes_pacientes[espaco_livre],nomes_pacientes,QNTD_PACIENTES,espaco_livre)){ 
+                                int ja_cadastrado=ja_existe(nomes_pacientes[espaco_livre],nomes_pacientes,QNTD_PACIENTES,espaco_livre);
+                                if(ja_cadastrado){ 
                                     printf("Paciente já cadastrado!");
                                     continue;
                                 }
                                 
+                                system("clear");
+                                printf("Paciente %s cadastrado!\n",nomes_pacientes[espaco_livre]);
+                                pacientes_ativos[espaco_livre] = 1;
+                                
+                                
+                                
+                                int opcao;
+                                printf("[0] Voltar   [1]Incluir novo paciente\n");
+                                scanf("%d", &opcao);
+                                if(opcao)
+                                    continue;                            
+                                
                                 break;
                             }
-
-                            system("clear");
-                            printf("Paciente %s cadastrado!\n",nomes_pacientes[espaco_livre]);
-                            pacientes_ativos[espaco_livre] = 1;
-                            
-                            imprimir_vetor(nomes_pacientes,QNTD_PACIENTES);
-                            
-                            int opcao;
-                            printf("[0] Voltar   [1]Incluir novo paciente\n");
-                            scanf("%d", &opcao);
-                            if(opcao)
-                                continue;                            
-                            
-                            break;
                         case 2:
                             system("cls");
                             printf("\nOpção -> [2], \"Alterar um Paciente Existente\" Selecionada...\n\n");

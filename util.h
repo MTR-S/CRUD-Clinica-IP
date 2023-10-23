@@ -50,8 +50,6 @@ int procura_espaco_livre(int vetor_ativos[], int tamanho_vetor) {
 void ler_string(char string[]) {
     fflush(stdin);
     gets(string);
-    fflush(stdin);
-    gets(string);
 }
 
 int checar_string(char string[]){
@@ -77,11 +75,9 @@ void formata_string_maisculo(char string[]) {
 
 int ja_existe(char string[],char vetor[][255],int tamanho,int indice){
     for(int i = 0; i<tamanho;i++){
-        if(i==indice)continue;
-        if(strcmp(string,vetor[i]) == 0){
-            printf("%d",strcmp(vetor[i],string));
-            printf("%s",vetor[i]);
-            return i;
+        if (i==indice)continue;
+        if(!(strcmp(string,vetor[i]))){
+            return 1;
         }
     }return 0;
 }

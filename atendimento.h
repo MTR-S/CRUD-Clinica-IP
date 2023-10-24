@@ -20,6 +20,9 @@ int menu_atendimento() {
 
     return opcao;
 }
-
+void exibir_dados_atendimento(char codigo[][8],char paciente[][255],int indice_paciente,char data[][255],char tipo[][255],float preco[],char status[][255],int indice_atendimento){
+    printf("Código--------Paciente--------Data---------Tipo---------Preço--------Status--------\n");
+    printf("%s   |   %s   |   %s   |   %s   |   R$%.2f   |   %s\n   ",codigo[indice_atendimento],paciente[indice_paciente],data[indice_atendimento],tipo[indice_atendimento],preco[indice_atendimento],status[indice_atendimento]);
+}
 
 #endif

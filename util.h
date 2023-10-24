@@ -54,6 +54,8 @@ int procura_espaco_livre(int vetor_ativos[], int tamanho_vetor) {
 void ler_string(char string[]) {
     fflush(stdin);
     gets(string);
+    fflush(stdin);
+    gets(string);
 }
 
 int checar_string(char string[]){
@@ -86,6 +88,41 @@ int ja_existe(char string[],char vetor[][255],int tamanho,int indice){
         }
     }return 0;
 }
+int procura_string(char string[],char vetor[][255],int tamanho){
+    for(int i = 0; i < tamanho; i++){
+        if(strcmp(string,vetor[i]) == 0){
+            return i;
+        }
+    }return -1;
+}
+int procura_codigo(int codigo,int vetor[],int tamanho){
+    for(int i = 0; i < tamanho; i++){
+        if(codigo==vetor[i]){
+            return i;
+        }
+    }return 0;
+}
+void receber_data(char vetor[][255],int indice_livre){
+    int dia, mes, ano;
+    while(1){
+        printf("Digite o dia: ");
+        scanf("%d", &dia);
+
+        printf("Digite o mês: ");
+        scanf("%d", &mes);
+
+        printf("Digite o ano (ex. 2023): ");
+        scanf("%d", &ano);
+        
+        if (!(dia >= 1 && dia <= 31 && mes >= 1 && mes <= 12 && ano >= 0)){
+        printf("Data inválida!\n");
+        continue;
+        }
+        sprintf(vetor[indice_livre],"%d/%d/%d",dia,mes,ano);
+        break;
+    }
+
+}
 
 void imprimir_vetor(char vetor[][255],int tamanho){
     for(int i=0;i<tamanho;i++){
@@ -95,14 +132,22 @@ void imprimir_vetor(char vetor[][255],int tamanho){
 
 
 int gera_codigo() {  // 5 Digitos
-    srand(times(NULL));
+    srand(time(NULL));
 
     int num_aleatorio = rand() + rand();
 
     return num_aleatorio;
 }
+void cria_codigo(char vetor[][8],int indice_livre){
+    char caracteres[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";//36 caracteres
 
+    srand(time(NULL));
 
+    for (int i = 0; i < 8; i++) {
+        int indice_aleatorio = rand() % 36;
+        vetor[indice_livre][i] = caracteres[indice_aleatorio];
+    }
+}
 void armazena_codigo_aleatorio(int codigo_unico, int matriz_codigos[], int espaco_livre) {
     matriz_codigos[espaco_livre] = codigo_unico;
 }

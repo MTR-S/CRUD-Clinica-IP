@@ -10,28 +10,29 @@
 
 int pacientes_ativos[QNTD_PACIENTES];
 
-int codigo_pacientes[QNTD_PACIENTES];
+int codigo_pacientes[QNTD_PACIENTES];  
 char nomes_pacientes[QNTD_PACIENTES][255];
-int RG_pacientes[QNTD_PACIENTES];
-int CPF_pacientes[QNTD_PACIENTES];
-char tipo_sanguineo_pacientes[QNTD_PACIENTES];
-char fator_RH_pacientes[QNTD_PACIENTES];
-char endereco_pacientes[QNTD_PACIENTES];
-char datas_nascimento_pacientes[QNTD_PACIENTES];
+char RG_pacientes[QNTD_PACIENTES][10]; 
+char CPF_pacientes[QNTD_PACIENTES][12];
+char tipo_sanguineo_pacientes[QNTD_PACIENTES][3];
+char fator_RH_pacientes[QNTD_PACIENTES][25];  
+char endereco_pacientes[QNTD_PACIENTES][255];
+int datas_nascimento_pacientes[QNTD_PACIENTES];
 
 
 int atendimentos_ativos[QNTD_ATENDIMENTOS];
 
 int codigo_atendimentos[QNTD_ATENDIMENTOS];
-char tipo_atendimentos[QNTD_ATENDIMENTOS];
-char data_atendimentos[QNTD_ATENDIMENTOS];
-char status_atendimentos[QNTD_ATENDIMENTOS];
+char tipo_atendimentos[QNTD_ATENDIMENTOS][255];  // int?
+char data_atendimentos[QNTD_ATENDIMENTOS][9];
+char status_atendimentos[QNTD_ATENDIMENTOS][255];  //int?
 int preco_atendimentos[QNTD_ATENDIMENTOS];
 
 int main(void) {
-    preenche_vetor_bidimensional(nomes_pacientes,QNTD_PACIENTES);  //matriz_bidimensional
+    preenche_matriz_bidimensional(nomes_pacientes,QNTD_PACIENTES); 
     preenche_vetor_ativos(pacientes_ativos, QNTD_PACIENTES);
     preenche_vetor_ativos(atendimentos_ativos, QNTD_ATENDIMENTOS);
+
     while(1) {
         system("clear");
         
@@ -62,6 +63,7 @@ int main(void) {
                                 printf("Digite o Nome do Paciente:\n");
                                 ler_string(nomes_pacientes[espaco_livre]);
                                 
+
                                 if(checar_string(nomes_pacientes[espaco_livre])){
                                     printf("Digite o nome corretamente!\n");
                                     continue;
@@ -74,12 +76,15 @@ int main(void) {
                                     continue;
                                 }
                                 
-                                system("clear");
-                                printf("Paciente %s cadastrado!\n",nomes_pacientes[espaco_livre]);
+                                int codigo_paciente = gera_codigo();
+                                armazena_codigo_aleatorio(codigo_paciente, codigo_pacientes, espaco_livre);
+
+                                printf("-> Paciente cadastrado!\n");
+                                printf("Nome: %s\n", nomes_pacientes[espaco_livre]);
+                                printf("Código do Paciente: %d\n", codigo_pacientes[espaco_livre]);
+
                                 pacientes_ativos[espaco_livre] = 1;
-                                
-                                
-                                
+                            
                                 int opcao;
                                 printf("[0] Voltar   [1]Incluir novo paciente\n");
                                 scanf("%d", &opcao);

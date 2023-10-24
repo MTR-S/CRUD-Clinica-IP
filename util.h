@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include <time.h>
 
 
 int menu_principal() {
@@ -22,22 +23,25 @@ int menu_principal() {
     int interacao_menu_pacientes;
     scanf("%d", &interacao_menu_pacientes);
 
-    //adicionar o  "system("cls")"
+    system("cls");
 
     return interacao_menu_pacientes;
 }
 
 
 int preenche_vetor_ativos(int vetor_ativos[], int tamanho_vetor) {
-    for (int i = 0; i < tamanho_vetor; ++i)
+    for (int i = 0; i < tamanho_vetor; i++)
         vetor_ativos[i] = 0;
 }
-int preenche_vetor_bidimensional(char vetor_ativos[][255], int tamanho_vetor) {
-    for (int i = 0; i < tamanho_vetor; ++i)
+
+
+int preenche_matriz_bidimensional(char vetor_ativos[][255], int tamanho_vetor) {
+    for (int i = 0; i < tamanho_vetor; i++)
         strcpy(vetor_ativos[i], "VOID");}
 
+
 int procura_espaco_livre(int vetor_ativos[], int tamanho_vetor) {
-    for (int i = 0; i < tamanho_vetor; ++i) {
+    for (int i = 0; i < tamanho_vetor; i++) {
 
         if(!vetor_ativos[i]) {
             return i;
@@ -74,9 +78,10 @@ void formata_string_maisculo(char string[]) {
 }
 
 int ja_existe(char string[],char vetor[][255],int tamanho,int indice){
-    for(int i = 0; i<tamanho;i++){
-        if (i==indice)continue;
-        if(!(strcmp(string,vetor[i]))){
+    for(int i = 0; i < tamanho; i++){
+        if(i == indice)
+            continue;
+        if(strcmp(string,vetor[i]) == 0){
             return 1;
         }
     }return 0;
@@ -87,4 +92,19 @@ void imprimir_vetor(char vetor[][255],int tamanho){
         printf("%d - %s\n",i,vetor[i]);
     }
 }
+
+
+int gera_codigo() {  // 5 Digitos
+    srand(times(NULL));
+
+    int num_aleatorio = rand() + rand();
+
+    return num_aleatorio;
+}
+
+
+void armazena_codigo_aleatorio(int codigo_unico, int matriz_codigos[], int espaco_livre) {
+    matriz_codigos[espaco_livre] = codigo_unico;
+}
+
 #endif

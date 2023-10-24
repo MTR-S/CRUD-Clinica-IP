@@ -23,6 +23,8 @@ int menu_pacientes() {
     int interacao_menu_pacientes;
     scanf("%d", &interacao_menu_pacientes);
 
+    system("cls");
+
     return interacao_menu_pacientes;
 }
 

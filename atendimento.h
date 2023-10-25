@@ -4,16 +4,16 @@
 #include <stdio.h>
 
 int menu_atendimento() {
-    printf("\n-----------------------------MENU ATENDIMENTO-----------------------------\n");
+    printf("\n-----------------------------"BLUE"MENU ATENDIMENTO"RESET"-----------------------------\n");
     printf("Selecione a funcionalidade que desejar: \n");
-    printf("\n[1] Inserir um Novo Atendimento\n[2] Alterar um Atendimento Existente");
-    printf("\n[3] Excluir Atendimento\n[4] Exibir Atendimento(Código)");
-    printf("\n[5] Exibir Atendimentos de um Paciente(Código do Paciente)");
-    printf("\n[6] Exibir Atendimentos de um Paciente(Nome do Paciente)\n[7] Exibir Todos Atendimentos(Ordenado pela data)");
-    printf("\n[8]Voltar para o Menu Anterior");
+    printf(BLUE"\n[1]"RESET" Inserir um Novo Atendimento\n"BLUE"[2]"RESET" Alterar um Atendimento Existente");
+    printf(BLUE"\n[3]"RESET" Excluir Atendimento\n"BLUE"[4]"RESET" Exibir Atendimento(Código)");
+    printf(BLUE"\n[5]"RESET" Exibir Atendimentos de um Paciente(Código do Paciente)");
+    printf(BLUE"\n[6]"RESET" Exibir Atendimentos de um Paciente(Nome do Paciente)\n"BLUE"[7]"RESET" Exibir Todos Atendimentos(Ordenado pela data)");
+    printf(BLUE"\n[8]"RESET" Voltar para o Menu Anterior");
     printf("\n---------------------------------------------------------------------------\n");
 
-    printf("\n\nDigite o Número Correlacionado a Funcionalidade Desejada: ");
+    printf("\nDigite a Funcionalidade Desejada: ");
     fflush(stdin);
     int opcao;
     scanf("%d", &opcao);

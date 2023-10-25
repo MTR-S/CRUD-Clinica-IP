@@ -21,9 +21,9 @@ int menu_principal() {
     printf("\n******************************************\n");
 
     printf("\nSelecione como você deseja acessar nosso sistema: \n");
-    printf(RED"[1]"RESET "Paciente");
-    printf(RED" \t[2] "RESET"Atendimento\t");
-    printf(RED"\t[3]"RESET" Encerrar\n");
+    printf(BLUE"[1]"RESET "Paciente");
+    printf(BLUE" \t[2] "RESET"Atendimento\t");
+    printf(BLUE"\t[3]"RESET" Encerrar\n");
 
     fflush(stdin);
     int interacao_menu_pacientes;
@@ -141,14 +141,6 @@ void imprimir_vetor_codigos(char vetor[][8],int tamanho){
     }
 }
 
-
-int gera_codigo() {  // 5 Digitos
-    srand(time(NULL));
-
-    int num_aleatorio = rand() + rand();
-
-    return num_aleatorio;
-}
 void cria_codigo(char vetor[][8],int indice_livre){
     char caracteres[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";//36 caracteres
     char novo_codigo[8];
@@ -161,11 +153,6 @@ void cria_codigo(char vetor[][8],int indice_livre){
         novo_codigo[i] = caracteres[indice_aleatorio];
         
     }
-    printf("%s",novo_codigo);
     strcpy(vetor[indice_livre],novo_codigo);
 }
-void armazena_codigo_aleatorio(int codigo_unico, int matriz_codigos[], int espaco_livre) {
-    matriz_codigos[espaco_livre] = codigo_unico;
-}
-
 #endif

@@ -130,7 +130,7 @@ int main(void) {
                 }continue;
             case 2:
                 system("clear");
-                printf("\nMenu \"Atendimento\" Selecionado...\n");
+                printf(BLUE"\nMenu \"Atendimento\" Selecionado...\n"RESET);
                 while(1) {
                     int interacao_menu_atendimentos = menu_atendimento();
                     int espaco_livre;
@@ -149,7 +149,7 @@ int main(void) {
                             
                                 int indice_paciente=procura_string(nome,nomes_pacientes,QNTD_PACIENTES);
                                 if(indice_paciente < 0){
-                                    printf("Paciente não cadastrado\n");
+                                    printf(RED"Paciente não cadastrado\n"RESET);
                                     continue;
                                 }
                                 
@@ -160,7 +160,7 @@ int main(void) {
                                     if(i==espaco_livre) continue;
                                     if(paciente_atendimento[i]== indice_paciente){
                                         if(!(strcmp(data_atendimentos[i],data_atendimentos[espaco_livre]))){
-                                            printf("Paciente ja tem atendimento nesta data!\n");
+                                            printf(RED"Paciente ja tem atendimento nesta data!\n"RESET);
                                             atendimento_ja_cadastrado=1;
                                             break;
                                         }
@@ -175,7 +175,7 @@ int main(void) {
                                 
                                 int opcao;
                                 printf("Tipo de Atendimento:\n");
-                                printf("[0]Consulta [1]Retorno\n");
+                                printf(BLUE"[0]"RESET"Consulta "BLUE"[1]"RESET"Retorno\n");
                                 scanf("%d",&opcao);//criar funcao ler inteiro
                                 if(opcao) strcpy(tipo_atendimentos[espaco_livre],"Retorno");
                                 else strcpy(tipo_atendimentos[espaco_livre],"Consulta");
@@ -188,7 +188,8 @@ int main(void) {
                                 atendimentos_ativos[espaco_livre]=1;
                                 cria_codigo(codigo_atendimentos,espaco_livre); 
                                 
-                                printf("Atendimento Cadastrado com sucesso!\n");
+                                system("clear");
+                                printf(GREEN"Atendimento Cadastrado com sucesso!\n"RESET);
                                 exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,codigo_pacientes,indice_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,espaco_livre);
                                 opcao=0;
                                 printf("[0] Voltar   [1]Incluir novo atendimento\n");
@@ -212,11 +213,11 @@ int main(void) {
                                 int indice_do_atendimento = procura_codigo(codigo_atendimento,codigo_atendimentos,QNTD_ATENDIMENTOS);
                                 int indice_do_paciente = paciente_atendimento[indice_do_atendimento];
                                 if(indice_do_atendimento == -1){
-                                    printf("Atendimento não cadastrado\n");
+                                    printf(RED"Atendimento não cadastrado\n"RESET);
                                     continue;
                                 }
                                 if(atendimentos_ativos[indice_do_atendimento]== 0){
-                                    printf("Atendimento não cadastrado ou Excluido recentemente\n");
+                                    printf(RED"Atendimento não cadastrado ou Excluido recentemente\n"RESET);
                                     continue;
                                 }
                                 exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,codigo_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,espaco_livre);                                 
@@ -234,18 +235,18 @@ int main(void) {
                                         
                                         int indice_novo_paciente = procura_string(novo_nome,nomes_pacientes,QNTD_PACIENTES);
                                         if(indice_novo_paciente == -1){
-                                            printf("Paciente não cadastrado\n");
+                                            printf(RED"Paciente não cadastrado\n"RESET);
                                             continue;
                                         }
                                         
                                         paciente_atendimento[indice_do_atendimento]=indice_novo_paciente;
-                                        printf("Nome alterado!\n");
+                                        printf(GREEN"Nome alterado!\n"RESET);
                                         break;
 
                                     case 2:
                                         printf("Digite a nova data:\n");
                                         receber_data(data_atendimentos,indice_do_atendimento);
-                                        printf("Nova data cadastrada: %s\n",data_atendimentos[indice_do_atendimento]);
+                                        printf(GREEN"Nova data cadastrada: %s\n"RESET,data_atendimentos[indice_do_atendimento]);
                                         break;
                                     case 3:
                                         opcao=0;
@@ -254,16 +255,17 @@ int main(void) {
                                         scanf("%d",&opcao);
                                         if(opcao) strcpy(tipo_atendimentos[indice_do_atendimento],"Retorno");
                                         else strcpy(tipo_atendimentos[indice_do_atendimento],"Consulta");
+                                        printf(GREEN"Novo tipo cadastrado"RESET);
                                         break;
                                     case 4:
                                         printf("Digite o novo preço da consulta:\n");
                                         scanf("%f",&preco_atendimentos[indice_do_atendimento]);
-                                        printf("Novo preço cadastrado");
+                                        printf(GREEN"Novo preço cadastrado"RESET);
                                         break;
                                     case 5:
                                         printf("status atual: %s\n",status_atendimentos[indice_do_atendimento]);
                                         receber_status_atendimento(status_atendimentos,indice_do_atendimento);
-                                        printf("Status alterado\n");
+                                        printf(GREEN"Status alterado\n"RESET);
                                         break;
 
                                 }
@@ -285,11 +287,11 @@ int main(void) {
                                 int indice_do_atendimento = procura_codigo(codigo_atendimento,codigo_atendimentos,QNTD_ATENDIMENTOS);
                                 int indice_do_paciente = paciente_atendimento[indice_do_atendimento];
                                 if(indice_do_atendimento == -1){
-                                    printf("Atendimento não cadastrado\n");
+                                    printf(RED"Atendimento não cadastrado\n"RESET);
                                     continue;
                                 }
                                 if(atendimentos_ativos[indice_do_atendimento] == 0){
-                                    printf("Atendimento não cadastrado ou Excluido recentemente\n");
+                                    printf(RED"Atendimento não cadastrado ou Excluido recentemente\n"RESET);
                                     continue;
                                 }
                                 exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,codigo_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,indice_do_atendimento);
@@ -300,10 +302,10 @@ int main(void) {
                                 scanf("%d",&opcao);
                                 if(opcao == 1) {
                                     atendimentos_ativos[indice_do_atendimento]=0;
-                                    printf("atendimento excluido\n");
+                                    printf(GREEN"atendimento excluido\n"RESET);
                                     break;
                                 }
-                                printf("operacao cancelada!");
+                                printf(GREEN"operacao cancelada!"RESET);
                             }break;
                         case 4:
                             printf("\nOpção -> [4], \"Exibir Atendimento pelo seu ""Código\" Selecionada...\n\n");
@@ -315,11 +317,11 @@ int main(void) {
                                 int indice_do_atendimento = procura_codigo(codigo_atendimento,codigo_atendimentos,QNTD_ATENDIMENTOS);
                                 int indice_do_paciente = paciente_atendimento[indice_do_atendimento];
                                 if(indice_do_atendimento == -1){
-                                    printf("Atendimento não cadastrado\n");
+                                    printf(RED"Atendimento não cadastrado\n"RESET);
                                     continue;
                                 }
                                 if(atendimentos_ativos[indice_do_atendimento]== 0){
-                                    printf("Atendimento não cadastrado ou Excluido recentemente\n");
+                                    printf(RED"Atendimento não cadastrado ou Excluido recentemente\n"RESET);
                                     continue;
                                 }
                                 exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,codigo_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,indice_do_atendimento);
@@ -341,7 +343,7 @@ int main(void) {
                                 
                                 int indice_do_paciente = procura_codigo(codigo_paciente,codigo_pacientes,QNTD_PACIENTES);
                                 if(indice_do_paciente == -1){
-                                    printf("paciente não cadastrado\n");
+                                    printf(RED"paciente não cadastrado\n"RESET);
                                     continue;
                                 }
                                for(int i = 0;i < QNTD_ATENDIMENTOS;i++){
@@ -366,7 +368,7 @@ int main(void) {
                                 printf("Digite o nome do Paciente que deseja exibir:\n");
                                 ler_string(nome_paciente);
                                 if(checar_string(nome_paciente)){
-                                    printf("Digite o nome corretamente!\n");
+                                    printf(RED"Digite o nome corretamente!\n"RESET);
                                     continue;
                                 }
                                 
@@ -406,7 +408,7 @@ int main(void) {
                     continue;
                 }continue;
             case 3:
-                printf("\nSaída do Sistema Confirmada!\n");
+                printf(RED"\nSaída do Sistema Confirmada!\n"RESET);
                 return 0;
             default:
                 printf("Selecione alguma das opções anteriores!\n");

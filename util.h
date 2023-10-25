@@ -1,6 +1,12 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+#define RED     "\x1b[31m"
+#define GREEN   "\x1b[32m"
+#define YELLOW  "\x1b[33m"
+#define BLUE    "\x1b[34m"
+#define RESET   "\x1b[0m"
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,9 +21,9 @@ int menu_principal() {
     printf("\n******************************************\n");
 
     printf("\nSelecione como você deseja acessar nosso sistema: \n");
-    printf("--> [1] Paciente");
-    printf(" \t--> [2] Atendimento\t");
-    printf("\t--> [3] Encerrar\n");
+    printf(RED"[1]"RESET "Paciente");
+    printf(RED" \t[2] "RESET"Atendimento\t");
+    printf(RED"\t[3]"RESET" Encerrar\n");
 
     fflush(stdin);
     int interacao_menu_pacientes;
@@ -129,6 +135,11 @@ void imprimir_vetor(char vetor[][255],int tamanho){
         printf("%d - %s\n",i,vetor[i]);
     }
 }
+void imprimir_vetor_codigos(char vetor[][8],int tamanho){
+    for(int i=0;i<tamanho;i++){
+        printf("%d - %s\n",i,vetor[i]);
+    }
+}
 
 
 int gera_codigo() {  // 5 Digitos
@@ -140,13 +151,18 @@ int gera_codigo() {  // 5 Digitos
 }
 void cria_codigo(char vetor[][8],int indice_livre){
     char caracteres[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";//36 caracteres
-
+    char novo_codigo[8];
+    
     srand(time(NULL));
 
-    for (int i = 0; i < 8; i++) {
+    for(int i = 0; i < 8; i++) {
+        if(i==7)break;
         int indice_aleatorio = rand() % 36;
-        vetor[indice_livre][i] = caracteres[indice_aleatorio];
+        novo_codigo[i] = caracteres[indice_aleatorio];
+        
     }
+    printf("%s",novo_codigo);
+    strcpy(vetor[indice_livre],novo_codigo);
 }
 void armazena_codigo_aleatorio(int codigo_unico, int matriz_codigos[], int espaco_livre) {
     matriz_codigos[espaco_livre] = codigo_unico;

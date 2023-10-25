@@ -68,7 +68,6 @@ int main(void) {
                                     break;//vss dps
                                 }
 
-                            
                                 printf("Digite o Nome do Paciente:\n");
                                 ler_string(nomes_pacientes[espaco_livre]);
                                 
@@ -92,7 +91,6 @@ int main(void) {
                                 printf("Código do Paciente: %s\n", codigo_pacientes[espaco_livre]);
 
                                 pacientes_ativos[espaco_livre] = 1;
-                                imprimir_vetor_codigos(codigo_pacientes,QNTD_PACIENTES);
                                 
                                 int opcao;
                                 printf("[0] Voltar   [1]Incluir novo paciente\n");
@@ -191,7 +189,7 @@ int main(void) {
                                 cria_codigo(codigo_atendimentos,espaco_livre); 
                                 
                                 printf("Atendimento Cadastrado com sucesso!\n");
-                                exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,indice_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,espaco_livre);
+                                exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,codigo_pacientes,indice_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,espaco_livre);
                                 opcao=0;
                                 printf("[0] Voltar   [1]Incluir novo atendimento\n");
                                 scanf("%d", &opcao);
@@ -203,7 +201,7 @@ int main(void) {
                             imprimir_vetor(data_atendimentos,QNTD_ATENDIMENTOS);
                             break;
                         case 2:
-                            system("cls");
+                            system("clear");
                             printf("\nOpção -> [2], \"Alterar um Atendimento Existente\" Selecionada...\n\n");
                             char codigo_atendimento[8];
                             char novo_nome[255];
@@ -221,8 +219,7 @@ int main(void) {
                                     printf("Atendimento não cadastrado ou Excluido recentemente\n");
                                     continue;
                                 }
-                                exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,indice_do_atendimento);
-                                
+                                exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,codigo_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,espaco_livre);                                 
                                 int opcao;
                                 printf("Qual dado deseja alterar?\n");
                                 printf("[1]Paciente [2]Data [3]Tipo [4]Preço [5]Status\n");
@@ -295,7 +292,7 @@ int main(void) {
                                     printf("Atendimento não cadastrado ou Excluido recentemente\n");
                                     continue;
                                 }
-                                exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,indice_do_atendimento);
+                                exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,codigo_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,indice_do_atendimento);
                                 
                                 int opcao;
                                 printf("Qual dado deseja alterar?\n");
@@ -309,7 +306,7 @@ int main(void) {
                                 printf("operacao cancelada!");
                             }break;
                         case 4:
-                            printf("\nOpção -> [4], \"Exibir os Dados de um Atendimento pelo seu ""Código\" Selecionada...\n\n");
+                            printf("\nOpção -> [4], \"Exibir Atendimento pelo seu ""Código\" Selecionada...\n\n");
                             strcpy(codigo_atendimento,"void");
                             while(1){
                                 printf("Digite o código do atendimento que deseja consultar:\n");
@@ -325,10 +322,10 @@ int main(void) {
                                     printf("Atendimento não cadastrado ou Excluido recentemente\n");
                                     continue;
                                 }
-                                exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,indice_do_atendimento);
+                                exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,codigo_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,indice_do_atendimento);
                                 
                                 int opcao=0;
-                                printf("[0] Voltar   [1]Alterar outro atendimento\n");
+                                printf("[0] Voltar   [1]Exibir outro atendimento\n");
                                 scanf("%d", &opcao);
                                 if(opcao)
                                     continue;                            
@@ -351,19 +348,51 @@ int main(void) {
                                     if(paciente_atendimento[i] == indice_do_paciente){
                                         if(atendimentos_ativos[i]==0) continue;
                                         int indice_do_atendimento=i;
-                                        exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,indice_do_atendimento);
+                                        exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,codigo_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,indice_do_atendimento);
                                     }
                                 }
                                 int opcao=0;
-                                printf("[0] Voltar   [1]Exibir outro atendimento\n");
+                                printf("[0] Voltar   [1]Exibir atendimentos de outro paciente\n");
                                 scanf("%d", &opcao);
                                 if(opcao)
                                     continue;                            
                                 
                                 break; 
-                            }    
+                            }break;    
                         case 6:
                             printf("\nOpção -> [6], \"Exibir atendimento do paciente (Nome do Paciente)\" Selecionada...\n\n");
+                            char nome_paciente[255];
+                            while(1){
+                                printf("Digite o nome do Paciente que deseja exibir:\n");
+                                ler_string(nome_paciente);
+                                if(checar_string(nome_paciente)){
+                                    printf("Digite o nome corretamente!\n");
+                                    continue;
+                                }
+                                
+                                formata_string_maisculo(nome_paciente);
+                                
+                                int indice_do_paciente = procura_string(nome_paciente,nomes_pacientes,QNTD_PACIENTES);
+                                if(indice_do_paciente == -1){
+                                    printf("Paciente não cadastrado\n");
+                                    continue;
+                                }
+                               
+                               for(int i = 0;i < QNTD_ATENDIMENTOS;i++){
+                                    if(atendimentos_ativos[i]==0) continue;
+                                    if(paciente_atendimento[i] == indice_do_paciente){  
+                                        int indice_do_atendimento=i;
+                                        exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,codigo_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,indice_do_atendimento);
+                                    }
+                                }
+                                int opcao=0;
+                                printf("[0] Voltar   [1]Exibir atendimentos de outro paciente\n");
+                                scanf("%d", &opcao);
+                                if(opcao)
+                                    continue;                            
+                                
+                                break; 
+                            }break;   
                         case 7:
                             printf("\nOpção -> [7], \"Exibir Todos os Atendimentos(Data mais próxima)\" Selecionada...\n\n");
                         case 8:

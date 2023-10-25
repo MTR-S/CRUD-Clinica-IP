@@ -95,12 +95,12 @@ int procura_string(char string[],char vetor[][255],int tamanho){
         }
     }return -1;
 }
-int procura_codigo(int codigo,int vetor[],int tamanho){
+int procura_codigo(char codigo[],char vetor[][8],int tamanho){
     for(int i = 0; i < tamanho; i++){
-        if(codigo==vetor[i]){
+        if(strcmp(vetor[i],codigo) == 0){
             return i;
         }
-    }return 0;
+    }return -1;
 }
 void receber_data(char vetor[][255],int indice_livre){
     int dia, mes, ano;

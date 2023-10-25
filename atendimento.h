@@ -24,5 +24,17 @@ void exibir_dados_atendimento(char codigo[][8],char paciente[][255],int indice_p
     printf("Código--------Paciente--------Data---------Tipo---------Preço--------Status--------\n");
     printf("%s   |   %s   |   %s   |   %s   |   R$%.2f   |   %s\n   ",codigo[indice_atendimento],paciente[indice_paciente],data[indice_atendimento],tipo[indice_atendimento],preco[indice_atendimento],status[indice_atendimento]);
 }
+void receber_status_atendimento(char vetor_status_atendimentos[][255],int indice_do_atendimento){
+    int opcao;
+    printf("Status da consulta:\n");
+    printf("[0]Agendado [1]Esperando [2]Em atendimento [3]Atendido\n");
+    scanf("%d",&opcao);
+    switch(opcao){
+        case 0:strcpy(vetor_status_atendimentos[indice_do_atendimento],"Agendado");break;
+        case 1:strcpy(vetor_status_atendimentos[indice_do_atendimento],"Esperando");break;
+        case 2:strcpy(vetor_status_atendimentos[indice_do_atendimento],"Em atendimento");break;
+        case 3:strcpy(vetor_status_atendimentos[indice_do_atendimento],"Atendido");break;
+    }
+}
 
 #endif

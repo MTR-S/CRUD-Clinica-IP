@@ -80,8 +80,6 @@ int main(void) {
                                 }
                                 
                                 cria_codigo(codigo_pacientes,espaco_livre);
-                                /*char codigo_paciente = gera_codigo();
-                                armazena_codigo_aleatorio(codigo_paciente, codigo_pacientes, espaco_livre);*/
 
                                 printf("-> Paciente cadastrado!\n");
                                 printf("Nome: %s\n", nomes_pacientes[espaco_livre]);
@@ -178,16 +176,7 @@ int main(void) {
                                 printf("Digite o preço da consulta:\n");
                                 scanf("%f",&preco_atendimentos[espaco_livre]);
 
-                                opcao=0;
-                                printf("Status da consulta:\n");
-                                printf("[0]Agendado [1]Esperando [2]Em atendimento [3]Atendido\n");
-                                scanf("%d",&opcao);
-                                switch(opcao){
-                                    case 0:strcpy(status_atendimentos[espaco_livre],"Agendado");break;
-                                    case 1:strcpy(status_atendimentos[espaco_livre],"Esperando");break;
-                                    case 2:strcpy(status_atendimentos[espaco_livre],"Em atendimento");break;
-                                    case 3:strcpy(status_atendimentos[espaco_livre],"Atendido");break;
-                                }
+                                receber_status_atendimento(status_atendimentos,espaco_livre);
                                 
                                 atendimentos_ativos[espaco_livre]=1;
                                 cria_codigo(codigo_atendimentos,espaco_livre); 
@@ -206,7 +195,76 @@ int main(void) {
                             break;
                         case 2:
                             system("cls");
-                            printf("\nOpção -> [2], \"Alterar um Atendimento Existente\" Selecionada...\n\n");                            
+                            printf("\nOpção -> [2], \"Alterar um Atendimento Existente\" Selecionada...\n\n");
+                            char codigo_atendimento[8];
+                            char novo_nome[255];
+                            while(1){
+                                printf("Digite o código do atendimento que deseja alterar:\n");
+                                ler_string(codigo_atendimento);
+                                
+                                int indice_do_atendimento = procura_codigo(codigo_atendimento,codigo_atendimentos,QNTD_ATENDIMENTOS);
+                                int indice_do_paciente = paciente_atendimento[indice_do_atendimento];
+                                if(indice_do_atendimento == -1){
+                                    printf("Atendimento não cadastrado\n");
+                                    continue;
+                                }
+                                exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,indice_do_atendimento);
+                                
+                                int opcao;
+                                printf("Qual dado deseja alterar?\n");
+                                printf("[1]Paciente [2]Data [3]Tipo [4]Preço [5]Status\n");
+                                scanf("%d",&opcao);
+
+                                switch(opcao){
+                                    case 1: 
+                                        printf("Paciente anterior : %s \n",nomes_pacientes[indice_do_paciente]);
+                                        printf("Digite o novo nome: ");
+                                        ler_string(novo_nome);
+                                        formata_string_maisculo(novo_nome);
+                                        
+                                        int indice_novo_paciente = procura_string(novo_nome,nomes_pacientes,QNTD_PACIENTES);
+                                        if(indice_novo_paciente == -1){
+                                            printf("Paciente não cadastrado\n");
+                                            continue;
+                                        }
+                                        
+                                        paciente_atendimento[indice_do_atendimento]=indice_novo_paciente;
+                                        printf("Nome alterado!\n");
+                                        break;
+
+                                    case 2:
+                                        printf("Digite a nova data:\n");
+                                        receber_data(data_atendimentos,indice_do_atendimento);
+                                        printf("Nova data cadastrada: %s\n",data_atendimentos[indice_do_atendimento]);
+                                        break;
+                                    case 3:
+                                        opcao=0;
+                                        printf("Novo Tipo de Atendimento:\n");
+                                        printf("[0]Consulta [1]Retorno\n");
+                                        scanf("%d",&opcao);
+                                        if(opcao) strcpy(tipo_atendimentos[indice_do_atendimento],"Retorno");
+                                        else strcpy(tipo_atendimentos[indice_do_atendimento],"Consulta");
+                                        break;
+                                    case 4:
+                                        printf("Digite o novo preço da consulta:\n");
+                                        scanf("%f",&preco_atendimentos[indice_do_atendimento]);
+                                        printf("Novo preço cadastrado");
+                                        break;
+                                    case 5:
+                                        printf("status atual: %s\n",status_atendimentos[indice_do_atendimento]);
+                                        receber_status_atendimento(status_atendimentos,indice_do_atendimento);
+                                        printf("preco alterado\n");
+                                        break;
+
+                                }
+                                opcao=0;
+                                printf("[0] Voltar   [1]Alterar outro atendimento\n");
+                                scanf("%d", &opcao);
+                                if(opcao)
+                                    continue;                            
+                                
+                                break;  
+                            }break;                    
                         case 3:
                             printf("\nOpção -> [3], \"Excluir um Atendimento\" Selecionada...\n\n");
                         case 4:

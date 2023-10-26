@@ -124,7 +124,7 @@ void receber_data(char vetor[][255],int indice_livre){
         printf("Data inválida!\n");
         continue;
         }
-        sprintf(vetor[indice_livre],"%d/%d/%d",dia,mes,ano);
+        sprintf(vetor[indice_livre],"%02d/%02d/%04d",dia,mes,ano);
         break;
     }
 

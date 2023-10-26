@@ -3,7 +3,6 @@
 #include "atendimento.h"
 #include "util.h"
 
-//escrito no main.1
 #define QNTD_PACIENTES 100
 #define QNTD_ATENDIMENTOS 100
 

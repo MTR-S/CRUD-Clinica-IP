@@ -2,7 +2,7 @@
 #include "pacientes.h"
 #include "atendimento.h"
 #include "util.h"
-
+//vinhas
 #define QNTD_PACIENTES 100
 #define QNTD_ATENDIMENTOS 100
 

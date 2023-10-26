@@ -157,17 +157,20 @@ void cria_codigo(char vetor[][8],int indice_livre){
 }
 
 
-int interacao_pos_erro() {
-    int selecao = 0;
-    while(1) {
+char interacao_pos_erro() {
+    char selecao;
 
-        scanf("%d", &selecao);
+    while(1) {
+        
+        fflush(stdin);
+        selecao = getchar();
 
         switch (selecao) {
-            case 1:
-            case 2:
+            case '1':
+            case '2':
                 return selecao;
-
+            case '\n':
+                continue;
             default:
                 printf("Selecione alguma das opções!\n");
         }

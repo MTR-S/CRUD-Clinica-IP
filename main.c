@@ -77,16 +77,18 @@ int main(void) {
                                 }
 
                                 formata_string_maisculo(nomes_pacientes[espaco_livre]);
+                                
+                                char opcao_selecionada;
 
-                                int ja_cadastrado=ja_existe(nomes_pacientes[espaco_livre],nomes_pacientes,QNTD_PACIENTES,espaco_livre);
+                                int ja_cadastrado = ja_existe(nomes_pacientes[espaco_livre],nomes_pacientes,QNTD_PACIENTES,espaco_livre);
                                 if(ja_cadastrado) { 
                                     printf("Paciente já cadastrado!");
                                     
-                                    printf("\n[1] Inserir outro paciente [2] Ir para o Menu Pacientes");
+                                    printf("\n[1] Inserir outro paciente [2] Ir para o Menu Pacientes\n");
 
-                                    int opcao_selecionada = interacao_pos_erro();
-
-                                    if(opcao_selecionada == 1) {
+                                    opcao_selecionada = interacao_pos_erro();
+                                
+                                    if(opcao_selecionada == '1') {
                                         printf("\nOpção -> [1], \"Inserir outro paciente\" Selecionada...\n\n"); 
                                         continue;
                                     }
@@ -98,20 +100,27 @@ int main(void) {
                                 
                                 cria_codigo(codigo_pacientes,espaco_livre);
 
-                                printf("-> Paciente cadastrado!\n");
+                                printf("\n-> Paciente cadastrado!\n");
                                 printf("Nome: %s\n", nomes_pacientes[espaco_livre]);
                                 printf("Código do Paciente: %s\n", codigo_pacientes[espaco_livre]);
 
                                 pacientes_ativos[espaco_livre] = 1;
                                 
-                                int opcao;
-                                printf("[0] Voltar   [1]Incluir novo paciente\n");
-                                scanf("%d", &opcao);
-                                if(opcao)
-                                    continue;                            
+                                printf("[1] Incluir novo paciente   [2] Voltar ao Menu Pacientes\n");
+
+                                opcao_selecionada = interacao_pos_erro();
                                 
-                                break;
-                            }break;
+                                if(opcao_selecionada == '1') {
+                                    printf("\nOpção -> [1], \"Voltar ao Menu Pacientes\" Selecionada...\n\n"); 
+                                    continue;
+                                }
+                                else {
+                                    printf("\nOpção -> [2], \"Incluir novo paciente\" Selecionada...\n\n"); 
+                                    break;
+                                }
+                                
+                            }
+                            break;
                         case 2:
                             //system("cls");
                             printf("\nOpção -> [2], \"Alterar um Paciente Existente\" Selecionada...\n\n");
@@ -314,10 +323,10 @@ int main(void) {
                                 scanf("%d",&opcao);
                                 if(opcao == 1) {
                                     atendimentos_ativos[indice_do_atendimento]=0;
-                                    printf(GREEN"atendimento excluido\n"RESET);
+                                    printf(GREEN"Atendimento Excluido\n"RESET);
                                     break;
                                 }
-                                printf(GREEN"operacao cancelada!"RESET);
+                                printf(GREEN"Operacao Cancelada!"RESET);
                             }break;
                         case 4:
                             printf("\nOpção -> [4], \"Exibir Atendimento pelo seu ""Código\" Selecionada...\n\n");

@@ -1,5 +1,4 @@
 #include <stdio.h>
-//alterado no github
 #include "pacientes.h"
 #include "atendimento.h"
 #include "util.h"

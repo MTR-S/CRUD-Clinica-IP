@@ -155,4 +155,25 @@ void cria_codigo(char vetor[][8],int indice_livre){
     }
     strcpy(vetor[indice_livre],novo_codigo);
 }
+void armazena_codigo_aleatorio(int codigo_unico, int matriz_codigos[], int espaco_livre) {
+    matriz_codigos[espaco_livre] = codigo_unico;
+}
+
+
+int interacao_pos_erro() {
+    int selecao = 0;
+    while(1) {
+
+        scanf("%d", &selecao);
+
+        switch (selecao) {
+            case 1:
+            case 2:
+                return selecao;
+
+            default:
+                printf("Selecione alguma das opções!\n");
+        }
+    }
+}
 #endif

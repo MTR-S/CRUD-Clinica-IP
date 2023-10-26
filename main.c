@@ -51,6 +51,7 @@ int main(void) {
             case 1:
                 system("clear");
                 printf("\nMenu \"Paciente\" Selecionado...\n");
+
                 while(1) {
                     int interacao_menu_pacientes = menu_pacientes();
                     int espaco_livre;
@@ -62,26 +63,38 @@ int main(void) {
                                 printf("\nOpção -> [1], \"Inserir um Novo Paciente\" Selecionada...\n\n");
 
                                 espaco_livre = procura_espaco_livre(pacientes_ativos, QNTD_PACIENTES);
-
                                 if(espaco_livre < 0) {
                                     printf("\nCadastro Impossível, Quantidade de Pacientes Cadastrados Cheia!\n");
-                                    break;//vss dps
+                                    break;
                                 }
 
                                 printf("Digite o Nome do Paciente:\n");
                                 ler_string(nomes_pacientes[espaco_livre]);
                                 
-
-                                if(checar_string(nomes_pacientes[espaco_livre])){
+                                int nome_incorreto = checar_string(nomes_pacientes[espaco_livre]);
+                                if(nome_incorreto){
                                     printf("Digite o nome corretamente!\n");
                                     continue;
                                 }
 
                                 formata_string_maisculo(nomes_pacientes[espaco_livre]);
+
                                 int ja_cadastrado=ja_existe(nomes_pacientes[espaco_livre],nomes_pacientes,QNTD_PACIENTES,espaco_livre);
-                                if(ja_cadastrado){ 
+                                if(ja_cadastrado) { 
                                     printf("Paciente já cadastrado!");
-                                    continue;
+                                    
+                                    printf("\n[1] Inserir outro paciente [2] Ir para o Menu Pacientes");
+
+                                    int opcao_selecionada = interacao_pos_erro();
+
+                                    if(opcao_selecionada == 1) {
+                                        printf("\nOpção -> [1], \"Inserir outro paciente\" Selecionada...\n\n"); 
+                                        continue;
+                                    }
+                                    else {
+                                        printf("\nOpção -> [2], \"Ir para o Menu Pacientes\" Selecionada...\n\n"); 
+                                        break;
+                                    }
                                 }
                                 
                                 cria_codigo(codigo_pacientes,espaco_livre);

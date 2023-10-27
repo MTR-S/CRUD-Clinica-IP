@@ -37,20 +37,21 @@ int menu_principal() {
 }
 
 int coletar_opcao(char opcao1[],char opcao2[]){
-    while(1){
+    while(1) {
         char opcao;
-        printf(BLUE"[0]"RESET" %s   "BLUE"[1]"RESET"%s\n",opcao1,opcao2);;
+
+        printf(BLUE"[0]"RESET" %s   "BLUE"[1]"RESET"%s\n", opcao1, opcao2);;
         fflush(stdin);
+
         opcao= getchar();
         fflush(stdin);
         opcao= getchar();
-        switch(opcao){
+
+        switch(opcao) {
             case '0':
                 return 0;
-                break;
             case '1':
                 return 1;
-                break;
             default:
                 printf("Digite Apenas 0 ou 1\n");                            
                 continue;
@@ -79,7 +80,15 @@ int procura_espaco_livre(int vetor_ativos[], int tamanho_vetor) {
 }
 
 
-void ler_string(char string[]) {
+void ler_str(char string[]) {
+    printf(BLUE);
+    fflush(stdin);
+    gets(string);
+    printf(RESET);
+}
+
+
+void ler_string(char string[]) {  // tava dando erro porque ao coletar o nome ele lia duas vezes mas no cpf lia so uma
     printf(BLUE);
     fflush(stdin);
     gets(string);
@@ -89,14 +98,14 @@ void ler_string(char string[]) {
 }
 
 int checar_string(char string[]){
-    if (string == NULL || string[0] =='\0'){
+    if(string == NULL || string[0] =='\0'){
         return 1;
     }
-    for(int i = 0;string[i] != '\0';i++){
+    for(int i = 0; string[i] != '\0';i++){
         if(string[i] == ' '){
             continue;
         }
-        if(isdigit(string[i])||!isalnum(string[i])){
+        if(isdigit(string[i]) || !isalnum(string[i])){
           return 1;  
         }
     }return 0;
@@ -200,4 +209,89 @@ char interacao_pos_erro() {
         }
     }
 }
+
+
+int valida_documento(char documento[]) {
+    int tamanho_documento = strlen(documento);
+
+    if(tamanho_documento < 11 || tamanho_documento > 11) {
+        return 1;
+    }
+
+    int eh_alfanumerico;
+    for(int i  = 0; i < tamanho_documento; i++) {
+        eh_alfanumerico = isdigit(documento[i]);
+        if(!(eh_alfanumerico)) {
+            return 1;
+        }
+        
+    }
+
+    return 0;
+}
+
+int cadastra_documento(char tipo_documento[], char str_documento[], int espaco_livre) {
+    while(1) {
+        printf("Digite o %s do Paciente", tipo_documento);
+
+        int documento_nao_obrigatorio = !(strcmp(tipo_documento, "RG"));
+        if(documento_nao_obrigatorio) {
+            printf(" ou ENTER para pular:\n");
+        }
+        else {
+            printf(":\n");
+        }
+
+        ler_str(str_documento);
+
+        int cadastro_ativo = cadastro_informacao_nao_obrigatorio(str_documento);
+        if(cadastro_ativo) {
+            return 1;
+        }
+
+        int documento_invalido = valida_documento(str_documento);
+        if(documento_invalido) {
+            printf("\n%s Inválido!\n", tipo_documento);
+            continue;
+        }
+
+        break;
+    }
+}
+
+
+int cadastro_informacao_nao_obrigatorio(char str_documento[]) {
+        int documento_nao_obrigatorio_vazio = str_documento[0] == '\0';
+        if(documento_nao_obrigatorio_vazio) {
+            strcpy(str_documento, "Não Informado");
+            return 1;
+        }
+}
+
+
+int procura_documento(char documento_paciente[], char matriz_documento[][12], int tamanho_matriz, int indice_matriz) {  // igual a funcao "ja existe" mas com unm parametro diferente
+        for(int i = 0; i < tamanho_matriz; i++){
+            if(i == indice_matriz)
+                continue;
+            if(!(strcmp(documento_paciente, matriz_documento[i]))){
+                return 1;
+            }
+    }
+    
+    return 0;
+}
+
+/*
+Funcao para verificar se o codigo do paciente ja nao existe
+void valida_codigo(char codigo[], char codigo_pacientes[][8], int tamanho_matriz_codigos, int codigo_index) {
+    for(int i = 0; i < tamanho_matriz_codigos; i++) {
+        if(i == codigo_index) {
+            continue;
+        }
+        if(!(strcmp(codigo, codigo_pacientes[i]))) {
+            codigo = cria_codigo(codigo, espaco_livre);
+        }
+    }
+}
+*/
 #endif

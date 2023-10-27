@@ -5,6 +5,8 @@
 #define GREEN   "\x1b[32m"
 #define YELLOW  "\x1b[33m"
 #define BLUE    "\x1b[34m"
+#define MAGENTA "\x1b[35m"
+#define CIANO   "\x1b[36m"
 #define RESET   "\x1b[0m"
 
 
@@ -34,7 +36,27 @@ int menu_principal() {
     return interacao_menu_pacientes;
 }
 
-
+int coletar_opcao(char opcao1[],char opcao2[]){
+    while(1){
+        char opcao;
+        printf(BLUE"[0]"RESET" %s   "BLUE"[1]"RESET"%s\n",opcao1,opcao2);;
+        fflush(stdin);
+        opcao= getchar();
+        fflush(stdin);
+        opcao= getchar();
+        switch(opcao){
+            case '0':
+                return 0;
+                break;
+            case '1':
+                return 1;
+                break;
+            default:
+                printf("Digite Apenas 0 ou 1\n");                            
+                continue;
+        }
+    }
+}
 int preenche_vetor_ativos(int vetor_ativos[], int tamanho_vetor) {
     for (int i = 0; i < tamanho_vetor; i++)
         vetor_ativos[i] = 0;
@@ -58,10 +80,12 @@ int procura_espaco_livre(int vetor_ativos[], int tamanho_vetor) {
 
 
 void ler_string(char string[]) {
+    printf(BLUE);
     fflush(stdin);
     gets(string);
     fflush(stdin);
     gets(string);
+    printf(RESET);
 }
 
 int checar_string(char string[]){

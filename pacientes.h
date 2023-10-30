@@ -69,6 +69,20 @@ int opcoes_pacientes(int funcionalidade_selecionada) {
 }
 
 
+void exibe_informacoes_paciente(char nomes_pacientes[][255], char codigo_pacientes[][8], char RG_pacientes[][12], char CPF_pacientes[][12], char tipo_sanguineo_pacientes[][3], char fator_RH_pacientes[][9], char endereco_pacientes[][255], char datas_nascimento_pacientes[][255], int espaco_livre) {
+    printf("\n-----------Paciente cadastrado-----------\n");
+    printf("-> Paciente: %s\n", &nomes_pacientes[espaco_livre]);
+    printf("-> Código do Paciente: %s\n", &codigo_pacientes[espaco_livre]);
+    printf("-> RG do Paciente: %s\n", &RG_pacientes[espaco_livre]);
+    printf("-> CPF do Paciente: %s\n", &CPF_pacientes[espaco_livre]);
+    printf("-> Tipo Sanguíneo do Paciente: %s\n", &tipo_sanguineo_pacientes[espaco_livre]);
+    printf("-> Fator RH  do Paciente: %s\n", &fator_RH_pacientes[espaco_livre]);
+    printf("-> Endereço do Paciente: %s\n", &endereco_pacientes[espaco_livre]);
+    printf("-> Data de Nascimento do Paciente: %s\n", &datas_nascimento_pacientes[espaco_livre]);
+    printf("--------------------------------------------\n");
+
+}
+
 int valida_tipo_sanguineo(char tipo_sanguineo[]) {
     int tipo_sanguineo_convertido = atoi(tipo_sanguineo);
 
@@ -92,6 +106,7 @@ int valida_tipo_sanguineo(char tipo_sanguineo[]) {
                 strcpy(tipo_sanguineo, "O");
                 break;
         }
+
         return 0;
     }
 }
@@ -176,7 +191,7 @@ int cadastro_informacao_nao_obrigatorio(char str_documento[]) {
 }
 
 
-int procura_documento(char documento_paciente[], char matriz_documento[][12], int tamanho_matriz, int indice_matriz) {  // igual a funcao "ja existe" mas com unm parametro diferente
+int procura_documento(char documento_paciente[], char matriz_documento[][12], int tamanho_matriz, int indice_matriz) {  
         for(int i = 0; i < tamanho_matriz; i++){
             if(i == indice_matriz)
                 continue;

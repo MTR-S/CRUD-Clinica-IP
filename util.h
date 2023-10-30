@@ -49,8 +49,10 @@ int coletar_opcao(char opcao1[],char opcao2[]){
 
         switch(opcao) {
             case '0':
+                printf("\nOpção -> [0], \"%s\" Selecionada...\n\n", opcao1); 
                 return 0;
             case '1':
+                printf("\nOpção -> [1], \"%s\" Selecionada...\n\n", opcao2); 
                 return 1;
             default:
                 printf("Digite Apenas 0 ou 1\n");                            

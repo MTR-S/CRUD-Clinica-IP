@@ -134,16 +134,19 @@ int procura_string(char string[],char vetor[][255],int tamanho){
         }
     }return -1;
 }
-int procura_codigo(char codigo[],char vetor[][8],int tamanho){
-    for(int i = 0; i < tamanho; i++){
-        if(strcmp(vetor[i],codigo) == 0){
+int procura_codigo(char codigo_unico_paciente[],char matriz_codigos_pacientes[][8],int tamanho_matriz) {
+    for(int i = 0; i < tamanho_matriz; i++){
+        if(strcmp(matriz_codigos_pacientes[i],codigo_unico_paciente) == 0) {
             return i;
         }
-    }return -1;
+
+    }
+    return -1;
 }
-void receber_data(char vetor[][255],int indice_livre){
+void receber_data(char vetor[][255],int indice_livre) {
     int dia, mes, ano;
-    while(1){
+
+    while(1) {
         printf("Digite o dia: ");
         scanf("%d", &dia);
 
@@ -157,7 +160,9 @@ void receber_data(char vetor[][255],int indice_livre){
         printf("Data inválida!\n");
         continue;
         }
-        sprintf(vetor[indice_livre],"%02d/%02d/%04d",dia,mes,ano);
+
+        sprintf(vetor[indice_livre],"%02d/%02d/%04d", dia, mes, ano);
+
         break;
     }
 
@@ -208,77 +213,6 @@ char interacao_pos_erro() {
                 printf("Selecione alguma das opções!\n");
         }
     }
-}
-
-
-int valida_documento(char documento[]) {
-    int tamanho_documento = strlen(documento);
-
-    if(tamanho_documento < 11 || tamanho_documento > 11) {
-        return 1;
-    }
-
-    int eh_alfanumerico;
-    for(int i  = 0; i < tamanho_documento; i++) {
-        eh_alfanumerico = isdigit(documento[i]);
-        if(!(eh_alfanumerico)) {
-            return 1;
-        }
-        
-    }
-
-    return 0;
-}
-
-int cadastra_documento(char tipo_documento[], char str_documento[], int espaco_livre) {
-    while(1) {
-        printf("Digite o %s do Paciente", tipo_documento);
-
-        int documento_nao_obrigatorio = !(strcmp(tipo_documento, "RG"));
-        if(documento_nao_obrigatorio) {
-            printf(" ou ENTER para pular:\n");
-        }
-        else {
-            printf(":\n");
-        }
-
-        ler_str(str_documento);
-
-        int cadastro_ativo = cadastro_informacao_nao_obrigatorio(str_documento);
-        if(cadastro_ativo) {
-            return 1;
-        }
-
-        int documento_invalido = valida_documento(str_documento);
-        if(documento_invalido) {
-            printf("\n%s Inválido!\n", tipo_documento);
-            continue;
-        }
-
-        break;
-    }
-}
-
-
-int cadastro_informacao_nao_obrigatorio(char str_documento[]) {
-        int documento_nao_obrigatorio_vazio = str_documento[0] == '\0';
-        if(documento_nao_obrigatorio_vazio) {
-            strcpy(str_documento, "Não Informado");
-            return 1;
-        }
-}
-
-
-int procura_documento(char documento_paciente[], char matriz_documento[][12], int tamanho_matriz, int indice_matriz) {  // igual a funcao "ja existe" mas com unm parametro diferente
-        for(int i = 0; i < tamanho_matriz; i++){
-            if(i == indice_matriz)
-                continue;
-            if(!(strcmp(documento_paciente, matriz_documento[i]))){
-                return 1;
-            }
-    }
-    
-    return 0;
 }
 
 /*

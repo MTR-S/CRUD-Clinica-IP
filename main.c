@@ -24,16 +24,16 @@ char CPF_pacientes[QNTD_PACIENTES][12];
 char tipo_sanguineo_pacientes[QNTD_PACIENTES][3];
 char fator_RH_pacientes[QNTD_PACIENTES][9];  
 char endereco_pacientes[QNTD_PACIENTES][255];
-int datas_nascimento_pacientes[QNTD_PACIENTES];
+char datas_nascimento_pacientes[QNTD_PACIENTES][255];
 
 
 int atendimentos_ativos[QNTD_ATENDIMENTOS];
 
 int paciente_do_atendimento[QNTD_ATENDIMENTOS];//guarda o indice do paciente para cada atendimento
 char codigo_atendimentos[QNTD_ATENDIMENTOS][8];
-char tipo_atendimentos[QNTD_ATENDIMENTOS][255];  // int?
+char tipo_atendimentos[QNTD_ATENDIMENTOS][255];  
 char data_atendimentos[QNTD_ATENDIMENTOS][255];
-char status_atendimentos[QNTD_ATENDIMENTOS][255];  //int?
+char status_atendimentos[QNTD_ATENDIMENTOS][255];  
 float preco_atendimentos[QNTD_ATENDIMENTOS];
 
 int main(void) {
@@ -153,7 +153,8 @@ int main(void) {
                                 }
 
                                 while (1) {
-                                    printf("Digite o seu Tipo Sanguíneo (Sem o Fator RH) ou ENTER para pular:\n");  // Se eu digitar qualquerl letra ele vai aceitar
+                                    printf("Digite o seu Tipo Sanguíneo (Sem o Fator RH) ou ENTER para pular:\n");
+                                    printf("[1] A     [2] B     [3] AB     [4] O\n");  // dando erro porque a string e maior e eu to querendo colocar uma menor eu acho
                                     ler_str(tipo_sanguineo_pacientes[espaco_livre]);
 
                                     informacao_nao_obrigatoria = cadastro_informacao_nao_obrigatorio(tipo_sanguineo_pacientes[espaco_livre]);
@@ -161,7 +162,7 @@ int main(void) {
                                         break;
                                     }
                                     
-                                    formatacao_incorreta = checar_string(tipo_sanguineo_pacientes[espaco_livre]);
+                                    formatacao_incorreta = valida_tipo_sanguineo(tipo_sanguineo_pacientes[espaco_livre]);
                                     if(formatacao_incorreta) {
                                         printf("Tipo Sanguíneo Inválido, Digite Novamente!\n");
                                         continue;
@@ -171,6 +172,7 @@ int main(void) {
 
                                 while(1) {
                                     printf("Digite o Fator RH do Paciente (Positivo ou Negativo) ou ENTER para pular:\n");
+                                    printf("[1] Positivo     [2] Negativo\n");
                                     ler_str(fator_RH_pacientes[espaco_livre]);
 
                                     informacao_nao_obrigatoria = cadastro_informacao_nao_obrigatorio(fator_RH_pacientes[espaco_livre]);
@@ -178,9 +180,9 @@ int main(void) {
                                         break;
                                     }
                                         
-                                    formatacao_incorreta = checar_string(tipo_sanguineo_pacientes[espaco_livre]);
+                                    formatacao_incorreta = valida_fato_rh(fator_RH_pacientes[espaco_livre]);
                                     if(formatacao_incorreta) {
-                                        printf("Tipo Sanguíneo Inválido, Digite Novamente!\n");
+                                        printf("Fator RH Inválido, Digite Novamente!\n");
                                         continue;
                                     }
                                         break;
@@ -188,19 +190,23 @@ int main(void) {
 
                                 printf("Digite seu Endereço ou ENTER para pular:\n");
                                 ler_str(endereco_pacientes[espaco_livre]);
-
                                 informacao_nao_obrigatoria = cadastro_informacao_nao_obrigatorio(endereco_pacientes[espaco_livre]);
 
-                                printf("\n-------Paciente cadastrado-------\n");
+                                printf("Digite a Data de Nascimento do Paciente:\n");
+                                receber_data(datas_nascimento_pacientes[espaco_livre], espaco_livre);
+
+                                printf("\n-----------Paciente cadastrado-----------\n");
                                 printf("-> Paciente: %s\n", nomes_pacientes[espaco_livre]);
                                 printf("-> Código do Paciente: %s\n", codigo_pacientes[espaco_livre]);
-                                printf("-> CPF do Paciente: %s\n", CPF_pacientes[espaco_livre]);
                                 printf("-> RG do Paciente: %s\n", &RG_pacientes[espaco_livre]);
+                                printf("-> CPF do Paciente: %s\n", CPF_pacientes[espaco_livre]);
                                 printf("-> Tipo Sanguíneo do Paciente: %s\n", &tipo_sanguineo_pacientes[espaco_livre]);
                                 printf("-> Fator RH  do Paciente: %s\n", &fator_RH_pacientes[espaco_livre]);
                                 printf("-> Endereço do Paciente: %s\n", &endereco_pacientes[espaco_livre]);
-                                printf("------------------------------------\n");
+                                printf("-> Data de Nascimento do Paciente: %s\n", &datas_nascimento_pacientes[espaco_livre]);
+                                printf("--------------------------------------------\n");
 
+                                //nome dando erro ao errar uma vez
 
                                 pacientes_ativos[espaco_livre] = 1;
                                 
@@ -220,8 +226,30 @@ int main(void) {
                             }
                             break;
                         case 2:
-                            //system("cls");
+                            system("clear");
                             printf("\nOpção -> [2], \"Alterar um Paciente Existente\" Selecionada...\n\n");
+
+                            printf("Digite o CPF e Código do Paciente que Deseja Alterar: \n");
+
+                            printf("-> CPF: ");
+                            char alterar_paciente_cpf[11];
+                            ler_string(alterar_paciente_cpf);
+
+                            printf("-> Código: ");
+                            char alterar_paciente_codigo[9];
+                            ler_str(alterar_paciente_codigo);
+
+                            int achou_paciente = procura_codigo(alterar_paciente_codigo,codigo_pacientes,QNTD_ATENDIMENTOS);
+                            if(achou_paciente >= 0) {
+                                printf("Paciente de Código %s Encontrado\n", alterar_paciente_codigo);
+                                printf("Qual Informação Você deseja alterar?");
+                                printf("[1] Nome     [2] RG     [3] CPF     [4] Tipo Sanguíneo     [5] Fator RH     [6] Endereço     [7] Data de Nascimento");
+                            }
+                            else {
+                                printf("Paciente de Código %s NÃO Encontrado Verifique o Código e CPF Inseridos!", alterar_paciente_codigo);
+                                // colocar opcao de inserri de volta ou voltar para o menu de pacientes
+                            }
+                            
                         case 3:
                             printf("\nOpção -> [3], \"Excluir um Paciente\" Selecionada...\n\n");
                         case 4:

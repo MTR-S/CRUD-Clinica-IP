@@ -179,6 +179,8 @@ int cadastra_documento(char tipo_documento[], char str_documento[], int espaco_l
 
         break;
     }
+    
+    return 0;
 }
 
 

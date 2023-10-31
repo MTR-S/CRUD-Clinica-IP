@@ -91,14 +91,8 @@ int main(void) {
                                 
                                 cria_codigo(codigo_pacientes,espaco_livre);
 
-                                informacao_nao_obrigatoria = cadastra_documento("RG", RG_pacientes[espaco_livre], espaco_livre);
-                                if(informacao_nao_obrigatoria) { 
-                                    ja_cadastrado = 0;
-                                }
-                                else {
-                                    ja_cadastrado = procura_documento(RG_pacientes[espaco_livre], RG_pacientes, 12, espaco_livre); 
-                                }
-                                if(ja_cadastrado) { 
+                                cadastra_documento("RG", RG_pacientes[espaco_livre], espaco_livre);
+                                if(procura_documento(RG_pacientes[espaco_livre], RG_pacientes, 12, espaco_livre)) { 
                                     printf("RG já cadastrado --> Impossível Inserir este Paciente!\n");
                                     
                                     printf("\n[1] Inserir outro paciente [2] Ir para o Menu Pacientes\n");
@@ -118,8 +112,7 @@ int main(void) {
 
 
                                 cadastra_documento("CPF", CPF_pacientes[espaco_livre], espaco_livre);
-                                ja_cadastrado = procura_documento(CPF_pacientes[espaco_livre], CPF_pacientes, 12, espaco_livre); 
-                                if(ja_cadastrado) { 
+                                if(procura_documento(CPF_pacientes[espaco_livre], CPF_pacientes, 12, espaco_livre)) { 
                                     printf("CPF já cadastrado --> Impossível Inserir este Paciente!\n");
                                     
                                     printf("\n[1] Inserir outro paciente [2] Ir para o Menu Pacientes\n");
@@ -204,15 +197,16 @@ int main(void) {
                         case 2:
                             system("clear");
                             printf("\nOpção -> [2], \"Alterar um Paciente Existente\" Selecionada...\n\n");
+                            //colocar um laço q percorra o vetor de ativos e se so tiver 0 falar q n tem ngm cadastrado
 
                             printf("Digite o Código do Paciente que Deseja Alterar: \n");
 
                             printf("-> Código: ");
                             char alterar_paciente_codigo[9];
                             scanf("%s", &alterar_paciente_codigo);
-                            //ler_str(alterar_paciente_codigo); // nao esta lendo direito
 
                             int index_paciente = procura_codigo(alterar_paciente_codigo,codigo_pacientes,QNTD_ATENDIMENTOS);
+
                             if(index_paciente >= 0) {
                                 printf("Paciente de Código %s Encontrado\n", alterar_paciente_codigo);
 
@@ -242,11 +236,50 @@ int main(void) {
                                                 break;
                                             }
                                         }
-
                                         printf("\nNome Alterado com Sucesso!\n");
                                         printf("De: %s ---> Para: %s", nome_antigo, nomes_pacientes[index_paciente]);
+
                                         break;
-                                    
+                                    case 2:
+                                        printf("\nOpção -> [2], \"Alterar RG\" Selecionada...\n\n");
+                                        
+                                        char RG_antigo[12];
+                                        strcpy(RG_antigo ,nomes_pacientes[index_paciente]); 
+
+                                        cadastra_documento("RG", RG_pacientes[espaco_livre], espaco_livre);
+                                        if(procura_documento(RG_pacientes[espaco_livre], RG_pacientes, 12, espaco_livre)) { 
+                                            printf("RG já cadastrado --> Impossível Inserir este Paciente!\n");
+                                            
+                                            printf("\n[1] Inserir outro paciente [2] Ir para o Menu Pacientes\n");
+
+                                            opcao_selecionada = interacao_pos_erro();
+                                        }
+                                        printf("RG Alterado com Sucesso!\n");
+                                        printf("De: %s ---> Para: %s", RG_antigo, RG_pacientes[index_paciente]);
+
+                                        break;
+                                    case 3:
+                                        printf("\nOpção -> [2], \"Alterar CPF\" Selecionada...\n\n");
+
+                                        char CPF_antigo[12];
+                                        strcpy(CPF_antigo ,CPF_pacientes[index_paciente]);
+
+                                        cadastra_documento("CPF", CPF_pacientes[espaco_livre], espaco_livre);
+                                        if(procura_documento(CPF_pacientes[espaco_livre], CPF_pacientes, 12, espaco_livre)) { 
+                                            printf("CPF já cadastrado --> Impossível Inserir este Paciente!\n");
+                                            
+                                            printf("\n[1] Inserir outro paciente [2] Ir para o Menu Pacientes\n");
+
+                                            opcao_selecionada = interacao_pos_erro();
+                                        }
+                                        printf("CPF Alterado com Sucesso!\n");
+                                        printf("De: %s ---> Para: %s", CPF_antigo, CPF_antigo[index_paciente]);
+
+                                        break;
+                                    case 4:
+                                        printf("\nOpção -> [2], \"Alterar Tipo Sanguíneo\" Selecionada...\n\n");
+                                        break;
+
                                     default:
                                         break;
                                 }  

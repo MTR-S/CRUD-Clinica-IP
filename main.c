@@ -209,7 +209,8 @@ int main(void) {
 
                             printf("-> Código: ");
                             char alterar_paciente_codigo[9];
-                            ler_str(alterar_paciente_codigo); // nao esta lendo direito
+                            scanf("%s", &alterar_paciente_codigo);
+                            //ler_str(alterar_paciente_codigo); // nao esta lendo direito
 
                             int index_paciente = procura_codigo(alterar_paciente_codigo,codigo_pacientes,QNTD_ATENDIMENTOS);
                             if(index_paciente >= 0) {
@@ -243,16 +244,15 @@ int main(void) {
                                         }
 
                                         printf("\nNome Alterado com Sucesso!\n");
-                                        printf("De: %s -----> Para: %s", nome_antigo, nomes_pacientes[index_paciente]);
+                                        printf("De: %s ---> Para: %s", nome_antigo, nomes_pacientes[index_paciente]);
                                         break;
                                     
                                     default:
                                         break;
-                                }
-                                
+                                }  
                             }
                             else {
-                                printf("Paciente de Código %s NÃO Encontrado Verifique o Código e CPF Inseridos!", alterar_paciente_codigo);
+                                printf("Paciente de Código %s NÃO Encontrado Verifique o Código Inserido!", alterar_paciente_codigo);
                                 // colocar opcao de inserri de volta ou voltar para o menu de pacientes
                             }
                             

@@ -230,4 +230,5 @@ void valida_codigo(char codigo[], char codigo_pacientes[][8], int tamanho_matriz
     }
 }
 */
+//babau
 #endif

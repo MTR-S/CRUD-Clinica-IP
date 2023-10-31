@@ -56,6 +56,11 @@ int main(void) {
                 while(1) {
                     int interacao_menu_pacientes = menu_pacientes();
                     int espaco_livre;
+                    char opcao_selecionada;
+                    int ja_cadastrado;
+                    int informacao_nao_obrigatoria;
+                    int formatacao_incorreta;
+
 
                     switch (interacao_menu_pacientes) {
                         case 1:
@@ -68,32 +73,20 @@ int main(void) {
                                     printf("\nCadastro Impossível, Quantidade de Pacientes Cadastrados Cheia!\n");
                                     break;
                                 }
-
-                                printf("Digite o Nome do Paciente:\n");
-                                ler_string(nomes_pacientes[espaco_livre]);
                                 
-                                int nome_incorreto = checar_string(nomes_pacientes[espaco_livre]);
-                                if(nome_incorreto) {
-                                    printf("Digite o nome corretamente!\n");
-                                    continue;
-                                }
+                                if(cadastra_nome_paciente(nomes_pacientes, espaco_livre, QNTD_PACIENTES)) {
+                                    printf("\n[1] Inserir outro paciente [2] Ir para o Menu Pacientes\n");
 
-                                formata_string_maisculo(nomes_pacientes[espaco_livre]);
+                                    opcao_selecionada = interacao_pos_erro();
                                 
-                                char opcao_selecionada;
-                                int ja_cadastrado;
-                                int informacao_nao_obrigatoria;
-                                int formatacao_incorreta;
-
-                                ja_cadastrado = ja_existe(nomes_pacientes[espaco_livre],nomes_pacientes,QNTD_PACIENTES,espaco_livre);
-                                if(ja_cadastrado) { 
-                                    printf("Paciente já cadastrado!");
-                                    
-                                    opcao_selecionada = coletar_opcao("Inserir outro paciente", "Ir para o Menu Pacientes");
-                                    if(opcao_selecionada) continue;
-                                    else break;
-                                }
-
+                                    if(opcao_selecionada == '1') {
+                                        printf("\nOpção -> [1], \"Inserir outro paciente\" Selecionada...\n\n"); 
+                                        continue;
+                                    }
+                                    else {
+                                        printf("\nOpção -> [2], \"Ir para o Menu Pacientes\" Selecionada...\n\n"); 
+                                        break;
+                                    }
                                 }
                                 
                                 cria_codigo(codigo_pacientes,espaco_livre);
@@ -107,25 +100,46 @@ int main(void) {
                                 }
                                 if(ja_cadastrado) { 
                                     printf("RG já cadastrado --> Impossível Inserir este Paciente!\n");
+                                    
+                                    printf("\n[1] Inserir outro paciente [2] Ir para o Menu Pacientes\n");
 
-                                    opcao_selecionada = coletar_opcao("Inserir outro paciente", "Ir para o Menu Pacientes");
-                                    if(opcao_selecionada) continue;
-                                    else break;
+                                    opcao_selecionada = interacao_pos_erro();
+                                
+                                    if(opcao_selecionada == '1') {
+                                        printf("\nOpção -> [1], \"Inserir outro paciente\" Selecionada...\n\n"); 
+                                        continue;
+                                    }
+                                    else {
+                                        printf("\nOpção -> [2], \"Ir para o Menu Pacientes\" Selecionada...\n\n"); 
+                                        break;
+                                    }
+
                                 }
-            
+
+
                                 cadastra_documento("CPF", CPF_pacientes[espaco_livre], espaco_livre);
                                 ja_cadastrado = procura_documento(CPF_pacientes[espaco_livre], CPF_pacientes, 12, espaco_livre); 
-                                if(ja_cadastrado) {
+                                if(ja_cadastrado) { 
                                     printf("CPF já cadastrado --> Impossível Inserir este Paciente!\n");
                                     
-                                    opcao_selecionada = coletar_opcao("Inserir outro paciente", "Ir para o Menu Pacientes");
-                                    if(opcao_selecionada) continue;
-                                    else break;
+                                    printf("\n[1] Inserir outro paciente [2] Ir para o Menu Pacientes\n");
+
+                                    opcao_selecionada = interacao_pos_erro();
+                                
+                                    if(opcao_selecionada == '1') {
+                                        printf("\nOpção -> [1], \"Inserir outro paciente\" Selecionada...\n\n"); 
+                                        continue;
+                                    }
+                                    else {
+                                        printf("\nOpção -> [2], \"Ir para o Menu Pacientes\" Selecionada...\n\n"); 
+                                        break;
+                                    }
+
                                 }
 
                                 while (1) {
                                     printf("Digite o seu Tipo Sanguíneo (Sem o Fator RH) ou ENTER para pular:\n");
-                                    printf("[1] A     [2] B     [3] AB     [4] O\n"); 
+                                    printf("[1] A     [2] B     [3] AB     [4] O\n");  // dando erro porque a string e maior e eu to querendo colocar uma menor eu acho
                                     ler_str(tipo_sanguineo_pacientes[espaco_livre]);
 
                                     informacao_nao_obrigatoria = cadastro_informacao_nao_obrigatorio(tipo_sanguineo_pacientes[espaco_livre]);
@@ -168,11 +182,12 @@ int main(void) {
 
                                 exibe_informacoes_paciente(nomes_pacientes, codigo_pacientes, RG_pacientes, CPF_pacientes, tipo_sanguineo_pacientes, fator_RH_pacientes, endereco_pacientes, datas_nascimento_pacientes, espaco_livre);
 
+                                //nome dando erro ao errar uma vez
+
                                 pacientes_ativos[espaco_livre] = 1;
                                 
+                                printf("\n[1] Incluir novo paciente   [2] Voltar ao Menu Pacientes\n");
 
-                                coletar_opcao("Incluir novo paciente ", "Voltar ao Menu Pacientes");
-                                
                                 opcao_selecionada = interacao_pos_erro();
                                 
                                 if(opcao_selecionada == '1') {
@@ -190,27 +205,56 @@ int main(void) {
                             system("clear");
                             printf("\nOpção -> [2], \"Alterar um Paciente Existente\" Selecionada...\n\n");
 
-                            printf("Digite o CPF e Código do Paciente que Deseja Alterar: \n");
-
-                            printf("-> CPF: ");
-                            char alterar_paciente_cpf[11];
-                            ler_string(alterar_paciente_cpf);
+                            printf("Digite o Código do Paciente que Deseja Alterar: \n");
 
                             printf("-> Código: ");
                             char alterar_paciente_codigo[9];
-                            ler_str(alterar_paciente_codigo);
+                            ler_str(alterar_paciente_codigo); // nao esta lendo direito
 
-                            int achou_paciente = procura_codigo(alterar_paciente_codigo,codigo_pacientes,QNTD_ATENDIMENTOS);
-                            if(achou_paciente >= 0) {
+                            int index_paciente = procura_codigo(alterar_paciente_codigo,codigo_pacientes,QNTD_ATENDIMENTOS);
+                            if(index_paciente >= 0) {
                                 printf("Paciente de Código %s Encontrado\n", alterar_paciente_codigo);
-                                printf("Qual Informação Você deseja alterar?\n");
-                                printf("[1] Nome     [2] RG     [3] CPF     [4] Tipo Sanguíneo     [5] Fator RH     [6] Endereço     [7] Data de Nascimento");
+
+                                printf("\nQual Informação Você deseja alterar?\n");
+                                printf("[1] Nome     [2] RG     [3] CPF     [4] Tipo Sanguíneo     [5] Fator RH     [6] Endereço     [7] Data de Nascimento\n");
+                                int alteracao_desejada;
+                                scanf("%d", &alteracao_desejada);
+
+                                switch (alteracao_desejada) {
+                                    case 1:
+                                        printf("\nOpção -> [1], \"Alterar Nome\" Selecionada...\n\n");
+
+                                        char nome_antigo[255];
+                                        strcpy(nome_antigo ,nomes_pacientes[index_paciente]);                               
+
+                                        if(cadastra_nome_paciente(nomes_pacientes, index_paciente, QNTD_PACIENTES)) {
+                                            printf("\n[1] Inserir outro paciente [2] Ir para o Menu Pacientes\n");
+
+                                            opcao_selecionada = interacao_pos_erro();
+                                        
+                                            if(opcao_selecionada == '1') {
+                                                printf("\nOpção -> [1], \"Inserir outro paciente\" Selecionada...\n\n"); 
+                                                continue;
+                                            }
+                                            else {
+                                                printf("\nOpção -> [2], \"Ir para o Menu Pacientes\" Selecionada...\n\n"); 
+                                                break;
+                                            }
+                                        }
+
+                                        printf("\nNome Alterado com Sucesso!\n");
+                                        printf("De: %s -----> Para: %s", nome_antigo, nomes_pacientes[index_paciente]);
+                                        break;
+                                    
+                                    default:
+                                        break;
+                                }
+                                
                             }
                             else {
                                 printf("Paciente de Código %s NÃO Encontrado Verifique o Código e CPF Inseridos!", alterar_paciente_codigo);
-                                break;
                                 // colocar opcao de inserri de volta ou voltar para o menu de pacientes
-                            } 
+                            }
                             
                         case 3:
                             printf("\nOpção -> [3], \"Excluir um Paciente\" Selecionada...\n\n");

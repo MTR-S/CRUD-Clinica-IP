@@ -203,4 +203,30 @@ int procura_documento(char documento_paciente[], char matriz_documento[][12], in
     return 0;
 }
 
+
+int cadastra_nome_paciente(char matriz_nomes_pacientes[][255],int espaco_livre, int QNTD_PACIENTES) {
+    while(1) {
+        printf("Digite o Nome do Paciente:\n");
+        ler_string(matriz_nomes_pacientes[espaco_livre]);
+        
+        int nome_incorreto = checar_string(matriz_nomes_pacientes[espaco_livre]);
+        if(nome_incorreto) {
+            printf("Digite o nome corretamente!\n");
+            continue;
+        }
+
+        formata_string_maisculo(matriz_nomes_pacientes[espaco_livre]);
+        
+        int ja_cadastrado = ja_existe(matriz_nomes_pacientes[espaco_livre], matriz_nomes_pacientes,QNTD_PACIENTES,espaco_livre);
+        if(ja_cadastrado) { 
+            printf("Paciente já cadastrado!");
+            return 1;
+        }
+
+        break;
+    }
+
+    return 0;
+}
+
 #endif

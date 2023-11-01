@@ -23,7 +23,7 @@ int menu_pacientes() {
     int interacao_menu_pacientes;
     scanf("%d", &interacao_menu_pacientes);
 
-    system("cls");
+    system("clear");
 
     return interacao_menu_pacientes;
 }
@@ -158,7 +158,7 @@ int cadastra_documento(char tipo_documento[], char str_documento[], int espaco_l
 
         int documento_nao_obrigatorio = !(strcmp(tipo_documento, "RG"));
         if(documento_nao_obrigatorio) {
-            printf(" ou ENTER para pular:\n");
+            printf(" ou ENTER para Não Informar:\n");
         }
         else {
             printf(":\n");
@@ -221,7 +221,7 @@ int cadastra_nome_paciente(char matriz_nomes_pacientes[][255],int espaco_livre, 
         
         int ja_cadastrado = ja_existe(matriz_nomes_pacientes[espaco_livre], matriz_nomes_pacientes,QNTD_PACIENTES,espaco_livre);
         if(ja_cadastrado) { 
-            printf("Paciente já cadastrado!");
+            printf("Paciente já cadastrado!\n");
             return 1;
         }
 
@@ -230,5 +230,6 @@ int cadastra_nome_paciente(char matriz_nomes_pacientes[][255],int espaco_livre, 
 
     return 0;
 }
+
 //babau
 #endif

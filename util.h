@@ -27,25 +27,37 @@ int menu_principal() {
     printf(BLUE" \t[2] "RESET"Atendimento\t");
     printf(BLUE"\t[3]"RESET" Encerrar\n");
 
-    fflush(stdin);
-    int interacao_menu_pacientes;
-    scanf("%d", &interacao_menu_pacientes);
+    while(1) {
+        int interacao_menu_pacientes;
 
-    system("cls");
+        fflush(stdin);
+        interacao_menu_pacientes = getchar();
 
-    return interacao_menu_pacientes;
+        switch (interacao_menu_pacientes)
+        {
+        case '1':
+            return 1;
+        case '2':
+            return 2;
+        case '3':
+            return 3;
+        case '\n':
+            break;
+        default:
+            printf("Selecione uma das opções anteriores!\n");
+            break;
+        };
+    }
 }
 
 int coletar_opcao(char opcao1[],char opcao2[]){
+    printf(BLUE"[0]"RESET" %s   "BLUE"[1]"RESET"%s\n", opcao1, opcao2);
+
     while(1) {
         char opcao;
 
-        printf(BLUE"[0]"RESET" %s   "BLUE"[1]"RESET"%s\n", opcao1, opcao2);;
         fflush(stdin);
-
-        opcao= getchar();
-        fflush(stdin);
-        opcao= getchar();
+        opcao = getchar();
 
         switch(opcao) {
             case '0':
@@ -54,9 +66,11 @@ int coletar_opcao(char opcao1[],char opcao2[]){
             case '1':
                 printf("\nOpção -> [1], \"%s\" Selecionada...\n\n", opcao2); 
                 return 1;
+            case '\n':
+                break;
             default:
                 printf("Digite Apenas 0 ou 1\n");                            
-                continue;
+                break;
         }
     }
 }
@@ -83,6 +97,7 @@ int procura_espaco_livre(int vetor_ativos[], int tamanho_vetor) {
 
 
 void ler_str(char string[]) {
+    
     printf(BLUE);
     fflush(stdin);
     gets(string);

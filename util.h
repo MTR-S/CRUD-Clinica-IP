@@ -18,11 +18,11 @@
 
 
 int menu_principal() {
-    printf("\n******************************************\n");
-    printf("\n*Seja Muito Bem vindo(a) a Clinica Fatima*\n");
-    printf("\n******************************************\n");
+    printf(BLUE"\n******************************************\n"RESET);
+    printf("\n"BLUE"*"RESET YELLOW"Seja Muito Bem vindo(a) a Clinica Fatima"RESET BLUE"*\n"RESET);
+    printf(BLUE"\n******************************************\n"RESET);
 
-    printf("\nSelecione como você deseja acessar nosso sistema: \n");
+    printf(YELLOW"\nSelecione como você deseja acessar nosso sistema: \n"RESET);
     printf(BLUE"[1]"RESET "Paciente");
     printf(BLUE" \t[2] "RESET"Atendimento\t");
     printf(BLUE"\t[3]"RESET" Encerrar\n");
@@ -61,10 +61,10 @@ int coletar_opcao(char opcao1[],char opcao2[]){
 
         switch(opcao) {
             case '0':
-                printf("\nOpção -> [0], \"%s\" Selecionada...\n\n", opcao1); 
+                printf("\nOpção -> "BLUE"[0], \"%s\""RESET"Selecionada...\n\n", opcao1); 
                 return 0;
             case '1':
-                printf("\nOpção -> [1], \"%s\" Selecionada...\n\n", opcao2); 
+                printf("\nOpção -> "BLUE"[1], \"%s\""RESET" Selecionada...\n\n", opcao2); 
                 return 1;
             case '\n':
                 break;
@@ -245,5 +245,5 @@ void valida_codigo(char codigo[], char codigo_pacientes[][8], int tamanho_matriz
     }
 }
 */
-//babau
+//sonambulo
 #endif

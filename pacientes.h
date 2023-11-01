@@ -9,16 +9,16 @@
 
 
 int menu_pacientes() {
-    printf("\n-----------------------------MENU PACIENTES-----------------------------\n");
-    printf("Selecione a funcionalidade que desejar: \n");
-    printf("\n[1] Inserir um Novo Paciente\n[2] Alterar um Paciente Existente");
-    printf("\n[3] Excluir um Paciente\n[4] Exibir os Dados de um Paciente pelo seu Código");
-    printf("\n[5] Exibir os Dados de Pacientes que Apresentam o Mesmo Tipo Sanguíneo");
-    printf("\n[6] Exibir os Dados de Pacientes pelo Dia de Consulta\n[7] Exibir Todos os Pacientes");
-    printf("\n[8]Exibir Todos os Pacientes em Ordem Alfabética\n[9]Voltar para o Menu Anterior");
+    printf("\n-----------------------------"BLUE"MENU PACIENTES"RESET"-----------------------------\n");
+    printf(YELLOW"Selecione a funcionalidade que desejar: \n"RESET);
+    printf("\n"BLUE"[1]"RESET" Inserir um Novo Paciente\n"BLUE"[2]"RESET" Alterar um Paciente Existente");
+    printf("\n"BLUE"[3]"RESET" Excluir um Paciente\n"BLUE"[4]"RESET" Exibir os Dados de um Paciente pelo seu Código");
+    printf("\n"BLUE"[5]"RESET" Exibir os Dados de Pacientes que Apresentam o Mesmo Tipo Sanguíneo");
+    printf("\n"BLUE"[6]"RESET" Exibir os Dados de Pacientes pelo Dia de Consulta\n"BLUE"[7]"RESET" Exibir Todos os Pacientes");
+    printf("\n"BLUE"[8]"RESET"Exibir Todos os Pacientes em Ordem Alfabética\n"BLUE"[9]"RESET"Voltar para o Menu Anterior");
     printf("\n------------------------------------------------------------------------\n");
 
-    printf("\n\nDigite o Número Correlacionado a Funcionalidade Desejada: ");
+    printf(YELLOW"\n\nDigite o Número Correlacionado a Funcionalidade Desejada: "RESET);
     fflush(stdin);
     int interacao_menu_pacientes;
     scanf("%d", &interacao_menu_pacientes);
@@ -70,15 +70,15 @@ int opcoes_pacientes(int funcionalidade_selecionada) {
 
 
 void exibe_informacoes_paciente(char nomes_pacientes[][255], char codigo_pacientes[][8], char RG_pacientes[][12], char CPF_pacientes[][12], char tipo_sanguineo_pacientes[][3], char fator_RH_pacientes[][9], char endereco_pacientes[][255], char datas_nascimento_pacientes[][255], int espaco_livre) {
-    printf("\n-----------Paciente cadastrado-----------\n");
-    printf("-> Paciente: %s\n", &nomes_pacientes[espaco_livre]);
-    printf("-> Código do Paciente: %s\n", &codigo_pacientes[espaco_livre]);
-    printf("-> RG do Paciente: %s\n", &RG_pacientes[espaco_livre]);
-    printf("-> CPF do Paciente: %s\n", &CPF_pacientes[espaco_livre]);
-    printf("-> Tipo Sanguíneo do Paciente: %s\n", &tipo_sanguineo_pacientes[espaco_livre]);
-    printf("-> Fator RH  do Paciente: %s\n", &fator_RH_pacientes[espaco_livre]);
-    printf("-> Endereço do Paciente: %s\n", &endereco_pacientes[espaco_livre]);
-    printf("-> Data de Nascimento do Paciente: %s\n", &datas_nascimento_pacientes[espaco_livre]);
+    printf("\n-----------"GREEN"Paciente"RESET"-----------\n");
+    printf("-> "BLUE"Nome:"RESET" "GREEN"%s\n"RESET, &nomes_pacientes[espaco_livre]);
+    printf("-> "BLUE"Código do Paciente:"RESET" "GREEN"%s\n"RESET, &codigo_pacientes[espaco_livre]);
+    printf("-> "BLUE"RG do Paciente:"RESET" "GREEN"%s\n"RESET, &RG_pacientes[espaco_livre]);
+    printf("-> "BLUE"CPF do Paciente:"RESET" "GREEN"%s\n"RESET, &CPF_pacientes[espaco_livre]);
+    printf("-> "BLUE"Tipo Sanguíneo do Paciente:"RESET" "GREEN"%s\n"RESET, &tipo_sanguineo_pacientes[espaco_livre]);
+    printf("-> "BLUE"Fator RH  do Paciente:"RESET" "GREEN"%s\n"RESET, &fator_RH_pacientes[espaco_livre]);
+    printf("-> "BLUE"Endereço do Paciente:"RESET" "GREEN"%s\n"RESET, &endereco_pacientes[espaco_livre]);
+    printf("-> "BLUE"Data de Nascimento do Paciente:"RESET GREEN"%s\n"RESET, &datas_nascimento_pacientes[espaco_livre]);
     printf("--------------------------------------------\n");
 
 }
@@ -193,11 +193,11 @@ int cadastro_informacao_nao_obrigatorio(char str_documento[]) {
 }
 
 
-int procura_documento(char documento_paciente[], char matriz_documento[][12], int tamanho_matriz, int indice_matriz) {  
+int procura_informacao(char informacao_paciente[], char matriz_informacao_paciente[][12], int tamanho_matriz, int indice_matriz) {  
         for(int i = 0; i < tamanho_matriz; i++){
             if(i == indice_matriz)
                 continue;
-            if(!(strcmp(documento_paciente, matriz_documento[i]))){
+            if(!(strcmp(informacao_paciente, matriz_informacao_paciente[i]))){
                 return 1;
             }
     }
@@ -231,5 +231,35 @@ int cadastra_nome_paciente(char matriz_nomes_pacientes[][255],int espaco_livre, 
     return 0;
 }
 
-//babau
+
+void exibe_tipo_sanguineo_pacientes(char tipo_sanguineo[], char matriz_tipo_sanguineo[][3], char matriz_fator_RH[][9], int tam_matriz_tp_sanguineo,char matriz_pacientes[][255]) {
+
+    printf("Tipo Selecionado %s:\n", tipo_sanguineo);
+
+    printf("\n--------------------------Grupo %s-----------------------\n", tipo_sanguineo);
+    printf("---> %s Positivo\n", tipo_sanguineo);
+    busca_tipo_sanguineo(tam_matriz_tp_sanguineo, tipo_sanguineo, matriz_tipo_sanguineo, matriz_fator_RH, "Positivo", matriz_pacientes);
+    printf("\n---------------------------------------------------------");
+    printf("\n---> %s Negativo\n", tipo_sanguineo);
+    busca_tipo_sanguineo(tam_matriz_tp_sanguineo, tipo_sanguineo, matriz_tipo_sanguineo, matriz_fator_RH, "Negativo", matriz_pacientes);
+}
+
+
+void busca_tipo_sanguineo(int tam_matriz_tp_sanguineo, char tipo_sanguineo[], char matriz_tipo_sanguineo[][3], char matriz_fator_RH[][9], char fator_rh_escolhido[] ,char matriz_pacientes[][255]) {
+        int contador = 0;
+
+        for(int i = 0; i < tam_matriz_tp_sanguineo; i++) {
+            if(!(strcmp(tipo_sanguineo, matriz_tipo_sanguineo[i])) && !strcmp(fator_rh_escolhido, matriz_fator_RH[i])) {
+                printf("-> Paciente: %s\n", matriz_pacientes[i]);
+                contador++;
+            }
+        }
+
+        if(!contador) {
+            printf("Sem Pacientes!\n");
+        }
+}
+
+
+//sonambulo
 #endif

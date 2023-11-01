@@ -1,0 +1,1 @@
+printf("\nOpção -> [7], \"Exibir Todos os Pacientes\" Selecionada...\n\n");

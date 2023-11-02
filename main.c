@@ -364,8 +364,8 @@ int main(void) {
                             }
                             break;
                         case 5:
-                            printf("\nOpção -> [5], \"Exibir os Dados de Pacientes que Apresentam o Mesmo"
-                                " Tipo Sanguíneo\" Selecionada...\n\n");
+                            printf("\nOpção -> "BLUE"[5], \"Exibir os Dados de Pacientes que Apresentam o Mesmo"
+                                " Tipo Sanguíneo\""RESET" Selecionada...\n\n");
                                 
                             while(1) {
                                 printf("Escolha um Tipo Sanguíneo para Vizualizar os Pacientes que pertecem a esse Determinado Grupo:\n");
@@ -388,7 +388,15 @@ int main(void) {
                             printf("\nOpção -> [6], \"Exibir os Dados de Pacientes pelo Dia de "
                                 "Consulta\" Selecionada...\n\n");
                         case 7:
-                            printf("\nOpção -> [7], \"Exibir Todos os Pacientes\" Selecionada...\n\n");
+                            while(1) {
+                                printf("\nOpção -> "BLUE"[7], \"Exibir Todos os Pacientes\""RESET" Selecionada...\n\n");
+
+                                exibir_todos_pacientes(nomes_pacientes, pacientes_ativos, QNTD_ATENDIMENTOS);
+
+                                if(!coletar_opcao("Exibir todos os Pacientes Novamente", "Ir para o Menu Pacientes")) {continue;}
+                                else {break;}
+                            }
+                            break;
                         case 8:
                             printf("\nOpção -> [8], \"Exibir Todos os Pacientes em Ordem"
                                 " Alfabética\" Selecionada...\n\n");
@@ -399,9 +407,9 @@ int main(void) {
                             printf("\nSelecione alguma das opções anteriores!\n");
                             break;
                     }
-                    if(interacao_menu_pacientes==9)break;
-                    continue;
-                }continue;
+                if(interacao_menu_pacientes==9){break;}
+                }
+    continue;
             case 2:
                 system("clear");
                 printf(BLUE"\nMenu \"Atendimento\" Selecionado...\n"RESET);
@@ -590,7 +598,7 @@ int main(void) {
                     continue;
                 }continue;
             case 3:
-                printf(RED"\nSaída do Sistema Confirmada!\n"RESET);
+                printf(GREEN"\nSaída do Sistema Confirmada!\n"RESET);
                 return 0;
             default:
                 printf("Selecione alguma das opções anteriores!\n");

@@ -261,5 +261,19 @@ void busca_tipo_sanguineo(int tam_matriz_tp_sanguineo, char tipo_sanguineo[], ch
 }
 
 
+void exibir_todos_pacientes(char matriz_pacientes[][255], int vetor_ativos[], int tamanho_matriz) {
+    int count = 0;
+
+    printf(BLUE"----Pacientes cadastrados na Clinica Fátima----\n"RESET);
+    for(int i = 0; i < tamanho_matriz; i++) {
+        if(vetor_ativos[i]) {
+            printf("-> "GREEN"Paciente (%03d): %s"RESET"\n", i , matriz_pacientes[i]);
+            count++;;
+        }
+    }
+    if(!count){printf(RED"Sem Pacientes Cadastrados!\n"RESET);}
+
+    printf(BLUE"-----------------------------------------------\n\n"RESET);
+}
 //sonambulo
 #endif

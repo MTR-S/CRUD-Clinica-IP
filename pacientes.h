@@ -209,7 +209,7 @@ int procura_informacao(char informacao_paciente[], char matriz_informacao_pacien
 int cadastra_nome_paciente(char matriz_nomes_pacientes[][255],int espaco_livre, int QNTD_PACIENTES) {
     while(1) {
         printf("Digite o Nome do Paciente:\n");
-        ler_string(matriz_nomes_pacientes[espaco_livre]);
+        ler_str(matriz_nomes_pacientes[espaco_livre]);
         
         int nome_incorreto = checar_string(matriz_nomes_pacientes[espaco_livre]);
         if(nome_incorreto) {

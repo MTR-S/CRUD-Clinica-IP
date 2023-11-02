@@ -100,7 +100,7 @@ int main(void) {
                                 }
 
                                 while (1) {
-                                    printf("Digite o seu Tipo Sanguíneo (Sem o Fator RH) ou ENTER para pular:\n");
+                                    printf("Selecione o seu Tipo Sanguíneo (Sem o Fator RH) ou ENTER para pular:\n");
                                     printf(BLUE"[1] A     [2] B     [3] AB     [4] O\n"RESET);  
                                     ler_str(tipo_sanguineo_pacientes[espaco_livre]);
 
@@ -116,7 +116,7 @@ int main(void) {
                                 }
 
                                 while(1) {
-                                    printf("Digite o Fator RH do Paciente (Positivo ou Negativo) ou ENTER para pular:\n");
+                                    printf("Selecione o Fator RH do Paciente (Positivo ou Negativo) ou ENTER para pular:\n");
                                     printf(BLUE"[1] Positivo     [2] Negativo\n"RESET);
                                     ler_str(fator_RH_pacientes[espaco_livre]);
 
@@ -151,7 +151,7 @@ int main(void) {
                             while(1) {
                                 printf("\nOpção -> "BLUE"[2], \"Alterar um Paciente Existente\""RESET" Selecionada...\n\n");
 
-                                printf("Digite o Código do Paciente que Deseja Alterar: \n");
+                                printf("Digite o Código do Paciente que Deseja Alterar: \n\n");
 
                                 printf("-> Código: ");
                                 char alterar_paciente_codigo[9];
@@ -225,9 +225,9 @@ int main(void) {
                                             strcpy(tipo_sanguineo_antigo ,tipo_sanguineo_pacientes[index_paciente]);
 
                                             while (1) {
-                                                printf("Digite o seu Tipo Sanguíneo:\n");
-                                                printf("[1] A     [2] B     [3] AB     [4] O\n");  
-                                                ler_string(tipo_sanguineo_pacientes[index_paciente]);
+                                                printf("Selecione o seu Tipo Sanguíneo:\n");
+                                                printf(BLUE"[1] A     [2] B     [3] AB     [4] O\n"RESET);  
+                                                ler_str(tipo_sanguineo_pacientes[index_paciente]);
                                 
                                                 formatacao_incorreta = valida_tipo_sanguineo(tipo_sanguineo_pacientes[index_paciente]);
                                                 if(formatacao_incorreta) {
@@ -249,8 +249,8 @@ int main(void) {
                                             strcpy(fator_RH_antigo ,fator_RH_pacientes[index_paciente]);
 
                                             while(1) {
-                                                printf("Digite o Fator RH do Paciente (Positivo ou Negativo):\n");
-                                                printf("[1] Positivo     [2] Negativo\n");
+                                                printf("Selecione o Fator RH do Paciente (Positivo ou Negativo):\n");
+                                                printf(BLUE"[1] Positivo     [2] Negativo\n"RESET);
                                                 ler_str(fator_RH_pacientes[index_paciente]);
 
                                                 formatacao_incorreta = valida_fato_rh(fator_RH_pacientes[index_paciente]);
@@ -297,7 +297,7 @@ int main(void) {
                                     }  
                                 }
                                 else {
-                                    printf(RED"Paciente de Código %s NÃO Encontrado Verifique o Código Inserido!\n"RESET, alterar_paciente_codigo);
+                                    printf(RED"Paciente de Código %s NÃO Encontrado Verifique o Código Inserido!\n\n"RESET, alterar_paciente_codigo);
 
                                     if(!coletar_opcao("Inserir Novo Código", "Ir para o Menu Pacientes")) {continue;}
                                     else {break;}
@@ -320,9 +320,11 @@ int main(void) {
                                     printf(GREEN"---> Paciente de Código %s Encontrado\n"RESET, codigo_paciente_excluido);
                                     exibe_informacoes_paciente(nomes_pacientes, codigo_pacientes, RG_pacientes, CPF_pacientes, tipo_sanguineo_pacientes, fator_RH_pacientes, endereco_pacientes, datas_nascimento_pacientes, index_paciente);
 
-                                    printf(RED"Deseja Realmente Excluir esse paciente?\n"RESET);
+                                    printf(RED"\nDeseja Realmente Excluir esse paciente?\n"RESET);
                                     if(!coletar_opcao("Confirmar Exclusão", "Voltar para o Menu Pacientes")) {
                                         pacientes_ativos[index_paciente] = 0;
+                                        strcpy(codigo_pacientes, "Espaco Livre");
+
                                         printf(GREEN"Paciente Excluído com Sucesso!"RESET);
                                         //inserir funcao que preenche matriz com VOID ou ESPAÇO LIVRE
                                         break;

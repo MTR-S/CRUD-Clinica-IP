@@ -29,7 +29,7 @@ char datas_nascimento_pacientes[QNTD_PACIENTES][255];
 
 int atendimentos_ativos[QNTD_ATENDIMENTOS];
 
-int paciente_do_atendimento[QNTD_ATENDIMENTOS];//guarda o indice do paciente para cada atendimento
+int paciente_do_atendimento[QNTD_ATENDIMENTOS];
 char codigo_atendimentos[QNTD_ATENDIMENTOS][8];
 char tipo_atendimentos[QNTD_ATENDIMENTOS][255];  
 char data_atendimentos[QNTD_ATENDIMENTOS][255];
@@ -54,11 +54,9 @@ int main(void) {
                 printf(BLUE"\nMenu \"Paciente\" Selecionado...\n"RESET);
 
                 while(1) {
-                    int interacao_menu_pacientes = menu_pacientes();  // tratar a entrada ao colocar qualquer outra coisa alem das funcionalidades
-                    int espaco_livre;                                 //nome dando erro ao errar uma vez
-                    char opcao_selecionada;                           //colocar um laço q percorra o vetor de ativos e se so tiver 0 falar q n tem ngm cadastrado NO CASE 2 ALTERAR PACIENTE    
-                    int ja_cadastrado;                                // falar com o vinhas sobre o erro na leitura
-                    int informacao_nao_obrigatoria;                   // funcao ler nao esta funcionando, muitos erros!!!
+                    int interacao_menu_pacientes = menu_pacientes(); 
+                    int espaco_livre;                                                           
+                    int informacao_nao_obrigatoria;                   
                     int formatacao_incorreta;
 
 
@@ -357,7 +355,7 @@ int main(void) {
                                     else {break;}
                                 }
                                 else {
-                                    printf("Paciente de Código %s NÃO Encontrado Verifique o Código Inserido!\n", exibir_dados_codigo);
+                                    printf(RED"Paciente de Código %s NÃO Encontrado Verifique o Código Inserido!\n"RESET, exibir_dados_codigo);
                                     if(!coletar_opcao("Inserir Novo Código", "Ir para o Menu Pacientes")) {continue;}
                                     else {break;}
                                 }
@@ -401,22 +399,30 @@ int main(void) {
                             printf("\nOpção -> [8], \"Exibir Todos os Pacientes em Ordem"
                                 " Alfabética\" Selecionada...\n\n");
 
-                            /* const int TAM_VETOR = cria_tamanho_limitando_ativos(pacientes_ativos, QNTD_PACIENTES);
-                            int limitando_ativos[TAM_VETOR]; 
-                            completa_vetor_limitando_ativos(pacientes_ativos, TAM_VETOR, nomes_pacientes, QNTD_ATENDIMENTOS, limitando_ativos); */
+                            int index_paciente = verifica_pacientes_ativos(pacientes_ativos, QNTD_PACIENTES);
+                            if(!index_paciente) {
 
-                            // ordena_pacientes_ordem_alfabetica(pacientes_ativos, QNTD_PACIENTES, nomes_pacientes, QNTD_PACIENTES, vetor_limitando_ativos);
-                            // exibe_pacientes_ordem_alfabetica(nomes_pacientes, vetor_limitando_ativos, TAM_VETOR);
+                                const int TAM_VETOR = cria_tamanho_limitando_ativos(pacientes_ativos, QNTD_PACIENTES);
+                                int limitando_ativos[TAM_VETOR]; 
 
-                            break;   
+                                completa_vetor_limitando_ativos(pacientes_ativos, TAM_VETOR, nomes_pacientes, QNTD_ATENDIMENTOS, limitando_ativos);
+                                ordena_pacientes_ordem_alfabetica(nomes_pacientes, QNTD_PACIENTES, limitando_ativos);
+                                exibe_pacientes_ordem_alfabetica(nomes_pacientes, limitando_ativos, TAM_VETOR);
+
+                                break;
+                            }
+                            else {
+                                printf(RED"Sem Pacientes Cadastrados!\n\n"RESET);
+                                break;   
+                            }
                         case 9:
                             printf("\nOpção -> [9], \"Voltar para o Menu Anterior\" Selecionada...\n\n");
                             break;
                         default:
-                            printf("\nSelecione alguma das opções anteriores!\n");
+                            printf(RED"\nSelecione alguma das opções anteriores!\n"RESET);
                             break;
                     }
-                if(interacao_menu_pacientes==9){break;}
+                if(interacao_menu_pacientes== 9){break;}
                 }
     continue;
             case 2:

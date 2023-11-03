@@ -51,7 +51,7 @@ int menu_principal() {
 }
 
 int coletar_opcao(char opcao1[],char opcao2[]){
-    printf(BLUE"[0]"RESET" %s   "BLUE"[1]"RESET"%s\n", opcao1, opcao2);
+    printf(BLUE"\n[0]"RESET" %s   "BLUE"[1]"RESET"%s\n", opcao1, opcao2);
 
     while(1) {
         char opcao;

@@ -173,7 +173,7 @@ int cadastra_documento(char tipo_documento[], char str_documento[], int espaco_l
     
         int documento_invalido = valida_documento(str_documento);
         if(documento_invalido) {
-            printf("\n%s Inválido!\n", tipo_documento);
+            printf(RED"%s Inválido!\n"RESET, tipo_documento);
             continue;
         }
 
@@ -221,7 +221,7 @@ int cadastra_nome_paciente(char matriz_nomes_pacientes[][255],int espaco_livre, 
         
         int ja_cadastrado = ja_existe(matriz_nomes_pacientes[espaco_livre], matriz_nomes_pacientes,QNTD_PACIENTES,espaco_livre);
         if(ja_cadastrado) { 
-            printf("Paciente já cadastrado!\n");
+            printf(RED"Paciente já cadastrado!\n"RESET);
             return 1;
         }
 
@@ -236,11 +236,11 @@ void exibe_tipo_sanguineo_pacientes(char tipo_sanguineo[], char matriz_tipo_sang
 
     printf("Tipo Selecionado %s:\n", tipo_sanguineo);
 
-    printf("\n--------------------------Grupo %s-----------------------\n", tipo_sanguineo);
-    printf("---> %s Positivo\n", tipo_sanguineo);
+    printf(BLUE"\n--------------------------Grupo %s-----------------------\n"RESET, tipo_sanguineo);
+    printf(YELLOW"---> %s Positivo\n"RESET, tipo_sanguineo);
     busca_tipo_sanguineo(tam_matriz_tp_sanguineo, tipo_sanguineo, matriz_tipo_sanguineo, matriz_fator_RH, "Positivo", matriz_pacientes);
-    printf("\n---------------------------------------------------------");
-    printf("\n---> %s Negativo\n", tipo_sanguineo);
+    printf(BLUE"\n---------------------------------------------------------"RESET);
+    printf(YELLOW"\n---> %s Negativo\n"RESET, tipo_sanguineo);
     busca_tipo_sanguineo(tam_matriz_tp_sanguineo, tipo_sanguineo, matriz_tipo_sanguineo, matriz_fator_RH, "Negativo", matriz_pacientes);
 }
 
@@ -277,37 +277,38 @@ void exibir_todos_pacientes(char matriz_pacientes[][255], int vetor_ativos[], in
 }
 
 
-int cria_tamanho_limitando_ativos(int pacientes_ativos[], int tamanho_pacientes_ativos) {
-    int TAM_VETOR;
+int cria_tamanho_limitando_ativos(int vetor_pacientes_ativos[], int tamanho_pacientes_ativos) {
+    int TAM_VETOR = 0;
 
     for(int i = 0; i < tamanho_pacientes_ativos; i++) {
-        if(pacientes_ativos[i] == 1) {
+        if(vetor_pacientes_ativos[i]) {
             TAM_VETOR++;
         }
     }
+
     return TAM_VETOR;
 }
 
 
-/* void completa_vetor_limitando_ativos(int vetor_pacientes_ativos[], int TAM_VETOR, char matriz_nomes_pacientes[][255], int tamanho_nomes_pacientes, int vetor_limitando_ativos[]) {
+void completa_vetor_limitando_ativos(int vetor_pacientes_ativos[], int TAM_VETOR, char matriz_nomes_pacientes[][255], int tamanho_nomes_pacientes, int vetor_limitando_ativos[]) {
     for(int i = 0; i < tamanho_nomes_pacientes; i++) {
          if(vetor_pacientes_ativos[i] == 1) {    
             vetor_limitando_ativos[i] = i;
          }
     }
- } */
+ } 
 
-/* void ordena_pacientes_ordem_alfabetica(int pacientes_ativos[], int tamanho_pacientes_ativos, char nomes_pacientes[][255], int tamanho_nomes_pacientes, int vetor_limitando_ativos[]) {
+void ordena_pacientes_ordem_alfabetica(char nomes_pacientes[][255], int tamanho_nomes_pacientes, int vetor_limitando_ativos[]) {
     int compara_strings;
 
     for(int i = 0; i < tamanho_nomes_pacientes - 1; i++) {
         int menor = i;
         int aux = 0;
         
-        for(int j = 1; j < tamanho_nomes_pacientes; j++) {
+        for(int j = i + 1; j < tamanho_nomes_pacientes; j++) {
             compara_strings = strcmp(nomes_pacientes[menor], nomes_pacientes[j]);
 
-            if(compara_strings > 0){
+            if(compara_strings > 0) {
                 menor = j;
             }
         }
@@ -321,17 +322,26 @@ int cria_tamanho_limitando_ativos(int pacientes_ativos[], int tamanho_pacientes_
 }
 
 
-void exibe_pacientes_ordem_alfabetica(char nomes_pacientes[][255], int vetor_limitando_ativos[], int tamanho_vetor_limitando_ativos) {
+ void exibe_pacientes_ordem_alfabetica(char nomes_pacientes[][255], int vetor_limitando_ativos[], int tamanho_vetor_limitando_ativos) {
     int indice_ordenado;
     
-    printf("---------Pacientes em Ordem Alfabética(---------");
+    printf(BLUE"---------Pacientes em Ordem Alfabética----------\n"RESET);
 
     for(int i = 0; i < tamanho_vetor_limitando_ativos; i++) {
         indice_ordenado = vetor_limitando_ativos[i];
-        printf("-> %s\n", nomes_pacientes[indice_ordenado]);
+        printf(GREEN"-> %s\n"RESET, nomes_pacientes[indice_ordenado]);
     }
 
-    printf("------------------------------------------------");
-} */
+    printf(BLUE"------------------------------------------------\n"RESET);
+} 
+
+int verifica_pacientes_ativos(int vetor_pacientes_ativos[], int tam_vetor_pacientes_ativos) {
+    for(int i = 0; i < tam_vetor_pacientes_ativos; i++) {
+        if(vetor_pacientes_ativos[i]) {
+            return 0;
+        }
+    }
+    return 1;
+}
 //sonambulo
 #endif

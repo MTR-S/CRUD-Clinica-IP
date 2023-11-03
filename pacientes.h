@@ -275,5 +275,63 @@ void exibir_todos_pacientes(char matriz_pacientes[][255], int vetor_ativos[], in
 
     printf(BLUE"-----------------------------------------------\n\n"RESET);
 }
+
+
+int cria_tamanho_limitando_ativos(int pacientes_ativos[], int tamanho_pacientes_ativos) {
+    int TAM_VETOR;
+
+    for(int i = 0; i < tamanho_pacientes_ativos; i++) {
+        if(pacientes_ativos[i] == 1) {
+            TAM_VETOR++;
+        }
+    }
+    return TAM_VETOR;
+}
+
+
+/* void completa_vetor_limitando_ativos(int vetor_pacientes_ativos[], int TAM_VETOR, char matriz_nomes_pacientes[][255], int tamanho_nomes_pacientes, int vetor_limitando_ativos[]) {
+    for(int i = 0; i < tamanho_nomes_pacientes; i++) {
+         if(vetor_pacientes_ativos[i] == 1) {    
+            vetor_limitando_ativos[i] = i;
+         }
+    }
+ } */
+
+/* void ordena_pacientes_ordem_alfabetica(int pacientes_ativos[], int tamanho_pacientes_ativos, char nomes_pacientes[][255], int tamanho_nomes_pacientes, int vetor_limitando_ativos[]) {
+    int compara_strings;
+
+    for(int i = 0; i < tamanho_nomes_pacientes - 1; i++) {
+        int menor = i;
+        int aux = 0;
+        
+        for(int j = 1; j < tamanho_nomes_pacientes; j++) {
+            compara_strings = strcmp(nomes_pacientes[menor], nomes_pacientes[j]);
+
+            if(compara_strings > 0){
+                menor = j;
+            }
+        }
+
+        if(menor != i) {
+            aux = vetor_limitando_ativos[menor];
+            vetor_limitando_ativos[menor] = vetor_limitando_ativos[i];
+            vetor_limitando_ativos[i] = aux;
+        }
+    }
+}
+
+
+void exibe_pacientes_ordem_alfabetica(char nomes_pacientes[][255], int vetor_limitando_ativos[], int tamanho_vetor_limitando_ativos) {
+    int indice_ordenado;
+    
+    printf("---------Pacientes em Ordem Alfabética(---------");
+
+    for(int i = 0; i < tamanho_vetor_limitando_ativos; i++) {
+        indice_ordenado = vetor_limitando_ativos[i];
+        printf("-> %s\n", nomes_pacientes[indice_ordenado]);
+    }
+
+    printf("------------------------------------------------");
+} */
 //sonambulo
 #endif

@@ -400,6 +400,15 @@ int main(void) {
                         case 8:
                             printf("\nOpção -> [8], \"Exibir Todos os Pacientes em Ordem"
                                 " Alfabética\" Selecionada...\n\n");
+
+                            /* const int TAM_VETOR = cria_tamanho_limitando_ativos(pacientes_ativos, QNTD_PACIENTES);
+                            int limitando_ativos[TAM_VETOR]; 
+                            completa_vetor_limitando_ativos(pacientes_ativos, TAM_VETOR, nomes_pacientes, QNTD_ATENDIMENTOS, limitando_ativos); */
+
+                            // ordena_pacientes_ordem_alfabetica(pacientes_ativos, QNTD_PACIENTES, nomes_pacientes, QNTD_PACIENTES, vetor_limitando_ativos);
+                            // exibe_pacientes_ordem_alfabetica(nomes_pacientes, vetor_limitando_ativos, TAM_VETOR);
+
+                            break;   
                         case 9:
                             printf("\nOpção -> [9], \"Voltar para o Menu Anterior\" Selecionada...\n\n");
                             break;

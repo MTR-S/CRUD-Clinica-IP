@@ -19,23 +19,24 @@ int menu_atendimento() {
     printf(BLUE"\n[3]"RESET" Excluir Atendimento\n"BLUE"[4]"RESET" Exibir Atendimento(Código)");
     printf(BLUE"\n[5]"RESET" Exibir Atendimentos de um Paciente(Código do Paciente)");
     printf(BLUE"\n[6]"RESET" Exibir Atendimentos de um Paciente(Nome do Paciente)\n"BLUE"[7]"RESET" Exibir Todos Atendimentos do Dia");
-    printf(BLUE"\n[8]"RESET" Exibir Todos Atendimentos do Dia\n"BLUE"[9]"RESET" Voltar para o Menu Anterior\n");
+    printf(BLUE"\n[8]"RESET" Exibir Todos Atendimentos(Data mais Próxima)\n"BLUE"[9]"RESET" Voltar para o Menu Anterior\n");
     printf("\n---------------------------------------------------------------------------\n");
 
     printf("\nDigite a Funcionalidade Desejada: ");
     int opcao;
     
     printf(BLUE);
+    __fpurge(stdin);
     scanf("%d",&opcao);
     printf(RESET);
 
     return opcao;
 }
-void exibir_dados_atendimento(char codigo[][8],char paciente[][255],char codigo_paciente[][8],int indice_paciente,char data[][255],char tipo[][255],float preco[],char status[][255],int indice_atendimento){
-    printf("Código------Paciente-----Código do Paciente-----Data-----------Tipo----------Preço---------Status--------\n");
+void exibir_dados_atendimento(char codigo[][8],char paciente[][40],char codigo_paciente[][8],int indice_paciente,char data[][40],char tipo[][40],float preco[],char status[][40],int indice_atendimento){
+    printf("Código------Paciente------------Código do Paciente----------Data-----------Tipo----------Preço---------Status--------\n");
     printf("%s   |   %s   |  %s   |   %s   |   %s   |   R$%.2f   |   %s  \n   ",codigo[indice_atendimento],paciente[indice_paciente],codigo_paciente[indice_paciente],data[indice_atendimento],tipo[indice_atendimento],preco[indice_atendimento],status[indice_atendimento]);
 }
-void receber_status_atendimento(char vetor_status_atendimentos[][255],int indice_do_atendimento){
+void receber_status_atendimento(char vetor_status_atendimentos[][40],int indice_do_atendimento){
     char opcao;
     printf(BLUE"Status da consulta:\n"RESET);
     printf(BLUE"[1]"RESET"Agendado "BLUE"[2]"RESET"Esperando "BLUE"[3]"RESET"Em atendimento "BLUE"[4]"RESET"Atendido\n");
@@ -51,8 +52,8 @@ void receber_status_atendimento(char vetor_status_atendimentos[][255],int indice
         case  '\0': strcpy(vetor_status_atendimentos[indice_do_atendimento],"Não Informado");break;
     }
 }
-int procura_paciente(char nomes_pacientes[][255],int tamanho){
-    char nome[255];
+int procura_paciente(char nomes_pacientes[][40],int tamanho){
+    char nome[40];
     int indice_paciente;
     while(1){
         printf("Digite o Nome do Paciente: \n");
@@ -61,10 +62,11 @@ int procura_paciente(char nomes_pacientes[][255],int tamanho){
 
         indice_paciente=procura_string(nome,nomes_pacientes,tamanho);
  
-        if(nome == "SAIR")return -1;
+        if(strcmp(nome,"SAIR")==0)return -1;
         if(indice_paciente < 0){
             printf(RED"Paciente não cadastrado!\n"RESET);
-            continue;
+            if(coletar_opcao("Voltar","Tentar novamente"))continue;
+            return -1;
         }
         break;
     }
@@ -79,11 +81,13 @@ int procura_paciente_codigo(char codigo_pacientes[][8],int QNTD_PACIENTES,int pa
     int indice_do_paciente = procura_codigo(codigo_paciente,codigo_pacientes,QNTD_PACIENTES);
     if(indice_do_paciente == -1){
         printf(RED"Paciente não cadastrado\n"RESET);
-        return -1;
+        if(coletar_opcao("Voltar","Tentar novamente"))return -1;
+        return -2;
     }
     if(pacientes_ativos[indice_do_paciente]== 0){
         printf(RED"Paciente não cadastrado ou Excluido recentemente\n"RESET);
-        return -1;
+        if(coletar_opcao("Voltar","Tentar novamente"))return -1;
+        return -2;
     }
     return indice_do_paciente;
 }
@@ -91,21 +95,22 @@ int procura_paciente_codigo(char codigo_pacientes[][8],int QNTD_PACIENTES,int pa
 
 int procura_atendimento(char codigo_atendimentos[][8],int QNTD_ATENDIMENTOS,int atendimentos_ativos[]){
     char codigo_atendimento[8];
-    ler_str(codigo_atendimento);                            
-    if(strcmp(codigo_atendimento,"sair")==0)return -2;
+    ler_string(codigo_atendimento);
     int indice_do_atendimento = procura_codigo(codigo_atendimento,codigo_atendimentos,QNTD_ATENDIMENTOS);
     if(indice_do_atendimento == -1){
         printf(RED"Atendimento não cadastrado\n"RESET);
-        return -1;
+        if(coletar_opcao("Voltar","Tentar novamente"))return -1;
+        return -2;
     }
     if(atendimentos_ativos[indice_do_atendimento]== 0){
         printf(RED"Atendimento não cadastrado ou Excluido recentemente\n"RESET);
-        return -1;
+        if(coletar_opcao("Voltar","Tentar novamente"))return -1;
+        return -2;
     }
     return indice_do_atendimento;
 }
 
-int atendimento_ja_cadastrado(char data_atendimentos[][255],int paciente_do_atendimento[],int atendimento_atual,int tamanho){
+int atendimento_ja_cadastrado(char data_atendimentos[][40],int paciente_do_atendimento[],int atendimento_atual,int tamanho){
     int atendimento_ja_cadastrado=0;
     for(int i=0;i<tamanho;i++){
         if(i==atendimento_atual) continue;
@@ -119,7 +124,7 @@ int atendimento_ja_cadastrado(char data_atendimentos[][255],int paciente_do_aten
 
     }return atendimento_ja_cadastrado;
 }
-void receber_tipo_atendimento(char tipo_atendimentos[][255],int espaco_livre){
+void receber_tipo_atendimento(char tipo_atendimentos[][40],int espaco_livre){
     
     printf(BLUE"Tipo de Atendimento:\n"RESET);
     int opcao=coletar_opcao("Consulta","Retorno");
@@ -169,7 +174,7 @@ int compara_data(char data1[],char data2[]) {
         }
     }
 }
-void ordenar_datas(char datas[][255],int ordem_datas[],int tamanho,int atendimentos_ativos[]){
+void ordenar_datas(char datas[][40],int ordem_datas[],int tamanho,int atendimentos_ativos[]){
     for (int i = 0; i < tamanho; i++) {
         ordem_datas[i] = i;
     }

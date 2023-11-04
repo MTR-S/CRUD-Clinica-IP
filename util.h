@@ -81,7 +81,7 @@ int preenche_vetor_ativos(int vetor_ativos[], int tamanho_vetor) {
 }
 
 
-int preenche_matriz_bidimensional(char vetor_ativos[][255], int tamanho_vetor) {
+int preenche_matriz_bidimensional(char vetor_ativos[][40], int tamanho_vetor) {
     for (int i = 0; i < tamanho_vetor; i++)
         strcpy(vetor_ativos[i], "VOID");}
 
@@ -127,7 +127,7 @@ void formata_string_maisculo(char string[]) {
         string[i] = toupper(string[i]);
 }
 
-int ja_existe(char string[],char vetor[][255],int tamanho,int indice){
+int ja_existe(char string[],char vetor[][40],int tamanho,int indice){
     for(int i = 0; i < tamanho; i++){
         if(i == indice)
             continue;
@@ -136,7 +136,7 @@ int ja_existe(char string[],char vetor[][255],int tamanho,int indice){
         }
     }return 0;
 }
-int procura_string(char string[],char vetor[][255],int tamanho){
+int procura_string(char string[],char vetor[][40],int tamanho){
     for(int i = 0; i < tamanho; i++){
         if(strcmp(string,vetor[i]) == 0){
             return i;
@@ -152,7 +152,7 @@ int procura_codigo(char codigo_unico_paciente[],char matriz_codigos_pacientes[][
     }
     return -1;
 }
-void receber_data(char vetor[][255],int indice_livre) {
+void receber_data(char vetor[][40],int indice_livre) {
     int dia, mes, ano;
     while(1){
         printf(BLUE"Digite o dia: "RESET);
@@ -166,7 +166,8 @@ void receber_data(char vetor[][255],int indice_livre) {
         
         if (!(dia >= 1 && dia <= 31 && mes >= 1 && mes <= 12 && ano >= 2000)){
         printf("Data inválida!\n");
-        continue;
+        if(coletar_opcao("Voltar","Tentar novamente"))continue;
+        return;
         }
 
         sprintf(vetor[indice_livre],"%02d/%02d/%04d", dia, mes, ano);
@@ -176,7 +177,7 @@ void receber_data(char vetor[][255],int indice_livre) {
 
 }
 
-void imprimir_vetor(char vetor[][255],int tamanho){
+void imprimir_vetor(char vetor[][40],int tamanho){
     for(int i=0;i<tamanho;i++){
         printf("%d - %s\n",i,vetor[i]);
     }

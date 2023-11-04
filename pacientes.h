@@ -22,6 +22,8 @@ int menu_pacientes() {
     printf(YELLOW"\n\nSelecione a Funcionalidade Desejada: "RESET);
     __fpurge(stdin);
     int interacao_menu_pacientes;
+    
+    __fpurge(stdin);
     scanf("%d", &interacao_menu_pacientes);
 
     system("clear");
@@ -167,7 +169,7 @@ int procura_informacao(char informacao_paciente[], char matriz_informacao_pacien
 }
 
 
-int cadastra_nome_paciente(char matriz_nomes_pacientes[][255],int espaco_livre, int QNTD_PACIENTES) {
+int cadastra_nome_paciente(char matriz_nomes_pacientes[][40],int espaco_livre, int QNTD_PACIENTES) {
     while(1) {
         printf("Digite o Nome do Paciente:\n");
         ler_str(matriz_nomes_pacientes[espaco_livre]);
@@ -193,7 +195,7 @@ int cadastra_nome_paciente(char matriz_nomes_pacientes[][255],int espaco_livre, 
 }
 
 
-void exibe_tipo_sanguineo_pacientes(char tipo_sanguineo[], char matriz_tipo_sanguineo[][3], char matriz_fator_RH[][9], int tam_matriz_tp_sanguineo,char matriz_pacientes[][255]) {
+void exibe_tipo_sanguineo_pacientes(char tipo_sanguineo[], char matriz_tipo_sanguineo[][3], char matriz_fator_RH[][9], int tam_matriz_tp_sanguineo,char matriz_pacientes[][40]) {
 
     printf("Tipo Selecionado %s:\n", tipo_sanguineo);
 
@@ -207,7 +209,7 @@ void exibe_tipo_sanguineo_pacientes(char tipo_sanguineo[], char matriz_tipo_sang
 }
 
 
-void busca_tipo_sanguineo(int tam_matriz_tp_sanguineo, char tipo_sanguineo[], char matriz_tipo_sanguineo[][3], char matriz_fator_RH[][9], char fator_rh_escolhido[] ,char matriz_pacientes[][255]) {
+void busca_tipo_sanguineo(int tam_matriz_tp_sanguineo, char tipo_sanguineo[], char matriz_tipo_sanguineo[][3], char matriz_fator_RH[][9], char fator_rh_escolhido[] ,char matriz_pacientes[][40]) {
         int contador = 0;
 
         for(int i = 0; i < tam_matriz_tp_sanguineo; i++) {
@@ -223,7 +225,7 @@ void busca_tipo_sanguineo(int tam_matriz_tp_sanguineo, char tipo_sanguineo[], ch
 }
 
 
-void exibir_todos_pacientes(char matriz_pacientes[][255], int vetor_ativos[], int tamanho_matriz) {
+void exibir_todos_pacientes(char matriz_pacientes[][40], int vetor_ativos[], int tamanho_matriz) {
     int count = 0;
 
     printf(BLUE"----Pacientes cadastrados na Clinica Fátima----\n"RESET);
@@ -252,7 +254,7 @@ int cria_tamanho_limitando_ativos(int vetor_pacientes_ativos[], int tamanho_paci
 }
 
 
-void completa_vetor_limitando_ativos(int vetor_pacientes_ativos[], int TAM_VETOR, char matriz_nomes_pacientes[][255], int tamanho_nomes_pacientes, int vetor_limitando_ativos[]) {
+void completa_vetor_limitando_ativos(int vetor_pacientes_ativos[], int TAM_VETOR, char matriz_nomes_pacientes[][40], int tamanho_nomes_pacientes, int vetor_limitando_ativos[]) {
     for(int i = 0; i < tamanho_nomes_pacientes; i++) {
          if(vetor_pacientes_ativos[i] == 1) {    
             vetor_limitando_ativos[i] = i;
@@ -260,7 +262,7 @@ void completa_vetor_limitando_ativos(int vetor_pacientes_ativos[], int TAM_VETOR
     }
  } 
 
-void ordena_pacientes_ordem_alfabetica(char nomes_pacientes[][255], int tamanho_nomes_pacientes, int vetor_limitando_ativos[]) {
+void ordena_pacientes_ordem_alfabetica(char nomes_pacientes[][40], int tamanho_nomes_pacientes, int vetor_limitando_ativos[]) {
     int compara_strings;
 
     for(int i = 0; i < tamanho_nomes_pacientes - 1; i++) {
@@ -284,7 +286,7 @@ void ordena_pacientes_ordem_alfabetica(char nomes_pacientes[][255], int tamanho_
 }
 
 
- void exibe_pacientes_ordem_alfabetica(char nomes_pacientes[][255], int vetor_limitando_ativos[], int tamanho_vetor_limitando_ativos) {
+ void exibe_pacientes_ordem_alfabetica(char nomes_pacientes[][40], int vetor_limitando_ativos[], int tamanho_vetor_limitando_ativos) {
     int indice_ordenado;
     
     printf(BLUE"---------Pacientes em Ordem Alfabética----------\n"RESET);

@@ -18,27 +18,27 @@
 int pacientes_ativos[QNTD_PACIENTES];
 
 char codigo_pacientes[QNTD_PACIENTES][8];  
-char nomes_pacientes[QNTD_PACIENTES][255];
+char nomes_pacientes[QNTD_PACIENTES][40];
 char RG_pacientes[QNTD_PACIENTES][12]; 
 char CPF_pacientes[QNTD_PACIENTES][12];
 char tipo_sanguineo_pacientes[QNTD_PACIENTES][3];
 char fator_RH_pacientes[QNTD_PACIENTES][9];  
-char endereco_pacientes[QNTD_PACIENTES][255];
-char datas_nascimento_pacientes[QNTD_PACIENTES][255];
+char endereco_pacientes[QNTD_PACIENTES][40];
+char datas_nascimento_pacientes[QNTD_PACIENTES][40];
 
 
 int atendimentos_ativos[QNTD_ATENDIMENTOS];
 
 int paciente_do_atendimento[QNTD_ATENDIMENTOS];
 char codigo_atendimentos[QNTD_ATENDIMENTOS][8];
-char tipo_atendimentos[QNTD_ATENDIMENTOS][255];  
-char data_atendimentos[QNTD_ATENDIMENTOS][255];
-char status_atendimentos[QNTD_ATENDIMENTOS][255];  
+char tipo_atendimentos[QNTD_ATENDIMENTOS][40];  
+char data_atendimentos[QNTD_ATENDIMENTOS][40];
+char status_atendimentos[QNTD_ATENDIMENTOS][40];  
 float preco_atendimentos[QNTD_ATENDIMENTOS];
 
 int main(void) {
-    preenche_matriz_bidimensional(nomes_pacientes,QNTD_PACIENTES); 
-    preenche_matriz_bidimensional(data_atendimentos,QNTD_ATENDIMENTOS); 
+    //preenche_matriz_bidimensional(nomes_pacientes,QNTD_PACIENTES); 
+    //preenche_matriz_bidimensional(data_atendimentos,QNTD_ATENDIMENTOS); 
     preenche_vetor_ativos(pacientes_ativos, QNTD_PACIENTES);
     preenche_vetor_ativos(atendimentos_ativos, QNTD_ATENDIMENTOS);
 
@@ -52,7 +52,6 @@ int main(void) {
             case 1:
                 system("clear");
                 printf(BLUE"\nMenu \"Paciente\" Selecionado...\n"RESET);
-
                 while(1) {
                     int interacao_menu_pacientes = menu_pacientes(); 
                     int espaco_livre;                                                           
@@ -136,6 +135,7 @@ int main(void) {
                                 printf("Digite a Data de Nascimento do Paciente:\n");
                                 receber_data(datas_nascimento_pacientes, espaco_livre);
 
+                                system("clear");
                                 exibe_informacoes_paciente(nomes_pacientes, codigo_pacientes, RG_pacientes, CPF_pacientes, tipo_sanguineo_pacientes, fator_RH_pacientes, endereco_pacientes, datas_nascimento_pacientes, espaco_livre);
 
                                 pacientes_ativos[espaco_livre] = 1;
@@ -168,7 +168,7 @@ int main(void) {
                                         case 1:
                                             printf(BLUE"\nOpção -> [1], \"Alterar Nome\""RESET" Selecionada...\n\n");
 
-                                            char nome_antigo[255];
+                                            char nome_antigo[40];
                                             strcpy(nome_antigo ,nomes_pacientes[index_paciente]);                               
 
                                             if(cadastra_nome_paciente(nomes_pacientes, espaco_livre, QNTD_PACIENTES)) {
@@ -279,7 +279,7 @@ int main(void) {
                                         case 7:
                                             printf("\nOpção -> "BLUE"[7], \"Alterar Data de Nascimento\""RESET" Selecionada...\n\n");
 
-                                            char data_nascimento_antiga[255];
+                                            char data_nascimento_antiga[40];
                                             strcpy(data_nascimento_antiga, datas_nascimento_pacientes[index_paciente]);
 
                                             printf("Digite a Data de Nascimento do Paciente:\n");
@@ -439,9 +439,10 @@ int main(void) {
                             printf(RED"\nSelecione alguma das opções anteriores!\n"RESET);
                             break;
                     }
-                if(interacao_menu_pacientes== 10){break;}
-                }
-    continue;
+                    if(interacao_menu_pacientes== 10){break;}
+                    continue;    
+                }break;
+    
             case 2:
                 system("clear");
                 printf(BLUE"\nMenu \"Atendimento\" Selecionado...\n"RESET);
@@ -495,7 +496,7 @@ int main(void) {
                                 
                                 printf("Digite o código do atendimento que deseja alterar:\n");
                                 int indice_do_atendimento = procura_atendimento(codigo_atendimentos,QNTD_ATENDIMENTOS,atendimentos_ativos);
-                                if(indice_do_atendimento == -1)continue;
+                                if(indice_do_atendimento == -1)continue;;
                                 if(indice_do_atendimento == -2)break;
                                 
                                 indice_do_paciente = paciente_do_atendimento[indice_do_atendimento];
@@ -555,11 +556,12 @@ int main(void) {
                                 int indice_do_atendimento =procura_atendimento(codigo_atendimentos,QNTD_ATENDIMENTOS,atendimentos_ativos);
                                 
                                 if(indice_do_atendimento == -1)continue;
+                                if(indice_do_atendimento == -2)break;
                                 indice_do_paciente = paciente_do_atendimento[indice_do_atendimento];
                                 exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,codigo_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,indice_do_atendimento);
                                 
                                 printf("Tem certeza?\n");
-                                if(coletar_opcao("Excluir","Cancelar Operação")) {
+                                if(coletar_opcao("Cancelar Operação","Excluir")) {
                                     atendimentos_ativos[indice_do_atendimento]=0;
                                     printf(GREEN"Atendimento Excluído\n"RESET);
                                     break;
@@ -573,6 +575,9 @@ int main(void) {
                                 
                                 printf("Digite o código do atendimento que deseja consultar:\n");
                                 int indice_do_atendimento=procura_atendimento(codigo_atendimentos,QNTD_ATENDIMENTOS,atendimentos_ativos);
+                                if(indice_do_atendimento == -1)continue;
+                                if(indice_do_atendimento == -2)break;
+
                                 indice_do_paciente = paciente_do_atendimento[indice_do_atendimento];
                                 exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,codigo_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,indice_do_atendimento);
                                 
@@ -586,6 +591,8 @@ int main(void) {
                                 printf("----------------------"BLUE"Exibir Atendimento (Código do Paciente)"RESET"-----------------\n");
                                 
                                 int indice_do_paciente = procura_paciente_codigo(codigo_pacientes,QNTD_PACIENTES,pacientes_ativos);
+                                if(indice_do_paciente == -1)continue;
+                                if(indice_do_paciente == -2)break;
                                
                                 for(int i = 0;i < QNTD_ATENDIMENTOS;i++){
                                     if(paciente_do_atendimento[i] == indice_do_paciente){
@@ -604,9 +611,10 @@ int main(void) {
                                 system("clear");
                                 printf("-----------------------"BLUE"Exibir atendimento do paciente (Nome do Paciente)"RESET"------------------------\n");
                                 
-                                char nome_paciente[255];
+                                char nome_paciente[40];
                                 //printf("Digite o nome do Paciente que deseja exibir:\n");
                                 int indice_do_paciente = procura_paciente(nomes_pacientes,QNTD_PACIENTES);
+                                if(indice_do_paciente == -1)break;
                                 
                                 system("clear");
                                 printf("Atendimentos do Paciente "BLUE"%s"RESET":\n",nomes_pacientes[indice_do_paciente]);
@@ -626,10 +634,12 @@ int main(void) {
                                 system("clear");
                                 printf("-------------------"BLUE"Exibir Todos os Atendimentos do Dia"RESET"--------------------\n");
                                 
-                                char atendimentos_do_dia[1][255];
+                                char atendimentos_do_dia[1][40];
+                                strcpy(atendimentos_do_dia[1],"void");
                                 float soma;
                                 printf("Digite a data que deseja buscar atendimentos:\n");
                                 receber_data(atendimentos_do_dia,1);
+                                if(strcmp(atendimentos_do_dia[1],"void")==0)break;
                                 
                                 for(int i = 0; i< QNTD_ATENDIMENTOS;i++){
                                     if(atendimentos_ativos[i]==0) continue;
@@ -655,6 +665,9 @@ int main(void) {
                                 for(int i=0;i<QNTD_ATENDIMENTOS-1;i++){
                                     if(atendimentos_ativos[i]==1)qnd_atend_ativos++;
                                 }
+                                if(qnd_atend_ativos==0){
+                                    printf(RED"Nenhum Atendimento Cadastrado"RESET);
+                                }
                                 for(int i=0;i < qnd_atend_ativos;i++){
                                 int atendimento=ordem_datas[i];
                                 int paciente = paciente_do_atendimento[i];
@@ -667,7 +680,7 @@ int main(void) {
                             printf("\nOpção -> [9], \"Voltar para o Menu Anterior\" Selecionada...\n\n");
                             break;
                         default:
-                            printf("\nSelecione alguma das opções anteriores!\n");
+                            printf(RED"\nSelecione alguma das opções anteriores!\n"RESET);
                             break;
                     }
                     if(interacao_menu_atendimentos==9)break;
@@ -677,9 +690,9 @@ int main(void) {
                 printf(GREEN"\nSaída do Sistema Confirmada!\n"RESET);
                 return 0;
             default:
-                printf("Selecione alguma das opções anteriores!\n");
+                printf(RED"Selecione alguma das opções anteriores!\n"RESET);
                 break;
-        }break;
+        }continue;
     }
 
     return 0;

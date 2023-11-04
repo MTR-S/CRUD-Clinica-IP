@@ -134,7 +134,7 @@ int main(void) {
                                 informacao_nao_obrigatoria = cadastro_informacao_nao_obrigatorio(endereco_pacientes[espaco_livre]);
 
                                 printf("Digite a Data de Nascimento do Paciente:\n");
-                                receber_data(datas_nascimento_pacientes[espaco_livre], espaco_livre);
+                                receber_data(datas_nascimento_pacientes, espaco_livre);
 
                                 exibe_informacoes_paciente(nomes_pacientes, codigo_pacientes, RG_pacientes, CPF_pacientes, tipo_sanguineo_pacientes, fator_RH_pacientes, endereco_pacientes, datas_nascimento_pacientes, espaco_livre);
 
@@ -283,7 +283,7 @@ int main(void) {
                                             strcpy(data_nascimento_antiga, datas_nascimento_pacientes[index_paciente]);
 
                                             printf("Digite a Data de Nascimento do Paciente:\n");
-                                            receber_data(datas_nascimento_pacientes[index_paciente], index_paciente);
+                                            receber_data(datas_nascimento_pacientes, index_paciente);
 
                                             printf(GREEN"Data de Nascimento Alterado com Sucesso!\n"RESET);
                                             printf("De: %s ---> Para: %s\n", data_nascimento_antiga, datas_nascimento_pacientes[index_paciente]);
@@ -484,7 +484,7 @@ int main(void) {
                                 indice_do_paciente = paciente_do_atendimento[indice_do_atendimento];
                                 
                                 system("clear");
-                                exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,codigo_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,espaco_livre); 
+                                exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,codigo_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,indice_do_atendimento); 
                                 int opcao;
                                 
                                 printf("Qual dado deseja alterar?\n");

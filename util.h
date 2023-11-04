@@ -51,14 +51,12 @@ int menu_principal() {
 }
 
 int coletar_opcao(char opcao1[],char opcao2[]){
-    printf(BLUE"\n[0]"RESET" %s   "BLUE"[1]"RESET"%s\n", opcao1, opcao2);
-
     while(1) {
         char opcao;
         printf(BLUE"[0]"RESET" %s   "BLUE"[1]"RESET"%s\n",opcao1,opcao2);;
         
+        printf(BLUE);
         __fpurge(stdin);  
-        printf(BLUE);  
         opcao=getchar();
         printf(RESET);
         
@@ -109,10 +107,8 @@ void ler_str(char string[]) {
 
 
 void ler_string(char string[]) {  // tava dando erro porque ao coletar o nome ele lia duas vezes mas no cpf lia so uma
-    printf(BLUE);
-    fflush(stdin);
-    gets(string);
-    fflush(stdin);
+     printf(BLUE);
+    __fpurge(stdin);  // mudei para o fpurge porque o codespace pera em linux na nuvem
     gets(string);
     printf(RESET);
 }

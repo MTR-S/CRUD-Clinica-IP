@@ -30,7 +30,7 @@ int menu_principal() {
     while(1) {
         int interacao_menu_pacientes;
 
-        fflush(stdin);
+        __fpurge(stdin);
         interacao_menu_pacientes = getchar();
 
         switch (interacao_menu_pacientes)
@@ -44,7 +44,7 @@ int menu_principal() {
         case '\n':
             break;
         default:
-            printf("Selecione uma das opções anteriores!\n");
+            printf(RED"Selecione uma das opções anteriores!\n"RESET);
             break;
         };
     }
@@ -53,7 +53,7 @@ int menu_principal() {
 int coletar_opcao(char opcao1[],char opcao2[]){
     while(1) {
         char opcao;
-        printf(BLUE"[0]"RESET" %s   "BLUE"[1]"RESET"%s\n",opcao1,opcao2);;
+        printf(BLUE"\n[0]"RESET" %s   "BLUE"[1]"RESET"%s\n",opcao1,opcao2);;
         
         printf(BLUE);
         __fpurge(stdin);  
@@ -105,13 +105,6 @@ void ler_str(char string[]) {
     printf(RESET);
 }
 
-
-void ler_string(char string[]) {  // tava dando erro porque ao coletar o nome ele lia duas vezes mas no cpf lia so uma
-     printf(BLUE);
-    __fpurge(stdin);  // mudei para o fpurge porque o codespace pera em linux na nuvem
-    gets(string);
-    printf(RESET);
-}
 
 int checar_string(char string[]){
     if(string == NULL || string[0] =='\0'){
@@ -210,38 +203,17 @@ void cria_codigo(char vetor[][8],int indice_livre){
 }
 
 
-char interacao_pos_erro() {
-    char selecao;
+float soma_consultas_pagas_pacientes(char nome_paciente_desejado[], char matriz_nomes_paciente[][255], float vetor_preco_atendimentos[], int tamanho_vetores, int vetor_paciente_atendimento_indice[]) {
+    float soma_consultas = 0;
 
-    while(1) {
-        
-        fflush(stdin);
-        selecao = getchar();
-
-        switch (selecao) {
-            case '1':
-            case '2':
-                return selecao;
-            case '\n':
-                continue;
-            default:
-                printf("Selecione alguma das opções!\n");
+    for(int i = 0; i < tamanho_vetores; i++) {
+        int paciente_com_atendimento = vetor_preco_atendimentos[i];
+        int compara_nomes = strcmp(nome_paciente_desejado, matriz_nomes_paciente[paciente_com_atendimento]);
+        if(compara_nomes) {
+            soma_consultas += vetor_preco_atendimentos[i];
         }
     }
+    
+    return soma_consultas;
 }
-
-/*
-Funcao para verificar se o codigo do paciente ja nao existe
-void valida_codigo(char codigo[], char codigo_pacientes[][8], int tamanho_matriz_codigos, int codigo_index) {
-    for(int i = 0; i < tamanho_matriz_codigos; i++) {
-        if(i == codigo_index) {
-            continue;
-        }
-        if(!(strcmp(codigo, codigo_pacientes[i]))) {
-            codigo = cria_codigo(codigo, espaco_livre);
-        }
-    }
-}
-*/
-//sonambulo
 #endif

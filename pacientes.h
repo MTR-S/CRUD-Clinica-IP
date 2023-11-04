@@ -15,57 +15,18 @@ int menu_pacientes() {
     printf("\n"BLUE"[3]"RESET" Excluir um Paciente\n"BLUE"[4]"RESET" Exibir os Dados de um Paciente pelo seu Código");
     printf("\n"BLUE"[5]"RESET" Exibir os Dados de Pacientes que Apresentam o Mesmo Tipo Sanguíneo");
     printf("\n"BLUE"[6]"RESET" Exibir os Dados de Pacientes pelo Dia de Consulta\n"BLUE"[7]"RESET" Exibir Todos os Pacientes");
-    printf("\n"BLUE"[8]"RESET"Exibir Todos os Pacientes em Ordem Alfabética\n"BLUE"[9]"RESET"Voltar para o Menu Anterior");
+    printf("\n"BLUE"[8]"RESET"Exibir Todos os Pacientes em Ordem Alfabética\n"BLUE"[9]"RESET"Exibir a Soma das Consultas Pagas por um Determinado Paciente");
+    printf(BLUE"\n[10]"RESET"Voltar para o Menu Principal");
     printf("\n------------------------------------------------------------------------\n");
 
-    printf(YELLOW"\n\nDigite o Número Correlacionado a Funcionalidade Desejada: "RESET);
-    fflush(stdin);
+    printf(YELLOW"\n\nSelecione a Funcionalidade Desejada: "RESET);
+    __fpurge(stdin);
     int interacao_menu_pacientes;
     scanf("%d", &interacao_menu_pacientes);
 
     system("clear");
 
     return interacao_menu_pacientes;
-}
-
-
-int opcoes_pacientes(int funcionalidade_selecionada) {
-    switch (funcionalidade_selecionada) {
-        case 1:
-            printf("\nOpção -> [1], \"Inserir um Novo Paciente\" Selecionada...\n\n");
-            return 1;
-        case 2:
-            printf("\nOpção -> [2], \"Alterar um Paciente Existente\" Selecionada...\n\n");
-            return 2;
-        case 3:
-            printf("\nOpção -> [3], \"Excluir um Paciente\" Selecionada...\n\n");
-            return 3;
-        case 4:
-            printf("\nOpção -> [4], \"Exibir os Dados de um Paciente pelo seu "
-                   "Código\" Selecionada...\n\n");
-            return 4;
-        case 5:
-            printf("\nOpção -> [5], \"Exibir os Dados de Pacientes que Apresentam o Mesmo"
-                   " Tipo Sanguíneo\" Selecionada...\n\n");
-            return 5;
-        case 6:
-            printf("\nOpção -> [6], \"Exibir os Dados de Pacientes pelo Dia de "
-                   "Consulta\" Selecionada...\n\n");
-            return 6;
-        case 7:
-            printf("\nOpção -> [7], \"Exibir Todos os Pacientes\" Selecionada...\n\n");
-            return 7;
-        case 8:
-            printf("\nOpção -> [8], \"Exibir Todos os Pacientes em Ordem"
-                   " Alfabética\" Selecionada...\n\n");
-            return 8;
-        case 9:
-            printf("\nOpção -> [9], \"Voltar para o Menu Anterior\" Selecionada...\n\n");
-            return 9;
-        default:
-            printf("\nSelecione alguma das opções anteriores!\n");
-            return 10;
-    }
 }
 
 
@@ -213,7 +174,7 @@ int cadastra_nome_paciente(char matriz_nomes_pacientes[][255],int espaco_livre, 
         
         int nome_incorreto = checar_string(matriz_nomes_pacientes[espaco_livre]);
         if(nome_incorreto) {
-            printf("Digite o nome corretamente!\n");
+            printf(RED"Digite o nome corretamente!\n"RESET);
             continue;
         }
 
@@ -242,6 +203,7 @@ void exibe_tipo_sanguineo_pacientes(char tipo_sanguineo[], char matriz_tipo_sang
     printf(BLUE"\n---------------------------------------------------------"RESET);
     printf(YELLOW"\n---> %s Negativo\n"RESET, tipo_sanguineo);
     busca_tipo_sanguineo(tam_matriz_tp_sanguineo, tipo_sanguineo, matriz_tipo_sanguineo, matriz_fator_RH, "Negativo", matriz_pacientes);
+    printf(BLUE"\n---------------------------------------------------------\n"RESET, tipo_sanguineo);
 }
 
 
@@ -343,5 +305,5 @@ int verifica_pacientes_ativos(int vetor_pacientes_ativos[], int tam_vetor_pacien
     }
     return 1;
 }
-//sonambulo
+
 #endif

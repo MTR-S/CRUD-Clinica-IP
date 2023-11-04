@@ -9,7 +9,7 @@
 #define CIANO   "\x1b[36m"
 #define RESET   "\x1b[0m"
 
-//MUDAR A FUNCAO LER_STRING PARA A LER_STR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 #include <stdio.h>
 
 int menu_atendimento() {
@@ -19,7 +19,7 @@ int menu_atendimento() {
     printf(BLUE"\n[3]"RESET" Excluir Atendimento\n"BLUE"[4]"RESET" Exibir Atendimento(Código)");
     printf(BLUE"\n[5]"RESET" Exibir Atendimentos de um Paciente(Código do Paciente)");
     printf(BLUE"\n[6]"RESET" Exibir Atendimentos de um Paciente(Nome do Paciente)\n"BLUE"[7]"RESET" Exibir Todos Atendimentos do Dia");
-    printf(BLUE"\n[8]"RESET" Exibir Todos Atendimentos do Dia\n"BLUE"[8]"RESET" Voltar para o Menu Anterior\n");
+    printf(BLUE"\n[8]"RESET" Exibir Todos Atendimentos do Dia\n"BLUE"[9]"RESET" Voltar para o Menu Anterior\n");
     printf("\n---------------------------------------------------------------------------\n");
 
     printf("\nDigite a Funcionalidade Desejada: ");
@@ -56,7 +56,7 @@ int procura_paciente(char nomes_pacientes[][255],int tamanho){
     int indice_paciente;
     while(1){
         printf("Digite o Nome do Paciente: \n");
-        ler_string(nome);
+        ler_str(nome);
         formata_string_maisculo(nome);
 
         indice_paciente=procura_string(nome,nomes_pacientes,tamanho);
@@ -74,7 +74,7 @@ int procura_paciente(char nomes_pacientes[][255],int tamanho){
 
 int procura_paciente_codigo(char codigo_pacientes[][8],int QNTD_PACIENTES,int pacientes_ativos[]){
     char codigo_paciente[8];
-    ler_string(codigo_paciente);                            
+    ler_str(codigo_paciente);                            
     
     int indice_do_paciente = procura_codigo(codigo_paciente,codigo_pacientes,QNTD_PACIENTES);
     if(indice_do_paciente == -1){
@@ -91,7 +91,7 @@ int procura_paciente_codigo(char codigo_pacientes[][8],int QNTD_PACIENTES,int pa
 
 int procura_atendimento(char codigo_atendimentos[][8],int QNTD_ATENDIMENTOS,int atendimentos_ativos[]){
     char codigo_atendimento[8];
-    ler_string(codigo_atendimento);                            
+    ler_str(codigo_atendimento);                            
     if(strcmp(codigo_atendimento,"sair")==0)return -2;
     int indice_do_atendimento = procura_codigo(codigo_atendimento,codigo_atendimentos,QNTD_ATENDIMENTOS);
     if(indice_do_atendimento == -1){
@@ -129,13 +129,14 @@ void receber_tipo_atendimento(char tipo_atendimentos[][255],int espaco_livre){
 }
 float receber_preco(){
     float preco;
+
     while(1){
         printf(BLUE"Digite o preço da consulta:\n"RESET);
-       // printf(BLUE);
+
         scanf("%f",&preco);
-        //printf(RESET);
-        if(preco<0){
-            printf("Digite o preço Corretamente!");
+
+        if(preco < 0){
+            printf(RED"Digite o preço Corretamente!"RESET);
             continue;
         }
         break;
@@ -184,5 +185,5 @@ void ordenar_datas(char datas[][255],int ordem_datas[],int tamanho,int atendimen
         }
     }
 }
-//sonambulo
+
 #endif

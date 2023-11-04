@@ -396,8 +396,8 @@ int main(void) {
                             }
                             break;
                         case 8:
-                            printf("\nOpção -> [8], \"Exibir Todos os Pacientes em Ordem"
-                                " Alfabética\" Selecionada...\n\n");
+                            printf("\nOpção -> "BLUE"[8], \"Exibir Todos os Pacientes em Ordem"
+                                " Alfabética\""RESET" Selecionada...\n\n");
 
                             int index_paciente = verifica_pacientes_ativos(pacientes_ativos, QNTD_PACIENTES);
                             if(!index_paciente) {
@@ -416,13 +416,30 @@ int main(void) {
                                 break;   
                             }
                         case 9:
-                            printf("\nOpção -> [9], \"Voltar para o Menu Anterior\" Selecionada...\n\n");
+                            while(1) {
+                                printf("\nOpção -> "BLUE"[9], \"Exibir a Soma das Consultas Pagas por um Determinado Paciente\""RESET" Selecionada...\n\n");
+
+                                printf("Digite o Nome do Paciente, para ver a soma das suas Consultas Pagas: "); 
+
+                                char nome_paciente_consultas_pagas[255];
+                                ler_str(nome_paciente_consultas_pagas);
+
+                                float soma_consultas = soma_consultas_pagas_pacientes(nome_paciente_consultas_pagas, nomes_pacientes, preco_atendimentos, QNTD_PACIENTES, paciente_do_atendimento);
+                                
+                                printf(GREEN"--> Soma das Consultas do Paciente %s = %.2f\n"RESET, nome_paciente_consultas_pagas, soma_consultas);
+
+                                if(!coletar_opcao("Exibir Soma Novamente", "Ir para o Menu Pacientes")) {continue;}
+                                else {break;}
+                            }
+                            break;
+                        case 10:
+                            printf("\nOpção -> "BLUE"[10], \"Voltar para o Menu Anterior\""RESET" Selecionada...\n\n");
                             break;
                         default:
                             printf(RED"\nSelecione alguma das opções anteriores!\n"RESET);
                             break;
                     }
-                if(interacao_menu_pacientes== 9){break;}
+                if(interacao_menu_pacientes== 10){break;}
                 }
     continue;
             case 2:
@@ -442,7 +459,7 @@ int main(void) {
                                 espaco_livre = procura_espaco_livre(atendimentos_ativos, QNTD_ATENDIMENTOS);
                                 
                                 int indice_paciente=procura_paciente(nomes_pacientes,QNTD_PACIENTES);
-                                if( indice_paciente == -1)break;//saida da operacao
+                                if( indice_paciente == -1)break;
                                 
                                 paciente_do_atendimento[espaco_livre]=indice_paciente;
                                 
@@ -457,7 +474,7 @@ int main(void) {
                                 
                                 receber_tipo_atendimento(tipo_atendimentos,espaco_livre);
 
-                                preco_atendimentos[espaco_livre]=receber_preco();
+                                preco_atendimentos[espaco_livre] = receber_preco();
 
                                 receber_status_atendimento(status_atendimentos,espaco_livre);
                                 

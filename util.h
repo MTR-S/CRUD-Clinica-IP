@@ -40,9 +40,7 @@ int coletar_opcao(char opcao1[],char opcao2[]){
     while(1){
         char opcao;
         printf(BLUE"[0]"RESET" %s   "BLUE"[1]"RESET"%s\n",opcao1,opcao2);;
-        fflush(stdin);
-        opcao= getchar();
-        fflush(stdin);
+        __fpurge(stdin);  
         opcao= getchar();
         switch(opcao){
             case '0':
@@ -52,7 +50,7 @@ int coletar_opcao(char opcao1[],char opcao2[]){
                 return 1;
                 break;
             default:
-                printf("Digite Apenas 0 ou 1\n");                            
+                printf("Digite Apenas 0 ou 1\n");                       
                 continue;
         }
     }

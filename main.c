@@ -205,9 +205,11 @@ int main(void) {
                                 printf("Digite o código do atendimento que deseja alterar:\n");
                                 int indice_do_atendimento = procura_atendimento(codigo_atendimentos,QNTD_ATENDIMENTOS,atendimentos_ativos);
                                 if(indice_do_atendimento == -1)continue;
+                                if(indice_do_atendimento == -2)break;
                                 
                                 indice_do_paciente = paciente_do_atendimento[indice_do_atendimento];
                                 
+                                system("clear");
                                 exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,codigo_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,espaco_livre); 
                                 int opcao;
                                 
@@ -220,10 +222,13 @@ int main(void) {
                                         printf("Paciente anterior : %s \n",nomes_pacientes[indice_do_paciente]);
                                         int indice_novo_paciente = procura_paciente(nomes_pacientes,QNTD_PACIENTES);
 
+                                        int data_ja_cadastrada=atendimento_ja_cadastrado(data_atendimentos,indice_novo_paciente,espaco_livre,QNTD_ATENDIMENTOS);
+                                        if(data_ja_cadastrada)continue;
+                                        
                                         paciente_do_atendimento[indice_do_atendimento]=indice_novo_paciente;
-                                        printf(GREEN"Paciente alterado!\n"RESET);
+                                        printf(GREEN"Paciente do atendimento %s alterado!\n"RESET,codigo_atendimentos[indice_do_atendimento]);
+                                        
                                         break;
-
                                     case 2:
                                         printf("Digite a nova data:\n");
                                         receber_data(data_atendimentos,indice_do_atendimento);

@@ -1,6 +1,14 @@
 #ifndef ATENDIMENTO_H
 #define ATENDIMENTO_H
 
+#define RED     "\x1b[31m"
+#define GREEN   "\x1b[32m"
+#define YELLOW  "\x1b[33m"
+#define BLUE    "\x1b[34m"
+#define MAGENTA "\x1b[35m"
+#define CIANO   "\x1b[36m"
+#define RESET   "\x1b[0m"
+
 #include <stdio.h>
 
 int menu_atendimento() {
@@ -14,9 +22,11 @@ int menu_atendimento() {
     printf("\n---------------------------------------------------------------------------\n");
 
     printf("\nDigite a Funcionalidade Desejada: ");
-    fflush(stdin);
     int opcao;
-    scanf("%d", &opcao);
+    
+    printf(BLUE);
+    scanf("%d",&opcao);
+    printf(RESET);
 
     return opcao;
 }
@@ -26,10 +36,12 @@ void exibir_dados_atendimento(char codigo[][8],char paciente[][255],char codigo_
 }
 void receber_status_atendimento(char vetor_status_atendimentos[][255],int indice_do_atendimento){
     char opcao;
-    printf("Status da consulta:\n");
+    printf(BLUE"Status da consulta:\n"RESET);
     printf(BLUE"[1]"RESET"Agendado "BLUE"[2]"RESET"Esperando "BLUE"[3]"RESET"Em atendimento "BLUE"[4]"RESET"Atendido\n");
-    __fpurge(stdin);  
+    __fpurge(stdin);
+    printf(BLUE);  
     opcao=getchar();
+    printf(RESET);
     switch(opcao){
         case  '1':strcpy(vetor_status_atendimentos[indice_do_atendimento],"Agendado");break;
         case  '2':strcpy(vetor_status_atendimentos[indice_do_atendimento],"Esperando");break;
@@ -75,7 +87,7 @@ int procura_paciente_codigo(char codigo_pacientes[][8],int QNTD_PACIENTES,int pa
 int procura_atendimento(char codigo_atendimentos[][8],int QNTD_ATENDIMENTOS,int atendimentos_ativos[]){
     char codigo_atendimento[8];
     ler_string(codigo_atendimento);                            
-    
+    if(strcmp(codigo_atendimento,"sair")==0)return -2;
     int indice_do_atendimento = procura_codigo(codigo_atendimento,codigo_atendimentos,QNTD_ATENDIMENTOS);
     if(indice_do_atendimento == -1){
         printf(RED"Atendimento não cadastrado\n"RESET);
@@ -104,7 +116,7 @@ int atendimento_ja_cadastrado(char data_atendimentos[][255],int paciente_do_aten
 }
 void receber_tipo_atendimento(char tipo_atendimentos[][255],int espaco_livre){
     
-    printf("Tipo de Atendimento:\n");
+    printf(BLUE"Tipo de Atendimento:\n"RESET);
     int opcao=coletar_opcao("Consulta","Retorno");
     
     if(opcao) strcpy(tipo_atendimentos[espaco_livre],"Retorno") ;
@@ -113,8 +125,10 @@ void receber_tipo_atendimento(char tipo_atendimentos[][255],int espaco_livre){
 float receber_preco(){
     float preco;
     while(1){
-        printf("Digite o preço da consulta:\n");
+        printf(BLUE"Digite o preço da consulta:\n"RESET);
+       // printf(BLUE);
         scanf("%f",&preco);
+        //printf(RESET);
         if(preco<0){
             printf("Digite o preço Corretamente!");
             continue;

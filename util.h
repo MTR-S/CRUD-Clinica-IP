@@ -40,8 +40,12 @@ int coletar_opcao(char opcao1[],char opcao2[]){
     while(1){
         char opcao;
         printf(BLUE"[0]"RESET" %s   "BLUE"[1]"RESET"%s\n",opcao1,opcao2);;
+        
         __fpurge(stdin);  
-        opcao= getchar();
+        printf(BLUE);  
+        opcao=getchar();
+        printf(RESET);
+        
         switch(opcao){
             case '0':
                 return 0;
@@ -133,16 +137,16 @@ int procura_codigo(char codigo[],char vetor[][8],int tamanho){
 void receber_data(char vetor[][255],int indice_livre){
     int dia, mes, ano;
     while(1){
-        printf("Digite o dia: ");
+        printf(BLUE"Digite o dia: "RESET);
         scanf("%d", &dia);
 
-        printf("Digite o mês: ");
+        printf(BLUE"Digite o mês: "RESET);
         scanf("%d", &mes);
 
-        printf("Digite o ano (ex. 2023): ");
+        printf(BLUE"Digite o ano (ex. 2023): "RESET);
         scanf("%d", &ano);
         
-        if (!(dia >= 1 && dia <= 31 && mes >= 1 && mes <= 12 && ano >= 0)){
+        if (!(dia >= 1 && dia <= 31 && mes >= 1 && mes <= 12 && ano >= 2000)){
         printf("Data inválida!\n");
         continue;
         }

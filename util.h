@@ -18,26 +18,42 @@
 
 
 int menu_principal() {
-    printf("\n******************************************\n");
-    printf("\n*Seja Muito Bem vindo(a) a Clinica Fatima*\n");
-    printf("\n******************************************\n");
+    printf(BLUE"\n******************************************\n"RESET);
+    printf("\n"BLUE"*"RESET YELLOW"Seja Muito Bem vindo(a) a Clinica Fatima"RESET BLUE"*\n"RESET);
+    printf(BLUE"\n******************************************\n"RESET);
 
-    printf("\nSelecione como você deseja acessar nosso sistema: \n");
+    printf(YELLOW"\nSelecione como você deseja acessar nosso sistema: \n"RESET);
     printf(BLUE"[1]"RESET "Paciente");
     printf(BLUE" \t[2] "RESET"Atendimento\t");
     printf(BLUE"\t[3]"RESET" Encerrar\n");
 
-    fflush(stdin);
-    int interacao_menu_pacientes;
-    scanf("%d", &interacao_menu_pacientes);
+    while(1) {
+        int interacao_menu_pacientes;
 
-    system("cls");
+        fflush(stdin);
+        interacao_menu_pacientes = getchar();
 
-    return interacao_menu_pacientes;
+        switch (interacao_menu_pacientes)
+        {
+        case '1':
+            return 1;
+        case '2':
+            return 2;
+        case '3':
+            return 3;
+        case '\n':
+            break;
+        default:
+            printf("Selecione uma das opções anteriores!\n");
+            break;
+        };
+    }
 }
 
 int coletar_opcao(char opcao1[],char opcao2[]){
-    while(1){
+    printf(BLUE"\n[0]"RESET" %s   "BLUE"[1]"RESET"%s\n", opcao1, opcao2);
+
+    while(1) {
         char opcao;
         printf(BLUE"[0]"RESET" %s   "BLUE"[1]"RESET"%s\n",opcao1,opcao2);;
         
@@ -48,14 +64,16 @@ int coletar_opcao(char opcao1[],char opcao2[]){
         
         switch(opcao){
             case '0':
+                printf("\nOpção -> "BLUE"[0], \"%s\""RESET"Selecionada...\n\n", opcao1); 
                 return 0;
-                break;
             case '1':
+                printf("\nOpção -> "BLUE"[1], \"%s\""RESET" Selecionada...\n\n", opcao2); 
                 return 1;
+            case '\n':
                 break;
             default:
-                printf("Digite Apenas 0 ou 1\n");                       
-                continue;
+                printf("Digite Apenas 0 ou 1\n");                            
+                break;
         }
     }
 }
@@ -81,7 +99,16 @@ int procura_espaco_livre(int vetor_ativos[], int tamanho_vetor) {
 }
 
 
-void ler_string(char string[]) {
+void ler_str(char string[]) {
+    
+    printf(BLUE);
+    __fpurge(stdin);  // mudei para o fpurge porque o codespace pera em linux na nuvem
+    gets(string);
+    printf(RESET);
+}
+
+
+void ler_string(char string[]) {  // tava dando erro porque ao coletar o nome ele lia duas vezes mas no cpf lia so uma
     printf(BLUE);
     fflush(stdin);
     gets(string);
@@ -91,14 +118,14 @@ void ler_string(char string[]) {
 }
 
 int checar_string(char string[]){
-    if (string == NULL || string[0] =='\0'){
+    if(string == NULL || string[0] =='\0'){
         return 1;
     }
-    for(int i = 0;string[i] != '\0';i++){
+    for(int i = 0; string[i] != '\0';i++){
         if(string[i] == ' '){
             continue;
         }
-        if(isdigit(string[i])||!isalnum(string[i])){
+        if(isdigit(string[i]) || !isalnum(string[i])){
           return 1;  
         }
     }return 0;
@@ -127,14 +154,16 @@ int procura_string(char string[],char vetor[][255],int tamanho){
         }
     }return -1;
 }
-int procura_codigo(char codigo[],char vetor[][8],int tamanho){
-    for(int i = 0; i < tamanho; i++){
-        if(strcmp(vetor[i],codigo) == 0){
+int procura_codigo(char codigo_unico_paciente[],char matriz_codigos_pacientes[][8],int tamanho_matriz) {
+    for(int i = 0; i < tamanho_matriz; i++){
+        if(strcmp(matriz_codigos_pacientes[i],codigo_unico_paciente) == 0) {
             return i;
         }
-    }return -1;
+
+    }
+    return -1;
 }
-void receber_data(char vetor[][255],int indice_livre){
+void receber_data(char vetor[][255],int indice_livre) {
     int dia, mes, ano;
     while(1){
         printf(BLUE"Digite o dia: "RESET);
@@ -150,7 +179,9 @@ void receber_data(char vetor[][255],int indice_livre){
         printf("Data inválida!\n");
         continue;
         }
-        sprintf(vetor[indice_livre],"%02d/%02d/%04d",dia,mes,ano);
+
+        sprintf(vetor[indice_livre],"%02d/%02d/%04d", dia, mes, ano);
+
         break;
     }
 
@@ -202,4 +233,19 @@ char interacao_pos_erro() {
         }
     }
 }
+
+/*
+Funcao para verificar se o codigo do paciente ja nao existe
+void valida_codigo(char codigo[], char codigo_pacientes[][8], int tamanho_matriz_codigos, int codigo_index) {
+    for(int i = 0; i < tamanho_matriz_codigos; i++) {
+        if(i == codigo_index) {
+            continue;
+        }
+        if(!(strcmp(codigo, codigo_pacientes[i]))) {
+            codigo = cria_codigo(codigo, espaco_livre);
+        }
+    }
+}
+*/
+//sonambulo
 #endif

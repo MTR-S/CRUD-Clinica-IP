@@ -9,6 +9,7 @@
 #define CIANO   "\x1b[36m"
 #define RESET   "\x1b[0m"
 
+//MUDAR A FUNCAO LER_STRING PARA A LER_STR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #include <stdio.h>
 
 int menu_atendimento() {
@@ -69,6 +70,8 @@ int procura_paciente(char nomes_pacientes[][255],int tamanho){
     }
     return indice_paciente;
 }
+
+
 int procura_paciente_codigo(char codigo_pacientes[][8],int QNTD_PACIENTES,int pacientes_ativos[]){
     char codigo_paciente[8];
     ler_string(codigo_paciente);                            
@@ -84,6 +87,8 @@ int procura_paciente_codigo(char codigo_pacientes[][8],int QNTD_PACIENTES,int pa
     }
     return indice_do_paciente;
 }
+
+
 int procura_atendimento(char codigo_atendimentos[][8],int QNTD_ATENDIMENTOS,int atendimentos_ativos[]){
     char codigo_atendimento[8];
     ler_string(codigo_atendimento);                            
@@ -179,4 +184,5 @@ void ordenar_datas(char datas[][255],int ordem_datas[],int tamanho,int atendimen
         }
     }
 }
+//sonambulo
 #endif

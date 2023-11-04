@@ -95,7 +95,7 @@ int procura_paciente_codigo(char codigo_pacientes[][8],int QNTD_PACIENTES,int pa
 
 int procura_atendimento(char codigo_atendimentos[][8],int QNTD_ATENDIMENTOS,int atendimentos_ativos[]){
     char codigo_atendimento[8];
-    ler_string(codigo_atendimento);
+    ler_str(codigo_atendimento);
     int indice_do_atendimento = procura_codigo(codigo_atendimento,codigo_atendimentos,QNTD_ATENDIMENTOS);
     if(indice_do_atendimento == -1){
         printf(RED"Atendimento não cadastrado\n"RESET);

@@ -53,7 +53,7 @@ int menu_principal() {
 int coletar_opcao(char opcao1[],char opcao2[]){
     while(1) {
         char opcao;
-        printf(BLUE"\n[0]"RESET" %s   "BLUE"[1]"RESET"%s\n",opcao1,opcao2);;
+        printf(BLUE"[0]"RESET" %s   "BLUE"[1]"RESET"%s\n",opcao1,opcao2);;
         
         printf(BLUE);
         __fpurge(stdin);  
@@ -62,10 +62,10 @@ int coletar_opcao(char opcao1[],char opcao2[]){
         
         switch(opcao){
             case '0':
-                printf("\nOpção -> "BLUE"[0], \"%s\""RESET"Selecionada...\n\n", opcao1); 
+                printf("\nOpção -> "BLUE"[0], \"%s\""RESET"Selecionada...\n", opcao1); 
                 return 0;
             case '1':
-                printf("\nOpção -> "BLUE"[1], \"%s\""RESET" Selecionada...\n\n", opcao2); 
+                printf("\nOpção -> "BLUE"[1], \"%s\""RESET" Selecionada...\n", opcao2); 
                 return 1;
             case '\n':
                 break;
@@ -104,8 +104,6 @@ void ler_str(char string[]) {
     gets(string);
     printf(RESET);
 }
-
-
 int checar_string(char string[]){
     if(string == NULL || string[0] =='\0'){
         return 1;

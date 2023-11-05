@@ -215,4 +215,23 @@ float soma_consultas_pagas_pacientes(char nome_paciente_desejado[], char matriz_
     
     return soma_consultas;
 }
+
+
+void copia_matriz(char matriz1[][40], char matriz2[][40], int tamanho) {
+    for(int i = 0; i < tamanho; i++) {
+        strcpy(matriz1[i], matriz2[i]);
+    }
+}
+
+
+int varrer_datas(char data[][40], char matriz_datas_atendimentos_copia[][40], int tam_matriz_datas_atendimentos) {
+    for(int i = 0; i < tam_matriz_datas_atendimentos; i++) {
+        int compara_datas = !strcmp(data, matriz_datas_atendimentos_copia[i]);
+
+        if(compara_datas) {
+            return i;
+        }
+    }
+    return -1;
+}
 #endif

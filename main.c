@@ -382,8 +382,41 @@ int main(void) {
                             }
                             break;
                         case 6:
-                            printf("\nOpção -> [6], \"Exibir os Dados de Pacientes pelo Dia de "
-                                "Consulta\" Selecionada...\n\n");
+                            while(1) {
+                                printf("\nOpção -> "BLUE"[6], \"Exibir os Dados de Pacientes pelo Dia de "
+                                    "Consulta\""RESET" Selecionada...\n\n");
+
+                                printf("Digite a Data da Consulta, para Exibir os Dados do(s) Paciente(s):\n");
+
+                                char exibir_dados_data[1][40];
+                                receber_data(exibir_dados_data, 0);
+
+                                char copia_data_atendimento[1][40];
+                                copia_matriz(copia_data_atendimento, data_atendimentos, QNTD_ATENDIMENTOS);
+
+                                int count = 0;
+                                for(int i = 0; i < QNTD_ATENDIMENTOS; i++) {
+                                    int indice_paciente_do_atendimento = varrer_datas(exibir_dados_data, copia_data_atendimento, QNTD_ATENDIMENTOS);
+                                    
+                                    if(indice_paciente_do_atendimento >= 0) {
+                                        strcpy(copia_data_atendimento[indice_paciente_do_atendimento], "JA EXIBIDO"); 
+
+                                        int indice_nomes_paciente = paciente_do_atendimento[indice_paciente_do_atendimento];
+
+                                        printf(YELLOW"\n---> Data com Consulta do Paciente: %s"RESET, nomes_pacientes[indice_nomes_paciente]);
+                                        exibe_informacoes_paciente(nomes_pacientes, codigo_pacientes, RG_pacientes, CPF_pacientes, tipo_sanguineo_pacientes, fator_RH_pacientes, endereco_pacientes, datas_nascimento_pacientes, indice_nomes_paciente);
+                                        
+                                        count++;
+                                    }                        
+                                }
+
+                                if(!count)
+                                    printf(RED"Sem Consultas para essa Data!\n"RESET); 
+
+                                if(!coletar_opcao("Inserir Outra Data", "Ir para o Menu Pacientes")) {continue;}
+                                else {break;}
+                            }
+                            break;
                         case 7:
                             while(1) {
                                 printf("\nOpção -> "BLUE"[7], \"Exibir Todos os Pacientes\""RESET" Selecionada...\n\n");

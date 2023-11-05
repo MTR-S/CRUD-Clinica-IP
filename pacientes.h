@@ -19,20 +19,27 @@ int menu_pacientes() {
     printf(BLUE"\n[10]"RESET"Voltar para o Menu Principal");
     printf("\n------------------------------------------------------------------------\n");
 
-    printf(YELLOW"\n\nSelecione a Funcionalidade Desejada: "RESET);
-    __fpurge(stdin);
-    int interacao_menu_pacientes;
-    
-    __fpurge(stdin);
-    scanf("%d", &interacao_menu_pacientes);
+    while(1) {
+        printf(YELLOW"\n\nSelecione a Funcionalidade Desejada: \n"RESET);
+        __fpurge(stdin);
+        int interacao_menu_pacientes;
+        
+        __fpurge(stdin);
+        scanf("%d", &interacao_menu_pacientes);
 
-    system("clear");
+        if(interacao_menu_pacientes < 1 || interacao_menu_pacientes > 10){
+            printf(RED"Selecione uma das Opções Anteriores!\n"RESET);
+            continue;
+        }
 
-    return interacao_menu_pacientes;
+        system("clear");
+
+        return interacao_menu_pacientes;
+    }
 }
 
 
-void exibe_informacoes_paciente(char nomes_pacientes[][255], char codigo_pacientes[][8], char RG_pacientes[][12], char CPF_pacientes[][12], char tipo_sanguineo_pacientes[][3], char fator_RH_pacientes[][9], char endereco_pacientes[][255], char datas_nascimento_pacientes[][255], int espaco_livre) {
+void exibe_informacoes_paciente(char nomes_pacientes[][40], char codigo_pacientes[][8], char RG_pacientes[][12], char CPF_pacientes[][12], char tipo_sanguineo_pacientes[][3], char fator_RH_pacientes[][9], char endereco_pacientes[][255], char datas_nascimento_pacientes[][255], int espaco_livre) {
     printf("\n-----------"GREEN"Paciente"RESET"-----------\n");
     printf("-> "BLUE"Nome:"RESET" "GREEN"%s\n"RESET, &nomes_pacientes[espaco_livre]);
     printf("-> "BLUE"Código do Paciente:"RESET" "GREEN"%s\n"RESET, &codigo_pacientes[espaco_livre]);
@@ -308,4 +315,20 @@ int verifica_pacientes_ativos(int vetor_pacientes_ativos[], int tam_vetor_pacien
     return 1;
 }
 
+
+int verifica_cadastro_paciente(char matriz_nomes_paciente[][40], int tam_matriz_nomes_paciente, char nome_paciente_verificado[]) {
+    for(int i = 0; i < tam_matriz_nomes_paciente; i++) {
+        formata_string_maisculo(nome_paciente_verificado);
+        formata_string_maisculo(matriz_nomes_paciente[i]);
+
+        int compara_nomes = !strcmp(nome_paciente_verificado, matriz_nomes_paciente[i]);
+
+        if(compara_nomes) {
+            return 1;
+        }
+    }
+    return 0;
+}
+ 
+    
 #endif

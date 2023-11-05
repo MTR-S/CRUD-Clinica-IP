@@ -100,7 +100,7 @@ int procura_espaco_livre(int vetor_ativos[], int tamanho_vetor) {
 void ler_str(char string[]) {
     
     printf(BLUE);
-    __fpurge(stdin);  // mudei para o fpurge porque o codespace pera em linux na nuvem
+    __fpurge(stdin);  
     gets(string);
     printf(RESET);
 }

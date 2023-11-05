@@ -324,7 +324,6 @@ int main(void) {
                                         strcpy(codigo_pacientes, "Espaco Livre");
 
                                         printf(GREEN"Paciente Excluído com Sucesso!"RESET);
-                                        //inserir funcao que preenche matriz com VOID ou ESPAÇO LIVRE
                                         break;
                                     }
                                     else {break;}
@@ -416,20 +415,29 @@ int main(void) {
                                 break;   
                             }
                         case 9:
-                            while(1) {
+                            while(1) {                         
                                 printf("\nOpção -> "BLUE"[9], \"Exibir a Soma das Consultas Pagas por um Determinado Paciente\""RESET" Selecionada...\n\n");
 
                                 printf("Digite o Nome do Paciente, para ver a soma das suas Consultas Pagas: "); 
 
-                                char nome_paciente_consultas_pagas[255];
+                                char nome_paciente_consultas_pagas[40];
                                 ler_str(nome_paciente_consultas_pagas);
 
-                                float soma_consultas = soma_consultas_pagas_pacientes(nome_paciente_consultas_pagas, nomes_pacientes, preco_atendimentos, QNTD_PACIENTES, paciente_do_atendimento);
-                                
-                                printf(GREEN"--> Soma das Consultas do Paciente %s = %.2f\n"RESET, nome_paciente_consultas_pagas, soma_consultas);
+                                if(verifica_cadastro_paciente(nomes_pacientes, QNTD_PACIENTES, nome_paciente_consultas_pagas)) {
 
-                                if(!coletar_opcao("Exibir Soma Novamente", "Ir para o Menu Pacientes")) {continue;}
-                                else {break;}
+                                    float soma_consultas = soma_consultas_pagas_pacientes(nome_paciente_consultas_pagas, nomes_pacientes, preco_atendimentos, QNTD_PACIENTES, paciente_do_atendimento);
+                                    
+                                    printf(GREEN"--> Soma das Consultas do Paciente %s = %.2f\n"RESET, nome_paciente_consultas_pagas, soma_consultas);
+
+                                    if(!coletar_opcao("Selecionar Outro Paciente", "Ir para o Menu Pacientes")) {continue;}
+                                    else {break;}
+                                }
+                                else {
+                                    printf(RED"Paciente %s NÃO Cadastrado\n"RESET, nome_paciente_consultas_pagas);
+
+                                    if(!coletar_opcao("Selecionar Outro Paciente", "Ir para o Menu Pacientes")) {continue;}
+                                    else {break;}
+                                }
                             }
                             break;
                         case 10:

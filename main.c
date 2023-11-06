@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "pacientes.h"
-#include "atendimento.h"
+#include "atendimentos.h"
 #include "util.h"
 
 #define QNTD_PACIENTES 100

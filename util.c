@@ -200,7 +200,7 @@ void cria_codigo(char vetor[][8],int indice_livre){
 }
 
 
-float soma_consultas_pagas_pacientes(char nome_paciente_desejado[], char matriz_nomes_paciente[][40], float vetor_preco_atendimentos[], int tamanho_vetores, int vetor_paciente_atendimento_indice) {
+float soma_consultas_pagas_pacientes(char nome_paciente_desejado[], char matriz_nomes_paciente[][40], float vetor_preco_atendimentos[], int tamanho_vetores, int vetor_paciente_atendimento_indice[]) {
     float soma_consultas = 0;
 
     for(int i = 0; i < tamanho_vetores; i++) {

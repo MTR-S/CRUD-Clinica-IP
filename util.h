@@ -29,6 +29,7 @@ void formata_string_maisculo(char string[]);
 int ja_existe(char string[],char vetor[][40],int tamanho,int indice);
 int procura_string(char string[],char vetor[][40],int tamanho);
 int procura_codigo(char codigo_unico_paciente[],char matriz_codigos_pacientes[][8],int tamanho_matriz);
+int procura_espaco_livre(int vetor_ativos[], int tamanho_vetor);
 void receber_data(char vetor[][40],int indice_livre);
 
 void imprimir_vetor(char vetor[][40],int tamanho);

@@ -676,7 +676,7 @@ int main(void) {
                                 printf("-------------------"BLUE"Exibir Todos os Atendimentos do Dia"RESET"--------------------\n");
                                 
                                 char atendimentos_do_dia[1][40];
-                                float soma,cont;
+                                float soma=0,cont=0;
                                 printf("Digite a data que deseja buscar atendimentos:\n");
                                 receber_data(atendimentos_do_dia,0);
                                 
@@ -684,6 +684,7 @@ int main(void) {
                                     if(atendimentos_ativos[i]==0) continue;
                                     if(strcmp(atendimentos_do_dia[0],data_atendimentos[i]) == 0){
                                         int indice_do_atendimento=i;
+                                        int indice_do_paciente= paciente_do_atendimento[indice_do_atendimento];
                                         exibir_dados_atendimento(codigo_atendimentos,nomes_pacientes,codigo_pacientes,indice_do_paciente,data_atendimentos,tipo_atendimentos,preco_atendimentos,status_atendimentos,indice_do_atendimento);
                                         soma+=preco_atendimentos[i];
                                         cont++;

@@ -160,7 +160,7 @@ void receber_data(char vetor[][40],int indice_livre) {
         printf(BLUE"Digite o ano (ex. 2023): "RESET);
         scanf("%d", &ano);
         
-        if (!(dia >= 1 && dia <= 31 && mes >= 1 && mes <= 12 && ano >= 2000)){
+        if (!(dia >= 1 && dia <= 31 && mes >= 1 && mes <= 12 && ano >= 1000)){
         printf("Data inválida!\n");
         if(coletar_opcao("Voltar","Tentar novamente"))continue;
         return;
